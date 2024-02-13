@@ -1,0 +1,17 @@
+// resources/sass/_variables.scss
+$color-logo-claro: #f9a826; // Un tono claro de naranja
+$color-logo-oscuro: #c76c02; // Un tono más oscuro de naranja
+
+.logo{
+    font-weight: bold;
+    font-size:16pt;
+}
+
+.bibli {
+    color: $color-logo-claro;
+  }
+  
+  .comentarios {
+    color: $color-logo-oscuro;
+  }
+  
