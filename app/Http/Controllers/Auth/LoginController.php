@@ -31,14 +31,19 @@ class LoginController extends Controller
 
         Auth::login($user, true); // El segundo parámetro 'true' indica "recuérdame"
 
-        return view('welcome');
+        return view('auth.logout');
         //return redirect()->route('home'); // Asegúrate de tener una ruta definida para 'home'
+    }
+
+    public function login()
+    {
+        return view('auth.login'); // Redirige al usuario a la página principal o a donde prefieras
     }
 
     public function logout()
     {
         Auth::logout(); // Cierra la sesión del usuario actual
 
-        return redirect('/'); // Redirige al usuario a la página principal o a donde prefieras
+        return view('auth.login'); // Redirige al usuario a la página principal o a donde prefieras
     }
 }

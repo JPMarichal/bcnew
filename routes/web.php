@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
