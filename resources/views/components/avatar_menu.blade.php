@@ -1,7 +1,13 @@
-<div class="avatar-menu">
+<div class="avatar-menu dropdown" style="text-align: right;">
     @auth
-        <img src="{{ Auth::user()->avatar }}" alt="avatar" class="user-avatar" id="avatarMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown">
+        <a href="#" class="d-inline-block" id="avatarMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="position: relative;">
+            @if(Auth::user()->avatar)
+                <img src="{{ Auth::user()->avatar }}" alt="avatar" class="user-avatar rounded-circle" style="width: 40px; height: 40px;">
+            @else
+                <i class="fas fa-user-circle fa-2x"></i> <!-- Icono de FontAwesome como avatar por defecto -->
+            @endif
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown" style="position: absolute; left: 50%; transform: translateX(-50%);">
             <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><a class="dropdown-item" href="#">Suscripción</a></li>
             @if(Auth::user()->hasRole('admin'))
@@ -14,6 +20,6 @@
             <li><a class="dropdown-item" href="{{ route('logout') }}">Cerrar Sesión</a></li>
         </ul>
     @else
-        <a href="{{ route('login') }}">Iniciar sesión</a>
+        <a href="{{ route('login') }}" class="nav-link">Iniciar sesión</a>
     @endauth
 </div>
