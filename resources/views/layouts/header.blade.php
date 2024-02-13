@@ -14,4 +14,5 @@
     @vite(['resources/sass/styles.scss', 'resources/js/app.js'])
 </head>
 <body>
-<div class="container my-0 mx-0";>
+<div class="container-fluid my-0 mx-0";>
+@include('components.main_header')

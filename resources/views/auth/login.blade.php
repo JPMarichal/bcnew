@@ -1,5 +1,4 @@
 @include('layouts.header')
-@include('components.main_header')
 
 <h2 class="mt-5">Ingresa por medio de redes sociales</h2>
 <div class="mt-3">
