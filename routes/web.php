@@ -15,7 +15,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
