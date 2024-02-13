@@ -1,11 +1,12 @@
-<div class="avatar-menu dropdown" style="text-align: right;">
+<div class="avatar-menu dropdown" style="text-align: center;">
     @auth
-        <a href="#" class="d-inline-block" id="avatarMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="position: relative;">
+        <a href="#" class="d-inline-block" id="avatarMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="position: relative;text-decoration:none;">
             @if(Auth::user()->avatar)
-                <img src="{{ Auth::user()->avatar }}" alt="avatar" class="user-avatar rounded-circle" style="width: 40px; height: 40px;">
+                <div><img src="{{ Auth::user()->avatar }}" alt="avatar" class="user-avatar rounded-circle" style="width: 40px; height: 40px;"></div>
             @else
                 <i class="fas fa-user-circle fa-2x"></i> <!-- Icono de FontAwesome como avatar por defecto -->
             @endif
+            <div>{{ Auth::user()->given_name }}</div>
         </a>
         <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown" style="position: absolute; left: 50%; transform: translateX(-50%);">
             <li><a class="dropdown-item" href="#">Perfil</a></li>
