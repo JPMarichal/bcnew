@@ -40,7 +40,7 @@ class LoginController extends Controller
 
         Auth::login($user, true); // El segundo parámetro 'true' indica "recuérdame"
 
-        return view('auth.logout');
+        return view('home');
         //return redirect()->route('home'); // Asegúrate de tener una ruta definida para 'home'
     }
 
@@ -53,6 +53,6 @@ class LoginController extends Controller
     {
         Auth::logout(); // Cierra la sesión del usuario actual
 
-        return view('auth.login'); // Redirige al usuario a la página principal o a donde prefieras
+        return view('home'); // Redirige al usuario a la página principal o a donde prefieras
     }
 }
