@@ -1,0 +1,27 @@
+// Variables, mixins y funciones (Primero, para que estén disponibles globalmente)
+@import 'utils/variables';
+@import 'utils/mixins';
+@import 'utils/functions';
+
+// Reset y tipografía base
+@import 'base/reset';
+@import 'base/typography';
+
+// Componentes
+@import 'components/buttons';
+@import 'components/forms';
+
+// Layout
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/sidebar';
+
+// Páginas específicas
+@import 'pages/home';
+@import 'pages/about';
+
+// Vendors
+@import 'vendors/bootstrap';
+
+// Headings
+@import 'htmlbase/headings';
