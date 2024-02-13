@@ -14,4 +14,4 @@
     @vite(['resources/sass/styles.scss', 'resources/js/app.js'])
 </head>
 <body>
-<div class="container mt-5">
+<div class="container my-0 mx-0";>
