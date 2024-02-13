@@ -12,20 +12,29 @@ class LoginController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+        ->with(['prompt' => 'select_account'])
+        ->redirect();
     }
 
     public function handleGoogleCallback()
     {
         $googleUser = Socialite::driver('google')->user();
 
+        $avatarUrl = $googleUser->user['picture'] ?? null;
+
+      //  dd($googleUser);
+     //  dd($avatarUrl);
+
         $user = User::updateOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'name' => $googleUser->getName(),
                 'google_id' => $googleUser->getId(),
-                'avatar' => $googleUser->getAvatar(),
+                'avatar' => $avatarUrl,
                 'password' => Hash::make(Str::random(40)),
+                'given_name' => $googleUser->user['given_name'] ?? null,
+                'last_name' => $googleUser->user['family_name'] ?? null,
             ]
         );
 
