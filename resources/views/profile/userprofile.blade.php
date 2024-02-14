@@ -25,7 +25,13 @@ background-repeat:no-repeat">
             <div class="col-1 my-0 p-0"><b>Email:</b></div><div class="col-11">{{$user->email}}</div>
         </div>
         <div class="row m-0 p-0">
-            <div class="col-1 my-0 p-0"><b>Rol(es):</b></div><div class="col-11">{{$user->email}}</div>
+            <div class="col-1 my-0 p-0"><b>Rol(es):</b></div><div class="col-11">
+            <ul>
+                @foreach ($roles as $role)
+                    <li>{{ $role }}</li>
+                @endforeach
+            </ul>
+            </div>
         </div>
     </div>
 </div>
