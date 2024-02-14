@@ -18,6 +18,7 @@ use App\Http\Controllers\Users\UsuarioController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/home', function(){ return view ('home');})->name('home');
 
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
