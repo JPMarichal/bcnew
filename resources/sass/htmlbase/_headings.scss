@@ -1,3 +1,15 @@
-h1{
-    color:green;
+$color-logo-claro: #f9a826; // Un tono claro de naranja
+$color-logo-oscuro: #c76c02; // Un tono más oscuro de naranja
+$color-amarillo-claro: lightyellow; //
+
+h1 {
+  font-size: 2.5rem; // Tamaño grande para resaltar
+  color: $color-amarillo-claro; // Texto en el color más claro para fácil lectura
+  background-image: linear-gradient(135deg, $color-logo-oscuro, $color-logo-claro); // Degradado monocromático
+  padding: 20px; // Espaciado interno para darle aire
+  border-radius: 10px; // Bordes redondeados para un look moderno
+  text-align: center; // Centrado del texto
+  margin: 20px 0; // Margen para separar del contenido adyacente
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); // Sombra suave para dar profundidad
+  font-weight: bold; // Negrita para destacar aún más
 }

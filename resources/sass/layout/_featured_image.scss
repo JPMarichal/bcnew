@@ -1,0 +1,8 @@
+
+.featured_image {
+    margin-top:0;
+    width: 100%; /* Ajusta el ancho a todo el contenedor */
+    height: 200px; /* Define la altura deseada para las proporciones landscape */
+    object-fit: cover; /* Hace que la imagen ocupe todo el espacio disponible y se corte si es necesario */
+    object-position: center; /* Centra la imagen horizontal y verticalmente */
+  }
