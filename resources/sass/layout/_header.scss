@@ -1,0 +1,9 @@
+  @media (max-width: 576px) { /* Ajusta para pantallas LG hacia abajo */
+    .custom-toggler {
+      border: none; /* Elimina bordes */
+      padding: 0; /* Elimina el padding para reducir más el espacio */
+    }
+    .custom-toggler .fas {
+      font-size: 20px; /* Ajusta el tamaño del ícono */
+    }
+  }

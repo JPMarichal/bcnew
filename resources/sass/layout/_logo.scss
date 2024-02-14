@@ -2,16 +2,20 @@
 $color-logo-claro: #f9a826; // Un tono claro de naranja
 $color-logo-oscuro: #c76c02; // Un tono más oscuro de naranja
 
-.logo{
-    font-weight: bold;
-    font-size:18pt;
+.logo {
+  font-weight: bold;
+  font-size: 18pt;
+
+  // Ajuste para pantallas pequeñas
+  @media (max-width: 576px) {
+    font-size: 15pt; // Tamaño más pequeño en pantallas sm
+  }
 }
 
 .bibli {
-    color: $color-logo-claro;
-  }
-  
-  .comentarios {
-    color: $color-logo-oscuro;
-  }
-  
+  color: $color-logo-claro;
+}
+
+.comentarios {
+  color: $color-logo-oscuro;
+}
