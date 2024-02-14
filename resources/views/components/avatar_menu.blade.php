@@ -6,7 +6,7 @@
             @else
                 <i class="fas fa-user-circle fa-2x"></i> <!-- Icono de FontAwesome como avatar por defecto -->
             @endif
-            <div>{{ Auth::user()->given_name }}</div>
+            <div class="d-none d-md-inline-block">{{ Auth::user()->given_name }}</div>
         </a>
         <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown" style="position: absolute; left: 50%; transform: translateX(-50%);">
             <li><a class="dropdown-item" href="{{ route('profile') }}">Perfil</a></li>
