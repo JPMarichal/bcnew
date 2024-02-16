@@ -30,5 +30,11 @@ Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde aspernatur suscip
 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores accusamus ipsum non obcaecati, velit possimus autem laboriosam pariatur illum et earum temporibus qui! Assumenda magnam, quis ullam maiores quaerat consectetur?
 <h6>Anything</h6>
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam voluptate corporis ea sequi accusantium. Pariatur, aliquid? Minus maiores eos, quaerat nihil excepturi corporis animi ut? Aperiam, at? Sapiente, assumenda natus?
+<h2>Colors</h2>
+<div class="pruebacolor95">Gris</div>
+<div class="pruebacolor75">Gris</div>
+<div class="pruebacolor50">Gris</div>
+<div class="pruebacolor25">Gris</div>
+<div class="pruebacolor0">Gris</div>
 
 @include('layouts.footer')
