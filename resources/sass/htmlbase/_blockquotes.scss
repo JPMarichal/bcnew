@@ -1,3 +1,4 @@
+/*
 blockquote{
     border-left:3px solid teal;
     border-right:3px solid teal;
@@ -13,3 +14,34 @@ blockquote{
         background-color: #eeeeee;
     }
 }
+*/
+
+
+// Mixin para aplicar una armonía
+@mixin aplicar-armonia-monocromatica($armonia) {
+    $color-fondo: map-get($armonia, 'color-2');
+    $color-texto: map-get($armonia, 'color-4');
+    $color-enlace: map-get($armonia, 'color-5');
+  
+    background-color: $color-fondo;
+    color: $color-texto;
+  
+    cite {
+      display: block;
+      background-color: $color-texto;
+      color: $color-enlace;
+    }
+  
+    a {
+      color: $color-enlace;
+      &:hover {
+        color: darken($color-enlace, 15%);
+      }
+    }
+  }
+  
+  // Aplicación de la armonía monocromática al blockquote
+  blockquote {
+    @include aplicar-armonia-monocromatica($monocromatico-azul);
+  }
+  
