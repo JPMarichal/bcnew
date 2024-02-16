@@ -56,17 +56,20 @@ $armonias: (
   @return map-get($paleta-color, 'color-50');
 }
 
-// Función para generar armonías monocromáticas
-@function generar-armonia-monocromatica($color-base, $cantidad: 5) {
+// Función para generar armonías monocromáticas ajustada a 10 colores
+@function generar-armonia-monocromatica($color-base, $cantidad: 10) {
   $armonia-monocromatica: ();
   @for $i from 1 through $cantidad {
-    $luminosidad: 20% * ($i - 1);
+    $luminosidad: 10% * ($i - 1); // Ajuste para soportar 10 variaciones
     $color-variado: mix($color-base, white, $luminosidad);
     $armonia-monocromatica: map-merge($armonia-monocromatica, ('color-' + $i: $color-variado));
   }
   @return $armonia-monocromatica;
 }
 
-// Genera una armonía monocromática para demostración
-$monocromatico-azul: generar-armonia-monocromatica(blue, 5);
-$monocromatico-rojo: generar-armonia-monocromatica(red, 5);
+// Genera armonías monocromáticas de 10 colores
+$monocromatico-azul: generar-armonia-monocromatica(blue);
+$monocromatico-rojo: generar-armonia-monocromatica(red);
+$monocromatico-cafe: generar-armonia-monocromatica(brown);
+$monocromatico-naranja: generar-armonia-monocromatica(orange);
+

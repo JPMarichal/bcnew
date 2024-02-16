@@ -13,7 +13,7 @@
 <p> aliquid veniam quaerat, iste est porro quidem architecto consectetur ipsum obcaecati totam, <a href="#" title="Whatever">eius corrupti laudantium</a> exercitationem nisi suscipit.</span></p>
 
 <blockquote>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi repellendus aspernatur <i>praesentium illo hic</i> vero eum asperiores, <b>id aliquid optio ipsum</b>. Voluptatum adipisci rem cumque reprehenderit ad nesciunt eveniet.</p>
+    <p>Lorem ipsum dolor sit amet consectetur <a href="#">adipisicing elit</a>. Aliquam quasi repellendus aspernatur <i>praesentium illo hic</i> vero eum asperiores, <b>id aliquid optio ipsum</b>. Voluptatum adipisci rem cumque reprehenderit ad nesciunt eveniet.</p>
     <cite>Some sources are hidden</cite>
 </blockquote>
 <p><span>Odio iusto autem sit ullam quidem, provident sequi? Ea necessitatibus ipsa ducimus similique, est nisi omnis cupiditate repellat vitae perferendis? Illum ipsam voluptates similique ullam in iste accusantium. Voluptatum, eum?</span></p>

@@ -16,20 +16,38 @@ blockquote{
 }
 */
 
-
 // Mixin para aplicar una armonía
-@mixin aplicar-armonia-monocromatica($armonia) {
+@mixin bqarmonia($armonia) {
     $color-fondo: map-get($armonia, 'color-2');
-    $color-texto: map-get($armonia, 'color-4');
-    $color-enlace: map-get($armonia, 'color-5');
+    $color-texto: map-get($armonia, 'color-7');
+    $color-enlace: map-get($armonia, 'color-9');
+    $color-enlace-cite: map-get($armonia, 'color-1');
   
     background-color: $color-fondo;
     color: $color-texto;
-  
-    cite {
-      display: block;
-      background-color: $color-texto;
-      color: $color-enlace;
+    padding:10px;
+
+    blockquote{
+        border-left:3px solid $color-texto;
+        border-right:3px solid $color-texto;
+        padding:10px;
+        background-color: $color-fondo;
+        color:red;
+    }
+
+    cite{
+        display: block;
+        border: 1px solid  $color-enlace;
+        background-color: $color-texto;
+        color: $color-fondo;
+        padding: 5px;
+        font-style: normal;
+        ::before{
+            content: "pipipi ";
+        }
+        ::after{
+            content: "pipipi ";
+        }
     }
   
     a {
@@ -42,6 +60,6 @@ blockquote{
   
   // Aplicación de la armonía monocromática al blockquote
   blockquote {
-    @include aplicar-armonia-monocromatica($monocromatico-azul);
+    @include bqarmonia($monocromatico-azul);
   }
   
