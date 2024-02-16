@@ -13,19 +13,34 @@
 }
 
 $gray: generate-color-palette(black, 20); 
-$red: generate-color-palette(red,20 );
-$orangered: generate-color-palette(orangered,20 );
-$orange: generate-color-palette(orange, 20);
-$yellow: generate-color-palette(yellow,20 );
-$olive: generate-color-palette(olive,20 );
-$green: generate-color-palette(green,20 );
-$teal: generate-color-palette(teal,20 );
-$blue: generate-color-palette(blue,20 );
-$lightblue: generate-color-palette(lightblue,20 );
-$purple: generate-color-palette(purple,20 );
-$violet: generate-color-palette(violet,20 );
-$pink: generate-color-palette(pink,20 );
-$brown: generate-color-palette(brown,20 );
+
+$red: generate_color_palette(red, 20);
+$orangered: generate_color_palette(orangered, 20);
+$orange: generate_color_palette(orange, 20);
+$coral: generate_color_palette(coral, 20);
+$gold: generate_color_palette(gold, 20);
+$yellow: generate_color_palette(yellow, 20);
+$lightyellow: generate_color_palette(lightyellow, 20);
+$lime: generate_color_palette(lime, 20);
+$olive: generate_color_palette(olive, 20);
+$green: generate_color_palette(green, 20);
+$teal: generate_color_palette(teal, 20);
+$turquoise: generate_color_palette(turquoise, 20);
+$cyan: generate_color_palette(cyan, 20);
+$lightblue: generate_color_palette(lightblue, 20);
+$blue: generate_color_palette(blue, 20);
+$navy: generate_color_palette(navy, 20);
+$indigo: generate_color_palette(indigo, 20);
+$violet: generate_color_palette(violet, 20);
+$purple: generate_color_palette(purple, 20);
+$magenta: generate_color_palette(magenta, 20);
+$pink: generate_color_palette(pink, 20);
+$brown: generate_color_palette(brown, 20);
+$sepia: generate_color_palette(sepia, 20);
+$silver: generate_color_palette(silver, 20);
+$grey: generate_color_palette(grey, 20);
+$ivory: generate_color_palette(ivory, 20);
+$beige: generate_color_palette(beige, 20);
 
 .pruebacolor95 {
   color:white;
