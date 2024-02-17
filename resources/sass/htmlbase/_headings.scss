@@ -1,6 +1,4 @@
-$color-logo-claro: #f9a826; // Un tono claro de naranja
-$color-logo-oscuro: #c76c02; // Un tono más oscuro de naranja
-$color-amarillo-claro: lightyellow; //
+@use '../utils/colors';
 
 h1 {
   font-size: 2.5rem; // Tamaño grande para resaltar
@@ -15,8 +13,8 @@ h1 {
 }
 
 h2{
-    color:green;
-    border-bottom: 1px solid green;
+    color: map-get($monocromatico-verde, 'color-10');
+    border-bottom: 1px solid map-get($monocromatico-verde, 'color-5');
 }
 
 h3{
