@@ -9,7 +9,7 @@
             <div class="d-none d-md-inline-block">{{ Auth::user()->given_name }}</div>
         </a>
         <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown" style="position: absolute; left: 50%; transform: translateX(-50%);">
-            <li><a class="dropdown-item" href="{{ route('profile') }}">Perfil</a></li>
+            <li><a class="dropdown-item" href="{ route('profile') }}">Perfil</a></li>
             <li><a class="dropdown-item" href="#">Suscripción</a></li>
             @if(Auth::user()->hasRole('admin'))
                 <li><a class="dropdown-item" href="#">Panel de Control</a></li>
