@@ -53,7 +53,7 @@ class LoginController extends Controller
 
         Auth::login($user, true); // El segundo parámetro 'true' indica "recuérdame"
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 
     public function login()

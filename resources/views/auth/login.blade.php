@@ -44,5 +44,11 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <div class="mt-3">
+            <a href="{{ route('auth.google') }}" class="btn btn-danger">
+                <i class="fab fa-google"></i> Ingresar con Google
+            </a>
+        </div>
     </form>
 </x-guest-layout>
