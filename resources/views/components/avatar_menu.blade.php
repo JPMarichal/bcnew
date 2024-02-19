@@ -9,12 +9,12 @@
             <div class="d-none d-md-inline-block">{{ Auth::user()->given_name }}</div>
         </a>
         <ul class="dropdown-menu" aria-labelledby="avatarMenuDropdown" style="position: absolute; left: 50%; transform: translateX(-50%);">
-            <li><a class="dropdown-item" href="{ route('profile') }}">Perfil</a></li>
+            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li>
             <li><a class="dropdown-item" href="#">Suscripción</a></li>
-            @if(Auth::user()->hasRole('admin'))
+            @if(Auth::user()->hasRole('Administrador'))
                 <li><a class="dropdown-item" href="#">Panel de Control</a></li>
             @endif
-            @if(Auth::user()->hasAnyRole(['author', 'editor', 'collaborator']))
+            @if(Auth::user()->hasAnyRole(['Administrador','Autor', 'Editor', 'Colaborador']))
                 <li><a class="dropdown-item" href="#">Colaboraciones</a></li>
             @endif
             <li><hr class="dropdown-divider"></li>
