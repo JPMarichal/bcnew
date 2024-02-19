@@ -1,3 +1,4 @@
+@include('layouts.header')
 
 <x-guest-layout>
     <!-- Session Status -->
@@ -52,3 +53,5 @@
         </div>
     </form>
 </x-guest-layout>
+
+@include('layouts.footer')
