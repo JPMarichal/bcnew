@@ -13,7 +13,7 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
-        $feedUrl = 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss';
+        $feedUrl = 'https://feed.informer.com/digests/NFHKN4AL7F/feeder.rss';
         $feed = simplexml_load_file($feedUrl);
 
         foreach ($feed->channel->item as $item) {
