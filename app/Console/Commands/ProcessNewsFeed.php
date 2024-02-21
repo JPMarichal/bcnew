@@ -18,18 +18,23 @@ class ProcessNewsFeed extends Command
 
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
+            $parsedUrl = parse_url($link);
+            $source = $parsedUrl['host']; // Obtiene el dominio del link
+        
             if (!NewsItem::where('link', $link)->exists()) {
                 NewsItem::create([
                     'title' => (string) $item->title,
                     'description' => (string) $item->description,
                     'link' => $link,
                     'pub_date' => (string) $item->pubDate,
-                    'source' => (string) $item->author,
+                    'author' => (string) $item->author, // Asume que tu feed RSS tiene un elemento <author>
+                    'source' => $source, // Usa el dominio como fuente
                     'featured_image' => '',
-                    'content' => (string) $item->description, // Ajustar según la estructura del feed
+                    'content' => (string) $item->description,
                 ]);
             }
         }
+        
 
         // Lógica para mantener el límite de registros
         while (NewsItem::count() > 1000) {
