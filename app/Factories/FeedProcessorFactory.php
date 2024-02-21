@@ -4,6 +4,7 @@ namespace App\Factories;
 
 use App\Contracts\FeedProcessorInterface;
 use App\Services\FeedProcessors\DefaultFeedProcessor;
+use App\Services\FeedProcessors\HondurasNewsFeedProcessor;
 // Asegúrate de importar todas las clases de procesadores de feed necesarias
 
 class FeedProcessorFactory
@@ -20,6 +21,8 @@ class FeedProcessorFactory
         switch ($feedIdentifier) {
             case 'default':
                 return new DefaultFeedProcessor();
+            case 'hondurasNews':
+                return new HondurasNewsFeedProcessor();
             // Aquí puedes añadir más casos para otros procesadores de feed específicos
             default:
                 throw new \Exception("No feed processor available for: " . $feedIdentifier);

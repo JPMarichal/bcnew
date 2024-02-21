@@ -14,7 +14,8 @@ class ProcessNewsFeed extends Command
     public function handle()
     {
         $feeds = [
-            'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+          //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+            'hondurasNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
             // Añade más feeds aquí con sus identificadores respectivos
         ];
 
