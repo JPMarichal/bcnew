@@ -13,34 +13,23 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
-        $feedUrl = 'https://feed.informer.com/digests/NFHKN4AL7F/feeder.rss';
-        $feed = simplexml_load_file($feedUrl);
+        $feeds = [
+            'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+            // Añade más feeds aquí con sus identificadores respectivos
+        ];
 
-        foreach ($feed->channel->item as $item) {
-            $link = (string) $item->link;
-            $parsedUrl = parse_url($link);
-            $source = $parsedUrl['host']; // Obtiene el dominio del link
-        
-            if (!NewsItem::where('link', $link)->exists()) {
-                NewsItem::create([
-                    'title' => (string) $item->title,
-                    'description' => (string) $item->description,
-                    'link' => $link,
-                    'pub_date' => (string) $item->pubDate,
-                    'author' => (string) $item->author, // Asume que tu feed RSS tiene un elemento <author>
-                    'source' => $source, // Usa el dominio como fuente
-                    'featured_image' => '',
-                    'content' => (string) $item->description,
-                ]);
+        foreach ($feeds as $identifier => $url) {
+            try {
+                $processor = \App\Factories\FeedProcessorFactory::make($identifier);
+                $processor->processFeed($url);
+                $this->info("Feed procesado: $identifier");
+            } catch (\Exception $e) {
+                $this->error("Error procesando el feed $identifier: " . $e->getMessage());
             }
         }
-        
 
-        // Lógica para mantener el límite de registros
-        while (NewsItem::count() > 1000) {
-            NewsItem::orderBy('pub_date', 'asc')->first()->delete();
-        }
+        // Lógica para mantener el límite de registros, si es necesario
 
-        $this->info('Feed RSS procesado exitosamente.');
+        $this->info('Todos los feeds RSS han sido procesados exitosamente.');
     }
 }
