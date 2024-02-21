@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use SimplePie;
+use SimpleXMLElement;
 use App\Models\NewsItem;
 
 class ProcessNewsFeed extends Command
@@ -13,29 +13,26 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
-        $feed = new SimplePie();
-        $feed->set_feed_url('https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss');
-        $feed->init();
+        $feedUrl = 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss';
+        $feed = simplexml_load_file($feedUrl);
 
-        foreach ($feed->get_items() as $item) {
-            $link = $item->get_permalink();
-            // Verificar si la noticia ya existe por URL
+        foreach ($feed->channel->item as $item) {
+            $link = (string) $item->link;
             if (!NewsItem::where('link', $link)->exists()) {
                 NewsItem::create([
-                    'title' => $item->get_title(),
-                    'description' => $item->get_description(),
+                    'title' => (string) $item->title,
+                    'description' => (string) $item->description,
                     'link' => $link,
-                    'pub_date' => $item->get_date('Y-m-d H:i:s'),
-                    'source' => 'Nombre de la fuente', // Ajusta según necesidad
-                    'featured_image' => '', // Ajusta según necesidad
-                    'content' => $item->get_content(), // o algún campo equivalente
+                    'pub_date' => (string) $item->pubDate,
+                    'source' => (string) $item->author,
+                    'featured_image' => '',
+                    'content' => (string) $item->description, // Ajustar según la estructura del feed
                 ]);
             }
         }
 
-        // Implementar lógica para mantener el límite de registros
+        // Lógica para mantener el límite de registros
         while (NewsItem::count() > 1000) {
-            // Eliminar el registro más antiguo
             NewsItem::orderBy('pub_date', 'asc')->first()->delete();
         }
 

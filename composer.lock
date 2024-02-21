@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cba0b3c43b2fac9be19f87257a6b2fea",
+    "content-hash": "c1fb190c4bf3f65d94001e6bf92f1a11",
     "packages": [
         {
             "name": "brick/math",
@@ -1044,6 +1044,66 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "laminas/laminas-xml",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-xml.git",
+                "reference": "c35aab57d1d0a970b53965046d535b88c3dc8bea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-xml/zipball/c35aab57d1d0a970b53965046d535b88c3dc8bea",
+                "reference": "c35aab57d1d0a970b53965046d535b88c3dc8bea",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-simplexml": "*",
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+            },
+            "conflict": {
+                "zendframework/zendxml": "*"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "phpunit/phpunit": "^9.5.8",
+                "squizlabs/php_codesniffer": "3.6.1 as 2.9999999.9999999"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Xml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "laminas",
+                "security",
+                "xml"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-xml/issues",
+                "rss": "https://github.com/laminas/laminas-xml/releases.atom",
+                "source": "https://github.com/laminas/laminas-xml"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2023-11-23T10:03:52+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2538,6 +2598,66 @@
                 }
             ],
             "time": "2023-02-08T01:06:31+00:00"
+        },
+        {
+            "name": "p3k/picofeed",
+            "version": "v0.1.40",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronpk/picofeed.git",
+                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronpk/picofeed/zipball/356fd66d48779193b10ac28532cb4a4e11bb801c",
+                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-iconv": "*",
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "ext-xml": "*",
+                "laminas/laminas-xml": "^1.2",
+                "php": ">=5.3.0"
+            },
+            "replace": {
+                "miniflux/picofeed": "0.1.35"
+            },
+            "require-dev": {
+                "phpdocumentor/reflection-docblock": "2.0.4",
+                "phpunit/phpunit": "4.8.26",
+                "symfony/yaml": "2.8.7"
+            },
+            "suggest": {
+                "ext-curl": "PicoFeed will use cURL if present"
+            },
+            "bin": [
+                "picofeed"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PicoFeed": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Guillot"
+                }
+            ],
+            "description": "Modern library to handle RSS/Atom feeds",
+            "homepage": "https://github.com/aaronpk/picoFeed",
+            "support": {
+                "issues": "https://github.com/aaronpk/picofeed/issues",
+                "source": "https://github.com/aaronpk/picofeed/tree/v0.1.40"
+            },
+            "time": "2020-04-25T17:48:36+00:00"
         },
         {
             "name": "phpoption/phpoption",
