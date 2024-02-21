@@ -15,7 +15,27 @@ class ProcessNewsFeed extends Command
     {
         $feeds = [
           //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+            'peruNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
             'hondurasNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
+            'mexicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
+            'argentinaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=argentina',
+            'boliviaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
+            'chileNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=chile',
+            'costaRicaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=costa-rica',
+            'colombiaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=colombia',
+            'ecuadorNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=ecuador',
+            'elSalvadorNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=el-salvador',
+            'españaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spain',
+            'usaEspañolNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spanish',
+            'guatemalaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=guatemala',
+            'nicaraguaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=nicaragua',
+            'panamaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=panamá',
+            'paraguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=paraguay',
+            'puertoRicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
+            'republicaDominicanaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
+            'uruguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
+            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
+
             // Añade más feeds aquí con sus identificadores respectivos
         ];
 
