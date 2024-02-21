@@ -24,6 +24,8 @@ use App\Services\FeedProcessors\RepublicaDominicanaNewsFeedProcessor;
 use App\Services\FeedProcessors\UruguayNewsFeedProcessor;
 use App\Services\FeedProcessors\USAEspañolNewsFeedProcessor;
 use App\Services\FeedProcessors\VenezuelaNewsFeedProcessor;
+use App\Services\FeedProcessors\TheChurchNewsFeedProcessor;
+use App\Services\FeedProcessors\FaroALasNacionesFeedProcessor;
 
 // Asegúrate de importar todas las clases de procesadores de feed necesarias
 
@@ -81,6 +83,10 @@ class FeedProcessorFactory
                 return new USAEspañolNewsFeedProcessor();
             case 'venezuelaNews':
                 return new VenezuelaNewsFeedProcessor();
+            case 'theChurchNews':
+                return new TheChurchNewsFeedProcessor();
+            case 'faroALasNaciones':
+                return new FaroALasNacionesFeedProcessor();
 
                 // Aquí puedes añadir más casos para otros procesadores de feed específicos
             default:

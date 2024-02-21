@@ -35,6 +35,8 @@ class ProcessNewsFeed extends Command
             'republicaDominicanaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
             'uruguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
             'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
+            'theChurchNews' => 'https://www.thechurchnews.com/es/rss/index.xml',
+            'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
