@@ -27,6 +27,7 @@ use App\Services\FeedProcessors\VenezuelaNewsFeedProcessor;
 use App\Services\FeedProcessors\TheChurchNewsFeedProcessor;
 use App\Services\FeedProcessors\FaroALasNacionesFeedProcessor;
 use App\Services\FeedProcessors\ZonaMormonNewsFeedProcessor;
+use App\Services\FeedProcessors\MasFeNewsFeedProcessor;
 
 // Asegúrate de importar todas las clases de procesadores de feed necesarias
 
@@ -88,9 +89,11 @@ class FeedProcessorFactory
                 return new TheChurchNewsFeedProcessor();
             case 'faroALasNaciones':
                 return new FaroALasNacionesFeedProcessor();
-                case 'zonaMormon':
-                    return new ZonaMormonNewsFeedProcessor();
-                
+            case 'zonaMormon':
+                return new ZonaMormonNewsFeedProcessor();
+            case 'masFe':
+                return new MasFeNewsFeedProcessor();
+
                 // Aquí puedes añadir más casos para otros procesadores de feed específicos
             default:
                 throw new \Exception("No feed processor available for: " . $feedIdentifier);

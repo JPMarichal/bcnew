@@ -38,6 +38,7 @@ class ProcessNewsFeed extends Command
             'theChurchNews' => 'https://www.thechurchnews.com/es/rss/index.xml',
             'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
             'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
+            'masFe' => 'https://masfe.org/category/noticias/feed/',
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
