@@ -30,10 +30,5 @@ class RepublicaDominicanaNewsFeedProcessor implements FeedProcessorInterface
                 ]);
             }
         }
-
-        // Lógica para mantener el límite de registros
-        while (NewsItem::count() > 1000) {
-            NewsItem::orderBy('pub_date', 'asc')->first()->delete();
-        }
     }
 }

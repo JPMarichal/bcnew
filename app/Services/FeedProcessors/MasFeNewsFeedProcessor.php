@@ -36,7 +36,5 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
                 ]);
             }
         }
-
-        // Aquí puedes implementar la lógica para mantener el límite de registros si es necesario
     }
 }

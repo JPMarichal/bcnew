@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use SimpleXMLElement;
 use App\Models\NewsItem;
+use App\Services\NewsItemMaintenanceService;
 
 class ProcessNewsFeed extends Command
 {
@@ -53,8 +54,10 @@ class ProcessNewsFeed extends Command
             }
         }
 
-        // Lógica para mantener el límite de registros, si es necesario
+        // Llama al servicio de mantenimiento después de procesar todos los feeds
+        $maintenanceService = new NewsItemMaintenanceService();
+        $maintenanceService->maintainDatabase();
 
-        $this->info('Todos los feeds RSS han sido procesados exitosamente.');
+        $this->info('Todos los feeds RSS han sido procesados exitosamente y la base de datos ha sido mantenida.');
     }
 }
