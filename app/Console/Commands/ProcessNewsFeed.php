@@ -14,7 +14,7 @@ class ProcessNewsFeed extends Command
     public function handle()
     {
         $feeds = [
-          //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+            //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
             'peruNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
             'hondurasNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
             'mexicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
@@ -37,6 +37,7 @@ class ProcessNewsFeed extends Command
             'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
             'theChurchNews' => 'https://www.thechurchnews.com/es/rss/index.xml',
             'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
+            'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
