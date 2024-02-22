@@ -26,6 +26,7 @@ class HondurasNewsFeedProcessor implements FeedProcessorInterface
                     'source' => $source,
                     'featured_image' => '', // Asume que no hay imagen destacada en el feed
                     'content' => (string) $item->description,
+                    'language' => 'es'
                 ]);
             }
         }

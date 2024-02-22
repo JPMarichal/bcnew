@@ -30,6 +30,7 @@ class ZonaMormonNewsFeedProcessor implements FeedProcessorInterface
                     'source' => 'Zona Mormón',
                     'featured_image' => $images[0] ?? '', // Tomamos la primera imagen como destacada
                     'content' => $description,
+                    'language' => 'es'
                 ]);
             }
         }

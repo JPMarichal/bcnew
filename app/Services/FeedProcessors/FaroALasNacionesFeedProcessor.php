@@ -28,7 +28,8 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
                     'author' => $author,
                     'source' => 'Faro a las Naciones',
                     'featured_image' => '', // Necesitarás extraer y procesar las imágenes si están disponibles
-                    'content' => $description, // O usa 'content:encoded' si necesitas el contenido HTML completo
+                    'content' => 'content:encoded', // O usa 'content:encoded' si necesitas el contenido HTML completo
+                    'language' => 'es'
                 ]);
             }
         }

@@ -27,6 +27,7 @@ class DefaultFeedProcessor implements FeedProcessorInterface
                     'source' => $source, // Usa el dominio como fuente
                     'featured_image' => '', // Asume que no hay imagen destacada en el feed
                     'content' => (string) $item->description,
+                    'language' => 'es'
                 ]);
             }
         }

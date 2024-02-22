@@ -31,6 +31,7 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
                     'source' => $source,
                     'featured_image' => '', // Necesitarás ajustar esto si quieres manejar imágenes
                     'content' => $description,
+                    'language' => 'es'
                 ]);
             }
         }

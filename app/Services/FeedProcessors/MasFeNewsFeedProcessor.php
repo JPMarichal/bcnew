@@ -32,6 +32,7 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
                     'source' => 'Más Fe',
                     'featured_image' => '', // Considera extraer y procesar imágenes si están disponibles
                     'content' => $content,
+                    'language' => 'es'
                 ]);
             }
         }
