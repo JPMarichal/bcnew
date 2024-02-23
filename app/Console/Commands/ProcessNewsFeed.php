@@ -14,10 +14,24 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
+
+        $feeds = config('ldsnewsfeeds'); // Carga las configuraciones de feeds de la Sala de Prensa
+
+        foreach ($feeds as $identifier => $config) {
+            try {
+                // Utiliza la fábrica para obtener el procesador adecuado, pasando la configuración específica del feed
+                $processor = \App\Factories\FeedProcessorFactory::make($identifier, $config);
+                $processor->processFeed($config['url'], $config); // Asegúrate de que tu procesador de feeds acepte la configuración como segundo argumento
+                $this->info("Feed procesado: $identifier");
+            } catch (\Exception $e) {
+                $this->error("Error procesando el feed $identifier: " . $e->getMessage());
+            }
+        }
+
         $feeds = [
             //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
-          /*  'theChurchNews' => 'http://fetchrss.com/rss/65d7b710bbdeee5bf603688265d7b86c4e20277c58794954.xml',
-            'peruNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
+              'theChurchNews' => 'http://fetchrss.com/rss/65d7b710bbdeee5bf603688265d7b86c4e20277c58794954.xml',
+          /*  'peruNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
             'boliviaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
             'hondurasNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
             'mexicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
@@ -36,10 +50,10 @@ class ProcessNewsFeed extends Command
             'puertoRicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
             'republicaDominicanaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
             'uruguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
-            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
-            'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/', */
-          // 'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
-            'masFe' => 'https://masfe.org/category/noticias/feed/', 
+            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela', */
+            'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/', 
+             'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
+            'masFe' => 'https://masfe.org/category/noticias/feed/',
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
