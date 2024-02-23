@@ -36,10 +36,10 @@ class ProcessNewsFeed extends Command
             'puertoRicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
             'republicaDominicanaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
             'uruguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
-            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',*/
-            'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
-        /*    'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
-            'masFe' => 'https://masfe.org/category/noticias/feed/', */
+            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
+            'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/', */
+          // 'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
+            'masFe' => 'https://masfe.org/category/noticias/feed/', 
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
