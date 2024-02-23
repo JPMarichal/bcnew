@@ -1,72 +1,49 @@
 <?php
-
 namespace App\Services\NewsContentScrapers;
 
 use App\Contracts\NewsContentScraperInterface;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class LaIglesiaDeJesucristoScraper implements NewsContentScraperInterface
 {
     protected $client;
+    protected $crawler;
 
     public function __construct()
     {
         $this->client = new Client();
     }
 
-    public function extractContent(string $url): ?string
+    public function prepare(string $url): void
     {
-        $crawler = $this->client->request('GET', $url);
-        $content = $crawler->filter('#article-body')->first();
+        $this->crawler = $this->client->request('GET', $url);
+    }
 
+    public function extractContent(): ?string
+    {
+        $content = $this->crawler->filter('#article-body')->first();
         return $content->count() > 0 ? trim($content->html()) : null;
     }
 
-    public function extractFeaturedImage(string $url): ?string
+    public function extractFeaturedImage(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        $image = $crawler->filter('meta[property="og:image"]')->first()->attr('content');
-
-        // Verifica si la URL de la imagen comienza con "/"
+        $image = $this->crawler->filter('meta[property="og:image"]')->first()->attr('content');
         if ($image && strpos($image, '/') === 0) {
-            // Antepone el protocolo y dominio a la URL truncada
             $image = 'http://newsroom.churchofjesuschrist.org' . $image;
         }
-
-        // Si no se encontró imagen o no existe el atributo content, usa una imagen por defecto
-        if (!$image) {
-            $image = 'http://imagen-por-defecto.jpg'; // URL de la imagen por defecto
-        }
-
-        return $image;
+        return $image ?: 'http://imagen-por-defecto.jpg';
     }
 
-    public function extractDescription(string $url): ?string
+    public function extractDescription(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        // Intenta obtener el contenido del tag meta property="og:description"
-        $description = trim($crawler->filter('meta[property="og:description"]')->first()->attr('content'));
-
-        // Si no se encuentra la descripción, puedes optar por retornar un valor por defecto o null
-        return $description ? $description : '';
+        $description = trim($this->crawler->filter('meta[property="og:description"]')->first()->attr('content'));
+        return $description ?: '';
     }
 
-    public function extractAuthor(string $url): ?string
+    public function extractAuthor(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        // Intenta obtener el contenido del tag meta property="article:author"
-        $author = $crawler->filter('meta[property="article:author"]')->first()->attr('content');
-
-        // Si no se encuentra el autor, puedes optar por retornar un valor por defecto o null
-        return $author ? $author : null;
-    }
-
-    protected function scrape(string $url, string $selector, string $attribute = null): ?string
-    {
-        $crawler = $this->client->request('GET', $url);
-        if ($attribute) {
-            return $crawler->filter($selector)->attr($attribute);
-        }
-        return $crawler->filter($selector)->text();
+        $author = $this->crawler->filter('meta[property="article:author"]')->first()->attr('content');
+        return $author ?: 'Autor desconocido';
     }
 }

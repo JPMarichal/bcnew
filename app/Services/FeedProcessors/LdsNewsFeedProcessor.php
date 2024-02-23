@@ -5,6 +5,7 @@ use App\Contracts\FeedProcessorInterface;
 use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsContentScrapers\LaIglesiaDeJesucristoScraper;
+use Exception;
 
 class LdsNewsFeedProcessor implements FeedProcessorInterface
 {
@@ -19,31 +20,37 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
 
     public function processFeed(string $feedUrl): void
     {
-        $feed = simplexml_load_file($feedUrl);
-        $scraper = new LaIglesiaDeJesucristoScraper();
+        try {
+            $feed = simplexml_load_file($feedUrl);
+            if (!$feed) throw new Exception("No se pudo cargar el feed: $feedUrl");
+            $scraper = new LaIglesiaDeJesucristoScraper();
 
-        foreach ($feed->channel->item as $item) {
-            $link = (string) $item->link;
-            $source = 'La Iglesia de Jesucristo - ' . $this->country; // La fuente varía según el país
+            foreach ($feed->channel->item as $item) {
+                $link = (string) $item->link;
+                if (NewsItem::where('link', $link)->exists()) continue;
 
-            $content = $scraper->extractContent($link);
-            $featuredImage = $scraper->extractFeaturedImage($link);
-            $description = $scraper->extractDescription($link);
-            $author = $scraper->extractAuthor($link);
+                // Usando el scraper optimizado que realiza una única solicitud HTTP
+                $scraper->prepare($link); // Preparar el scraper con la URL
 
-            if (!NewsItem::where('link', $link)->exists()) {
+                $content = $scraper->extractContent();
+                $featuredImage = $scraper->extractFeaturedImage();
+                $description = $scraper->extractDescription();
+                $author = $scraper->extractAuthor();
+
                 NewsItem::create([
                     'title' => trim((string) $item->title),
                     'description' => $description,
                     'link' => $link,
                     'pub_date' => (new \DateTime((string) $item->pubDate))->format('Y-m-d H:i:s'),
-                    'author' => $author ?? 'Desconocido', // Asume un valor por defecto si no hay autor
-                    'source' => $source,
+                    'author' => $author,
+                    'source' => 'La Iglesia de Jesucristo - ' . $this->country,
                     'featured_image' => $featuredImage, 
                     'content' => $content,
-                    'language' => $this->language // La lengua puede variar, aunque por ahora asumimos 'es'
+                    'language' => $this->language
                 ]);
             }
+        } catch (Exception $e) {
+            // Manejar error
         }
     }
 }
