@@ -16,11 +16,12 @@ class ProcessNewsFeed extends Command
     {
         $feeds = [
             //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
+          /*  'theChurchNews' => 'http://fetchrss.com/rss/65d7b710bbdeee5bf603688265d7b86c4e20277c58794954.xml',
             'peruNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
+            'boliviaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
             'hondurasNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
             'mexicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
             'argentinaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=argentina',
-            'boliviaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
             'chileNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=chile',
             'costaRicaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=costa-rica',
             'colombiaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=colombia',
@@ -35,11 +36,10 @@ class ProcessNewsFeed extends Command
             'puertoRicoNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
             'republicaDominicanaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
             'uruguayNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
-            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
-            'theChurchNews' => 'https://www.thechurchnews.com/es/rss/index.xml',
+            'venezuelaNews' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',*/
             'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
-            'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
-            'masFe' => 'https://masfe.org/category/noticias/feed/',
+        /*    'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
+            'masFe' => 'https://masfe.org/category/noticias/feed/', */
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
