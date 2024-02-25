@@ -3,48 +3,50 @@ namespace App\Services\NewsContentScrapers;
 
 use App\Contracts\NewsContentScraperInterface;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class FaroALasNacionesScraper implements NewsContentScraperInterface
 {
     protected $client;
+    protected $crawler;
 
     public function __construct()
     {
         $this->client = new Client();
     }
 
-    public function extractContent(string $url): ?string
+    public function prepare(string $url): void
     {
-        $crawler = $this->client->request('GET', $url);
-        $content = $crawler->filter('.post-content')->each(function ($node) {
+        $this->crawler = $this->client->request('GET', $url);
+    }
+
+    public function extractContent(): ?string
+    {
+        if (!$this->crawler) return null;
+        $content = $this->crawler->filter('.post-content')->each(function ($node) {
             return $node->html();
         });
-
         return !empty($content) ? implode(" ", $content) : null;
     }
 
-    public function extractFeaturedImage(string $url): ?string
+    public function extractFeaturedImage(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        $image = $crawler->filter('meta[property="og:image"]')->first()->attr('content');
-
-        return $image ?: null;
+        if (!$this->crawler) return null;
+        $image = $this->crawler->filter('meta[property="og:image"]')->first()->attr('content');
+        return $image ?: 'http://imagen-por-defecto.jpg';
     }
 
-    public function extractDescription(string $url): ?string
+    public function extractDescription(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        $description = $crawler->filter('meta[property="og:description"]')->first()->attr('content');
-
-        return $description ?: null;
+        if (!$this->crawler) return null;
+        $description = $this->crawler->filter('meta[property="og:description"]')->first()->attr('content');
+        return $description ?: '';
     }
 
-    public function extractAuthor(string $url): ?string
+    public function extractAuthor(): ?string
     {
-        $crawler = $this->client->request('GET', $url);
-        // El selector se ajusta para buscar dentro del contenedor específico y luego en el enlace del autor
-        $author = $crawler->filter('.post-author-date .post-author')->first()->text();
-
+        if (!$this->crawler) return null;
+        $author = $this->crawler->filter('.post-author-date .post-author')->first()->text();
         return $author ?: 'Autor desconocido';
     }
 }

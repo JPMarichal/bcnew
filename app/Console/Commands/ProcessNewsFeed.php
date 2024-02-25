@@ -30,10 +30,10 @@ class ProcessNewsFeed extends Command
 
         $feeds = [
             //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
-        /*    'theChurchNews' => 'http://fetchrss.com/rss/65d7b710bbdeee5bf603688265d7b86c4e20277c58794954.xml',
+            'theChurchNews' => 'http://fetchrss.com/rss/65d7b710bbdeee5bf603688265d7b86c4e20277c58794954.xml',
+            'masFe' => 'https://masfe.org/category/noticias/feed/',
             'faroALasNaciones' => 'https://www.faroalasnaciones.com/feed/',
-            'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
-            'masFe' => 'https://masfe.org/category/noticias/feed/',*/
+            //   'zonaMormon' => 'https://zonamormon.wordpress.com/feed/',
 
             // Añade más feeds aquí con sus identificadores respectivos
         ];
