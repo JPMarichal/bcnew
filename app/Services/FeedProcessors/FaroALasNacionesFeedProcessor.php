@@ -56,7 +56,7 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
                     'author' => '',
                     'source' => 'Faro a las Naciones',
                     'featured_image' => $featuredImage,
-                    'content' => $content,
+                    'content' => trim($content),
                     'language' => 'es',
                 ]);
             } catch (Exception $e) {
