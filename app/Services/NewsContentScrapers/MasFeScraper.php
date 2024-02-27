@@ -3,43 +3,49 @@ namespace App\Services\NewsContentScrapers;
 
 use App\Contracts\NewsContentScraperInterface;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class MasFeScraper implements NewsContentScraperInterface
 {
-    public function extractContent(string $url): ?string
+    protected $client;
+    protected $crawler;
+
+    public function __construct()
     {
-        $client = new Client();
-        $crawler = $client->request('GET', $url);
-        $content = $crawler->filter('.elementor-widget-container')->each(function ($node) {
+        $this->client = new Client();
+    }
+
+    public function prepare(string $url): void
+    {
+        $this->crawler = $this->client->request('GET', $url);
+    }
+
+    public function extractContent(): ?string
+    {
+        $content = $this->crawler->filter('.elementor-widget-container')->each(function ($node) {
             return $node->html();
         });
 
         return !empty($content) ? implode(" ", $content) : null;
     }
 
-    public function extractFeaturedImage(string $url): ?string
+    public function extractFeaturedImage(): ?string
     {
-        $client = new Client();
-        $crawler = $client->request('GET', $url);
-        $image = $crawler->filter('meta[property="og:image"]')->first()->attr('content');
+        $image = $this->crawler->filter('meta[property="og:image"]')->first()->attr('content');
 
         return $image ?: null;
     }
 
-    public function extractDescription(string $url): ?string
+    public function extractDescription(): ?string
     {
-        $client = new Client();
-        $crawler = $client->request('GET', $url);
-        $description = $crawler->filter('meta[property="og:description"]')->first()->attr('content');
+        $description = $this->crawler->filter('meta[property="og:description"]')->first()->attr('content');
 
         return $description ?: null;
     }
 
-    public function extractAuthor(string $url): ?string
+    public function extractAuthor(): ?string
     {
-        $client = new Client();
-        $crawler = $client->request('GET', $url);
-        $author = $crawler->filter('meta[name="author"]')->first()->attr('content');
+        $author = $this->crawler->filter('meta[name="author"]')->first()->attr('content');
         return $author ?: 'Autor desconocido';
     }
 }

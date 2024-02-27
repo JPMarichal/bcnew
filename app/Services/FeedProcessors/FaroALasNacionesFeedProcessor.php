@@ -28,25 +28,23 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
             }
 
             try {
-                print_r('========================================='."\n");
-                print_r('Procesando: ' . $link . "\n");
+                //    print_r('========================================='."\n");
+                //    print_r('Procesando: ' . $link . "\n");
 
-               $scraper->prepare($link); // Preparar el scraper con la URL
-                print_r('Scraper preparado' . "\n");
+                $scraper->prepare($link); // Preparar el scraper con la URL
+                //    print_r('Scraper preparado' . "\n");
 
                 $description = $scraper->extractDescription();
-                print_r('Descripción: ' . $description . "\n");
+                //   print_r('Descripción: ' . $description . "\n");
 
-              //  $author = $scraper->extractAuthor();
-           //     print_r('Autor: ' . $author . "\n");
-                
-               $featuredImage = $scraper->extractFeaturedImage();
-                print_r('Imagen: ' . $featuredImage . "\n");
+                //  $author = $scraper->extractAuthor();
+                //     print_r('Autor: ' . $author . "\n");
 
-              
+                $featuredImage = $scraper->extractFeaturedImage();
+                // print_r('Imagen: ' . $featuredImage . "\n");
 
                 $content = $scraper->extractContent();
-                print_r('Contenido: '. $content. "\n");
+                //  print_r('Contenido: '. $content. "\n");
 
                 NewsItem::create([
                     'title' => trim((string) $item->title),
