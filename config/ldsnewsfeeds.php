@@ -1,15 +1,20 @@
 <?php
 
 return [
+    'filipinasNews' => [
+        'url' => 'https://news-ph.churchofjesuschrist.org/rss?country=philippines',
+        'language' => 'en',
+        'source' => 'Filipinas',
+    ],
     'peruNews' => [
         'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
         'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Perú',
+        'source' => 'Perú',
     ],
     'boliviaNews' => [
         'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
         'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Bolivia',
+        'source' => 'Bolivia',
     ],
     'hondurasNews' => [
         'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',

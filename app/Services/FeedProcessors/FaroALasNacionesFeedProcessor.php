@@ -23,7 +23,7 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
             if (empty($link) || NewsItem::where('link', $link)->exists()) {
-                print_r('Abortado');
+              //  print_r('Abortado');
                 continue;
             }
 

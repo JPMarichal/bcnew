@@ -22,7 +22,7 @@ class FeedProcessorFactory
             $feedConfig = $ldsNewsFeedsConfig[$feedIdentifier];
             // Extrae país e idioma de la configuración
             $country = $feedConfig['source'];
-            $language = $feedConfig['language'] ?? 'es'; // Asume 'es' como idioma predeterminado si no se especifica
+            $language = $feedConfig['language'] ; // Asume 'es' como idioma predeterminado si no se especifica
             
             // Retorna una instancia del procesador dinámico para los feeds LDS, pasando país e idioma
             return new LdsNewsFeedProcessor($country, $language);

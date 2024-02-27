@@ -12,7 +12,7 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
     protected $country;
     protected $language;
 
-    public function __construct(string $country, string $language = 'es')
+    public function __construct(string $country, string $language)
     {
         $this->country = $country;
         $this->language = $language;
@@ -36,6 +36,7 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
                 $featuredImage = $scraper->extractFeaturedImage();
                 $description = $scraper->extractDescription();
                 $author = $scraper->extractAuthor();
+                print_r($this->language);
 
                 NewsItem::create([
                     'title' => trim((string) $item->title),

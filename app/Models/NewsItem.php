@@ -19,6 +19,8 @@ class NewsItem extends Model
         'source',
         'featured_image',
         'content',
+        'author',
+        'language'
     ];
 
     protected $casts = [
