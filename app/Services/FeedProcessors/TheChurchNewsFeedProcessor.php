@@ -4,7 +4,7 @@ namespace App\Services\FeedProcessors;
 use App\Contracts\FeedProcessorInterface;
 use SimpleXMLElement;
 use App\Models\NewsItem;
-use App\Services\NewsContentScrapers\TheChurchNewsScraper; // Asegúrate de usar el scraper correcto
+use App\Services\NewsContentScrapers\TheChurchNewsScraper;
 
 class TheChurchNewsFeedProcessor implements FeedProcessorInterface
 {
@@ -12,37 +12,37 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
     {
         $feed = simplexml_load_file($feedUrl);
         $feed->registerXPathNamespace('media', 'http://search.yahoo.com/mrss/');
-        $scraper = new TheChurchNewsScraper(); // Instancia el scraper directamente
+        $scraper = new TheChurchNewsScraper();
 
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
             $title = (string) $item->title;
 
-            // Si no hay título, no se realiza ninguna extracción
-            if (empty($title)) {
+            if (empty($title) || NewsItem::where('link', $link)->exists()) {
                 continue;
             }
 
-            if (!NewsItem::where('link', $link)->exists()) {
-                // Utiliza el scraper para obtener los datos
-                $description = $scraper->extractDescription($link);
-                $content = $scraper->extractContent($link);
-                $author = $scraper->extractAuthor($link);
-                $featuredImage = $scraper->extractFeaturedImage($link);
-                $publishedDate = new \DateTime((string) $item->pubDate);
+            // Preparar el scraper una sola vez por URL
+            $scraper->prepare($link);
 
-                NewsItem::create([
-                    'title' => $title,
-                    'description' => $description,
-                    'link' => $link,
-                    'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
-                    'author' => $author,
-                    'source' => 'The Church News',
-                    'featured_image' => $featuredImage,
-                    'content' => $content,
-                    'language' => 'es'
-                ]);
-            }
+            // Extraer los datos utilizando los métodos del scraper ya optimizados
+            $description = $scraper->extractDescription($link);
+            $content = $scraper->extractContent($link);
+            $author = $scraper->extractAuthor($link);
+            $featuredImage = $scraper->extractFeaturedImage($link);
+            $publishedDate = new \DateTime((string) $item->pubDate);
+
+            NewsItem::create([
+                'title' => $title,
+                'description' => $description,
+                'link' => $link,
+                'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
+                'author' => $author ?: 'Autor desconocido',
+                'source' => 'The Church News',
+                'featured_image' => $featuredImage,
+                'content' => $content,
+                'language' => 'es'
+            ]);
         }
     }
 }
