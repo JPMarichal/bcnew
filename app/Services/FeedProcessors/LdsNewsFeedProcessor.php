@@ -36,7 +36,7 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
                 $featuredImage = $scraper->extractFeaturedImage();
                 $description = $scraper->extractDescription();
                 $author = $scraper->extractAuthor();
-                print_r($this->language);
+               // print_r($this->language);
 
                 NewsItem::create([
                     'title' => trim((string) $item->title),

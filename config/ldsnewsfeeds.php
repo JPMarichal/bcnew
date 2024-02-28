@@ -1,11 +1,68 @@
 <?php
 
 return [
+    // Fuentes en inglés
+    'usaMainNews' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'USA Main News',
+    ],
+    'usaNewsReleases' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/news-releases/rss',
+        'language' => 'en',
+        'source' => 'USA News Releases',
+    ],
+    'usaMemberNews' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/member-news/rss',
+        'language' => 'en',
+        'source' => 'USA Member News',
+    ],
     'filipinasNews' => [
         'url' => 'https://news-ph.churchofjesuschrist.org/rss?country=philippines',
         'language' => 'en',
         'source' => 'Filipinas',
     ],
+    'reinoUnidoNews' => [
+        'url' => 'https://news-uk.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Reino Unido',
+    ],
+    'europaNews' => [
+        'url' => 'https://news-europe.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Europa',
+    ],
+    'irlandaNews' => [
+        'url' => 'https://news-europe.churchofjesuschrist.org/rss?country=ireland',
+        'language' => 'en',
+        'source' => 'Irlanda',
+    ],
+    'africaNews' => [
+        'url' => 'https://news-africa.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Africa',
+    ],
+    'angolaNews' => [
+        'url' => 'https://noticias-ao.aigrejadejesuscristo.org/rss',
+        'language' => 'pt',
+        'source' => 'Angola',
+    ],
+    'australiaNews' => [
+        'url' => 'https://news-au.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Australia',
+    ],
+    'barbadosNews' => [
+        'url' => 'https://news-bb.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Barbados',
+    ],
+    'belgicaNews' => [
+        'url' => 'https://presse-be.eglisedejesus-christ.org/rss',
+        'language' => 'fr',
+        'source' => 'Bélgica',
+    ],
+    // Fuentes en español
     'peruNews' => [
         'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
         'language' => 'es',
