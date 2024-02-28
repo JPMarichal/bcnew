@@ -16,7 +16,7 @@ class ProcessNewsFeed extends Command
     {
 
         $feeds = config('ldsnewsfeeds'); // Carga las configuraciones de feeds de la Sala de Prensa
-/*
+
         foreach ($feeds as $identifier => $config) {
             try {
                 // Utiliza la fábrica para obtener el procesador adecuado, pasando la configuración específica del feed
@@ -27,7 +27,6 @@ class ProcessNewsFeed extends Command
                 $this->error("Error procesando el feed $identifier: " . $e->getMessage());
             }
         }
-        */
 
         $feeds = [
             //  'default' => 'https://feed.informer.com/digests/1ETKMRWFSY/feeder.rss',
