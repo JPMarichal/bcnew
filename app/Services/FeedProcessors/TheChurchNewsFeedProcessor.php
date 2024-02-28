@@ -1,10 +1,12 @@
-<?php
+<?php 
 namespace App\Services\FeedProcessors;
 
 use App\Contracts\FeedProcessorInterface;
 use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsContentScrapers\TheChurchNewsScraper;
+use DateTime;
+use Illuminate\Support\Facades\Log;
 
 class TheChurchNewsFeedProcessor implements FeedProcessorInterface
 {
@@ -14,7 +16,21 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
         $feed->registerXPathNamespace('media', 'http://search.yahoo.com/mrss/');
         $scraper = new TheChurchNewsScraper();
 
+        // Calcula la fecha de hace n días
+        $dateLimit = new DateTime('-30 days');
+
         foreach ($feed->channel->item as $item) {
+            $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
+
+            if (!$publishedDate) {
+                continue;
+            }
+
+            // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
+            if ($publishedDate < $dateLimit) {
+                continue; // El ítem es más antiguo que 60 días, se salta.
+            }
+
             $link = (string) $item->link;
             $title = (string) $item->title;
 
@@ -22,15 +38,12 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
                 continue;
             }
 
-            // Preparar el scraper una sola vez por URL
             $scraper->prepare($link);
 
-            // Extraer los datos utilizando los métodos del scraper ya optimizados
-            $description = $scraper->extractDescription($link);
-            $content = $scraper->extractContent($link);
-            $author = $scraper->extractAuthor($link);
-            $featuredImage = $scraper->extractFeaturedImage($link);
-            $publishedDate = new \DateTime((string) $item->pubDate);
+            $description = $scraper->extractDescription();
+            $content = $scraper->extractContent();
+            $author = $scraper->extractAuthor();
+            $featuredImage = $scraper->extractFeaturedImage();
 
             NewsItem::create([
                 'title' => $title,

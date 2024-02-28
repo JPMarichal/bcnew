@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\FeedProcessors;
 
 use App\Contracts\FeedProcessorInterface;
@@ -6,6 +7,7 @@ use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsContentScrapers\LaIglesiaDeJesucristoScraper;
 use Exception;
+use DateTime;
 
 class LdsNewsFeedProcessor implements FeedProcessorInterface
 {
@@ -25,9 +27,23 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
             if (!$feed) throw new Exception("No se pudo cargar el feed: $feedUrl");
             $scraper = new LaIglesiaDeJesucristoScraper();
 
+            // Calcula la fecha de hace n días
+            $dateLimit = new DateTime('-30 days');
+
             foreach ($feed->channel->item as $item) {
                 $link = (string) $item->link;
                 if (NewsItem::where('link', $link)->exists()) continue;
+
+                $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
+
+                if (!$publishedDate) {
+                    continue;
+                }
+
+                // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
+                if ($publishedDate < $dateLimit) {
+                    continue; // El ítem es más antiguo que 60 días, se salta.
+                }
 
                 // Usando el scraper optimizado que realiza una única solicitud HTTP
                 $scraper->prepare($link); // Preparar el scraper con la URL
@@ -36,16 +52,15 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
                 $featuredImage = $scraper->extractFeaturedImage();
                 $description = $scraper->extractDescription();
                 $author = $scraper->extractAuthor();
-               // print_r($this->language);
 
                 NewsItem::create([
                     'title' => trim((string) $item->title),
                     'description' => $description,
                     'link' => $link,
-                    'pub_date' => (new \DateTime((string) $item->pubDate))->format('Y-m-d H:i:s'),
+                    'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
                     'author' => $author,
                     'source' => 'La Iglesia de Jesucristo - ' . $this->country,
-                    'featured_image' => $featuredImage, 
+                    'featured_image' => $featuredImage,
                     'content' => $content,
                     'language' => $this->language
                 ]);

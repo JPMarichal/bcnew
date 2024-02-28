@@ -5,6 +5,7 @@ use App\Contracts\FeedProcessorInterface;
 use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsContentScrapers\MasFeScraper;
+use DateTime;
 
 class MasFeNewsFeedProcessor implements FeedProcessorInterface
 {
@@ -13,12 +14,26 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
         $feed = simplexml_load_file($feedUrl);
         $scraper = new MasFeScraper();
 
+        // Calcula la fecha de hace n días
+        $dateLimit = new DateTime('-30 days');
+
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
             $title = (string) $item->title;
 
             if (empty($title) || NewsItem::where('link', $link)->exists()) {
                 continue;
+            }           
+
+            $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
+
+            if (!$publishedDate) {
+                continue;
+            }
+
+            // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
+            if ($publishedDate < $dateLimit) {
+                continue; // El ítem es más antiguo que 60 días, se salta.
             }
 
             // Preparar el scraper con la URL del artículo
