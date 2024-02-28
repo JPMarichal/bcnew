@@ -1,13 +1,12 @@
 <?php
-
 namespace App\Services\FeedProcessors;
 
 use App\Contracts\FeedProcessorInterface;
 use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsContentScrapers\FaroALasNacionesScraper;
-use Exception;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 
 class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
 {
@@ -21,51 +20,34 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
 
         $scraper = new FaroALasNacionesScraper();
 
-        // Calcula la fecha de hace n días
+        // Calcula la fecha de hace 30 días
         $dateLimit = new DateTime('-30 days');
 
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
             if (empty($link) || NewsItem::where('link', $link)->exists()) {
-              //  print_r('Abortado');
                 continue;
             }
 
             try {
-                //    print_r('========================================='."\n");
-                //    print_r('Procesando: ' . $link . "\n");               
+                // Ajusta aquí el formato de fecha según el ejemplo proporcionado
+                $publishedDate = DateTime::createFromFormat('D, d M Y H:i:s O', (string) $item->pubDate);
 
-                $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
-
-                if (!$publishedDate) {
-                    continue;
-                }
-
-                // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
-                if ($publishedDate < $dateLimit) {
-                    continue; // El ítem es más antiguo que 60 días, se salta.
+                if (!$publishedDate || $publishedDate < $dateLimit) {
+                    continue; // El ítem es más antiguo que 30 días o la fecha no es válida, se salta.
                 }
 
                 $scraper->prepare($link); // Preparar el scraper con la URL
-                //    print_r('Scraper preparado' . "\n");
 
                 $description = $scraper->extractDescription();
-                //   print_r('Descripción: ' . $description . "\n");
-
-                //  $author = $scraper->extractAuthor();
-                //     print_r('Autor: ' . $author . "\n");
-
                 $featuredImage = $scraper->extractFeaturedImage();
-                // print_r('Imagen: ' . $featuredImage . "\n");
-
                 $content = $scraper->extractContent();
-                //  print_r('Contenido: '. $content. "\n");
 
                 NewsItem::create([
                     'title' => trim((string) $item->title),
                     'description' => $description ?: 'Descripción no disponible',
                     'link' => $link,
-                    'pub_date' => (new \DateTime((string) $item->pubDate))->format('Y-m-d H:i:s'),
+                    'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
                     'author' => '',
                     'source' => 'Faro a las Naciones',
                     'featured_image' => $featuredImage,

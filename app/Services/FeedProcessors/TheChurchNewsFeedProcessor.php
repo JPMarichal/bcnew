@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services\FeedProcessors;
 
 use App\Contracts\FeedProcessorInterface;
@@ -16,19 +16,17 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
         $feed->registerXPathNamespace('media', 'http://search.yahoo.com/mrss/');
         $scraper = new TheChurchNewsScraper();
 
-        // Calcula la fecha de hace n días
         $dateLimit = new DateTime('-30 days');
 
         foreach ($feed->channel->item as $item) {
-            $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
+            $publishedDate = DateTime::createFromFormat('D, d M Y H:i:s O', (string) $item->pubDate);
 
             if (!$publishedDate) {
                 continue;
             }
 
-            // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
             if ($publishedDate < $dateLimit) {
-                continue; // El ítem es más antiguo que 60 días, se salta.
+                continue;
             }
 
             $link = (string) $item->link;
