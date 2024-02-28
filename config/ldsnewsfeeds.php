@@ -72,6 +72,81 @@ return [
         'language' => 'en',
         'source' => 'Canadá',
     ],
+    'europaNews' => [
+        'url' => 'https://news-europe.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Europa',
+    ],
+    'ghanaNews' => [
+        'url' => 'https://news-gh.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Ghana',
+    ],
+    'micronesiaNews' => [
+        'url' => 'https://news-gu.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Guam/Micronesia',
+    ],
+    'hongKongNews' => [
+        'url' => 'https://news-hk.churchofjesuschrist.org/eng/rss',
+        'language' => 'en',
+        'source' => 'Hong Kong',
+    ],
+    'indiaNews' => [
+        'url' => 'https://news-in.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'India',
+    ],
+    'middleEastNews' => [
+        'url' => 'https://news-middleeast.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Medio Oriente',
+    ],
+    'newZealandNews' => [
+        'url' => 'https://news-nz.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Nueva Zelanda',
+    ],
+    'nigeriaNews' => [
+        'url' => 'https://news-ng.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Nigeria',
+    ],
+    'pacificNews' => [
+        'url' => 'https://news-pacific.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Pacífico',
+    ],
+    'papuaNewGuineaNews' => [
+        'url' => 'https://news-pg.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Papúa Nueva Guinea',
+    ],
+    'sierraLeoneNews' => [
+        'url' => 'https://news-sl.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Sierra Leona',
+    ],
+    'singaporeNews' => [
+        'url' => 'https://news-sg.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Singapur',
+    ],
+    'southAfricaNews' => [
+        'url' => 'https://news-za.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Sudáfrica',
+    ],
+    'ugandaNews' => [
+        'url' => 'https://news-ug.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Uganda',
+    ],
+    'zimbabweNews' => [
+        'url' => 'https://news-zw.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Zimbabwe',
+    ],
     // Fuentes en portugués   
     'brasilNews' => [
         'url' => 'https://noticias-br.aigrejadejesuscristo.org/rss',
@@ -83,11 +158,21 @@ return [
         'language' => 'pt',
         'source' => 'Cabo Verde',
     ],
+    'mozambiqueNews' => [
+        'url' => 'https://noticias-mz.aigrejadejesuscristo.org/rss',
+        'language' => 'pt',
+        'source' => 'Mozambique',
+    ],
     // Fuentes en francés   
     'belgicaNews' => [
         'url' => 'https://presse-be.eglisedejesus-christ.org/rss',
         'language' => 'fr',
         'source' => 'Bélgica',
+    ],   
+    'franciaNews' => [
+        'url' => 'https://presse-fr.eglisedejesus-christ.org/rss',
+        'language' => 'fr',
+        'source' => 'Francia',
     ], 
     'costaDeMarfilNews' => [
         'url' => 'https://presse-ci.eglisedejesus-christ.org/rss',
