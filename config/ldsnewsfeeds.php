@@ -1,51 +1,113 @@
 <?php
 
 return [
+    // Fuentes en español
+    'argentinaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=argentina',
+        'language' => 'es',
+        'source' => 'Argentina',
+    ],
+    'boliviaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
+        'language' => 'es',
+        'source' => 'Bolivia',
+    ],
+    'chileNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=chile',
+        'language' => 'es',
+        'source' => 'Chile',
+    ],
+    'colombiaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=colombia',
+        'language' => 'es',
+        'source' => 'Colombia',
+    ],
+    'costaRicaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=costa-rica',
+        'language' => 'es',
+        'source' => 'Costa Rica',
+    ],
+    'ecuadorNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=ecuador',
+        'language' => 'es',
+        'source' => 'Ecuador',
+    ],
+    'elSalvadorNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=el-salvador',
+        'language' => 'es',
+        'source' => 'El Salvador',
+    ],
+    'españaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spain',
+        'language' => 'es',
+        'source' => 'España',
+    ],
+    'guatemalaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=guatemala',
+        'language' => 'es',
+        'source' => 'Guatemala',
+    ],
+    'hondurasNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
+        'language' => 'es',
+        'source' => 'Honduras',
+    ],
+    'mexicoNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
+        'language' => 'es',
+        'source' => 'México',
+    ],
+    'nicaraguaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=nicaragua',
+        'language' => 'es',
+        'source' => 'Nicaragua',
+    ],
+    'panamaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=panamá',
+        'language' => 'es',
+        'source' => 'Panamá',
+    ],
+    'paraguayNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=paraguay',
+        'language' => 'es',
+        'source' => 'Paraguay',
+    ],
+    'peruNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
+        'language' => 'es',
+        'source' => 'Perú',
+    ],
+    'puertoRicoNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
+        'language' => 'es',
+        'source' => 'Puerto Rico',
+    ],
+    'republicaDominicanaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
+        'language' => 'es',
+        'source' => 'República Dominicana',
+    ],
+    'uruguayNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
+        'language' => 'es',
+        'source' => 'Uruguay',
+    ],
+    'usaEspañolNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spanish',
+        'language' => 'es',
+        'source' => 'USA (Español)',
+    ],
+    'venezuelaNews' => [
+        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
+        'language' => 'es',
+        'source' => 'Venezuela',
+    ],
+
     // Fuentes en inglés
-    'usaMainNews' => [
-        'url' => 'https://newsroom.churchofjesuschrist.org/rss',
-        'language' => 'en',
-        'source' => 'USA Main News',
-    ],
-    'usaNewsReleases' => [
-        'url' => 'https://newsroom.churchofjesuschrist.org/news-releases/rss',
-        'language' => 'en',
-        'source' => 'USA News Releases',
-    ],
-    'usaMemberNews' => [
-        'url' => 'https://newsroom.churchofjesuschrist.org/member-news/rss',
-        'language' => 'en',
-        'source' => 'USA Member News',
-    ],
-    'filipinasNews' => [
-        'url' => 'https://news-ph.churchofjesuschrist.org/rss?country=philippines',
-        'language' => 'en',
-        'source' => 'Filipinas',
-    ],
-    'reinoUnidoNews' => [
-        'url' => 'https://news-uk.churchofjesuschrist.org/rss',
-        'language' => 'en',
-        'source' => 'Reino Unido',
-    ],
-    'europaNews' => [
-        'url' => 'https://news-europe.churchofjesuschrist.org/rss',
-        'language' => 'en',
-        'source' => 'Europa',
-    ],
-    'irlandaNews' => [
-        'url' => 'https://news-europe.churchofjesuschrist.org/rss?country=ireland',
-        'language' => 'en',
-        'source' => 'Irlanda',
-    ],
     'africaNews' => [
         'url' => 'https://news-africa.churchofjesuschrist.org/rss',
         'language' => 'en',
         'source' => 'Africa',
-    ],
-    'angolaNews' => [
-        'url' => 'https://noticias-ao.aigrejadejesuscristo.org/rss',
-        'language' => 'pt',
-        'source' => 'Angola',
     ],
     'australiaNews' => [
         'url' => 'https://news-au.churchofjesuschrist.org/rss',
@@ -77,15 +139,15 @@ return [
         'language' => 'en',
         'source' => 'Europa',
     ],
+    'filipinasNews' => [
+        'url' => 'https://news-ph.churchofjesuschrist.org/rss?country=philippines',
+        'language' => 'en',
+        'source' => 'Filipinas',
+    ],
     'ghanaNews' => [
         'url' => 'https://news-gh.churchofjesuschrist.org/rss',
         'language' => 'en',
         'source' => 'Ghana',
-    ],
-    'micronesiaNews' => [
-        'url' => 'https://news-gu.churchofjesuschrist.org/rss',
-        'language' => 'en',
-        'source' => 'Guam/Micronesia',
     ],
     'hongKongNews' => [
         'url' => 'https://news-hk.churchofjesuschrist.org/eng/rss',
@@ -97,10 +159,20 @@ return [
         'language' => 'en',
         'source' => 'India',
     ],
+    'irlandaNews' => [
+        'url' => 'https://news-europe.churchofjesuschrist.org/rss?country=ireland',
+        'language' => 'en',
+        'source' => 'Irlanda',
+    ],
     'middleEastNews' => [
         'url' => 'https://news-middleeast.churchofjesuschrist.org/rss',
         'language' => 'en',
         'source' => 'Medio Oriente',
+    ],
+    'micronesiaNews' => [
+        'url' => 'https://news-gu.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Guam/Micronesia',
     ],
     'newZealandNews' => [
         'url' => 'https://news-nz.churchofjesuschrist.org/rss',
@@ -122,6 +194,11 @@ return [
         'language' => 'en',
         'source' => 'Papúa Nueva Guinea',
     ],
+    'reinoUnidoNews' => [
+        'url' => 'https://news-uk.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Reino Unido',
+    ],
     'sierraLeoneNews' => [
         'url' => 'https://news-sl.churchofjesuschrist.org/rss',
         'language' => 'en',
@@ -142,17 +219,38 @@ return [
         'language' => 'en',
         'source' => 'Uganda',
     ],
+    'usaMainNews' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'USA Main News',
+    ],
+    'usaMemberNews' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/member-news/rss',
+        'language' => 'en',
+        'source' => 'USA Member News',
+    ],
+    'usaNewsReleases' => [
+        'url' => 'https://newsroom.churchofjesuschrist.org/news-releases/rss',
+        'language' => 'en',
+        'source' => 'USA News Releases',
+    ],
     'zimbabweNews' => [
         'url' => 'https://news-zw.churchofjesuschrist.org/rss',
         'language' => 'en',
         'source' => 'Zimbabwe',
     ],
-    // Fuentes en portugués   
+
+    // Fuentes en portugués
+    'angolaNews' => [
+        'url' => 'https://noticias-ao.aigrejadejesuscristo.org/rss',
+        'language' => 'pt',
+        'source' => 'Angola',
+    ],
     'brasilNews' => [
         'url' => 'https://noticias-br.aigrejadejesuscristo.org/rss',
         'language' => 'pt',
         'source' => 'Brasil',
-    ],  
+    ],
     'caboVerdeaNews' => [
         'url' => 'https://noticias-br.aigrejadejesuscristo.org/rss',
         'language' => 'pt',
@@ -163,122 +261,21 @@ return [
         'language' => 'pt',
         'source' => 'Mozambique',
     ],
-    // Fuentes en francés   
+
+    // Fuentes en francés
     'belgicaNews' => [
         'url' => 'https://presse-be.eglisedejesus-christ.org/rss',
         'language' => 'fr',
         'source' => 'Bélgica',
-    ],   
-    'franciaNews' => [
-        'url' => 'https://presse-fr.eglisedejesus-christ.org/rss',
-        'language' => 'fr',
-        'source' => 'Francia',
-    ], 
+    ],
     'costaDeMarfilNews' => [
         'url' => 'https://presse-ci.eglisedejesus-christ.org/rss',
         'language' => 'fr',
         'source' => 'Costa de Marfil',
     ],
-    // Fuentes en español
-    'peruNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=peru',
-        'language' => 'es',
-        'source' => 'Perú',
+    'franciaNews' => [
+        'url' => 'https://presse-fr.eglisedejesus-christ.org/rss',
+        'language' => 'fr',
+        'source' => 'Francia',
     ],
-    'boliviaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=bolivia',
-        'language' => 'es',
-        'source' => 'Bolivia',
-    ],
-    'hondurasNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=honduras',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Honduras',
-    ],
-    'mexicoNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=mexico',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - México',
-    ],
-    'argentinaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=argentina',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Argentina',
-    ],
-    'chileNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=chile',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Chile',
-    ],
-    'costaRicaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=costa-rica',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Costa Rica',
-    ],
-    'colombiaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=colombia',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Colombia',
-    ],
-    'ecuadorNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=ecuador',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Ecuador',
-    ],
-    'elSalvadorNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=el-salvador',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - El Salvador',
-    ],
-    'españaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spain',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - España',
-    ],
-    'usaEspañolNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=spanish',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - USA (Español)',
-    ],
-    'guatemalaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=guatemala',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Guatemala',
-    ],
-    'nicaraguaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=nicaragua',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Nicaragua',
-    ],
-    'panamaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=panamá',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Panamá',
-    ],
-    'paraguayNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=paraguay',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Paraguay',
-    ],
-    'puertoRicoNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=puerto-rico',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Puerto Rico',
-    ],
-    'republicaDominicanaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=dominican-republic',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - República Dominicana',
-    ],
-    'uruguayNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=uruguay',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Uruguay',
-    ],
-    'venezuelaNews' => [
-        'url' => 'https://noticias.laiglesiadejesucristo.org/rss?country=venezuela',
-        'language' => 'es',
-        'source' => 'La Iglesia de Jesucristo - Venezuela',
-    ],
-    // Añade más configuraciones aquí si es necesario
 ];
