@@ -57,10 +57,42 @@ return [
         'language' => 'en',
         'source' => 'Barbados',
     ],
+    'belizeNews' => [
+        'url' => 'https://news-bz.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Belize',
+    ],
+    'cambodiaNews' => [
+        'url' => 'https://news-kh.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Camboya',
+    ],
+    'canadaNews' => [
+        'url' => 'https://news-ca.churchofjesuschrist.org/rss',
+        'language' => 'en',
+        'source' => 'Canadá',
+    ],
+    // Fuentes en portugués   
+    'brasilNews' => [
+        'url' => 'https://noticias-br.aigrejadejesuscristo.org/rss',
+        'language' => 'pt',
+        'source' => 'Brasil',
+    ],  
+    'caboVerdeaNews' => [
+        'url' => 'https://noticias-br.aigrejadejesuscristo.org/rss',
+        'language' => 'pt',
+        'source' => 'Cabo Verde',
+    ],
+    // Fuentes en francés   
     'belgicaNews' => [
         'url' => 'https://presse-be.eglisedejesus-christ.org/rss',
         'language' => 'fr',
         'source' => 'Bélgica',
+    ], 
+    'costaDeMarfilNews' => [
+        'url' => 'https://presse-ci.eglisedejesus-christ.org/rss',
+        'language' => 'fr',
+        'source' => 'Costa de Marfil',
     ],
     // Fuentes en español
     'peruNews' => [
