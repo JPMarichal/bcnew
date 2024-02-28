@@ -23,17 +23,13 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
 
             if (empty($title) || NewsItem::where('link', $link)->exists()) {
                 continue;
-            }           
-
-            $publishedDate = DateTime::createFromFormat('Y-m-d', (string) $item->pubDate);
-
-            if (!$publishedDate) {
-                continue;
             }
 
-            // Verifica si la fecha de publicación es menor (más antigua) que el límite de 60 días.
-            if ($publishedDate < $dateLimit) {
-                continue; // El ítem es más antiguo que 60 días, se salta.
+            // Ajuste para el formato de fecha RFC 2822
+            $publishedDate = DateTime::createFromFormat(DateTime::RFC2822, (string) $item->pubDate);
+
+            if (!$publishedDate || $publishedDate < $dateLimit) {
+                continue; // El ítem es más antiguo que 30 días o la fecha es inválida, se salta.
             }
 
             // Preparar el scraper con la URL del artículo
@@ -43,17 +39,16 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
             $content = $scraper->extractContent();
             $featuredImage = $scraper->extractFeaturedImage();
             $author = $scraper->extractAuthor();
-            $publishedDate = new \DateTime((string) $item->pubDate);
 
             NewsItem::create([
                 'title' => $title,
                 'description' => $description,
                 'link' => $link,
                 'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
-                'author' => $author,
+                'author' => $author ?: 'Autor desconocido',
                 'source' => 'Más Fe',
                 'featured_image' => $featuredImage,
-                'content' => $content,
+                'content' => trim($content),
                 'language' => 'es'
             ]);
         }
