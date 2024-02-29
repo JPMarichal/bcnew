@@ -43,7 +43,8 @@ class LaIglesiaDeJesucristoScraper implements NewsContentScraperInterface
 
     public function extractAuthor(): ?string
     {
-        $author = $this->crawler->filter('meta[property="article:author"]')->first()->attr('content');
-        return $author ?: 'Autor desconocido';
+      //  $author = $this->crawler->filter('meta[property="article:author"]')->first()->attr('content');
+      //  return $author ?: 'Autor desconocido';
+      return 'Newsroom';
     }
 }
