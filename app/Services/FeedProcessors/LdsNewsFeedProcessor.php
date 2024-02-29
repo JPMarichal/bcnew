@@ -28,7 +28,7 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
             $scraper = new LaIglesiaDeJesucristoScraper();
 
             // Calcula la fecha de hace n días
-            $dateLimit = new DateTime('-30 days');
+            $dateLimit = new DateTime(env('DAYS2RETRIEVE'));
 
             foreach ($feed->channel->item as $item) {
                 $link = (string) $item->link;

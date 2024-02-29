@@ -16,7 +16,7 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
         $feed->registerXPathNamespace('media', 'http://search.yahoo.com/mrss/');
         $scraper = new TheChurchNewsScraper();
 
-        $dateLimit = new DateTime('-30 days');
+        $dateLimit = new DateTime(env('DAYS2RETRIEVE'));
 
         foreach ($feed->channel->item as $item) {
             $publishedDate = DateTime::createFromFormat('D, d M Y H:i:s O', (string) $item->pubDate);

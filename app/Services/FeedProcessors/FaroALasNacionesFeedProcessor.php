@@ -20,8 +20,7 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
 
         $scraper = new FaroALasNacionesScraper();
 
-        // Calcula la fecha de hace 30 días
-        $dateLimit = new DateTime('-30 days');
+        $dateLimit = new DateTime(env('DAYS2RETRIEVE'));
 
         foreach ($feed->channel->item as $item) {
             $link = (string) $item->link;
