@@ -43,11 +43,11 @@ class ProcessNewsFeed extends Command
                 $this->error("Error procesando el feed $identifier: " . $e->getMessage());
             }
         }
+        $this->info('Todos los feeds RSS han sido procesados exitosamente.');
 
         // Llama al servicio de mantenimiento después de procesar todos los feeds
         $maintenanceService = new NewsItemMaintenanceService();
         $maintenanceService->maintainDatabase();
-
-        $this->info('Todos los feeds RSS han sido procesados exitosamente y la base de datos ha sido mantenida.');
+        $this->info('La base de datos ha sido mantenida.');
     }
 }
