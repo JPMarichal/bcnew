@@ -15,7 +15,7 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
-
+/*
         $feeds = config('ldsnewsfeeds'); // Carga las configuraciones de feeds de la Sala de Prensa
 
         foreach ($feeds as $identifier => $config) {
@@ -45,7 +45,7 @@ class ProcessNewsFeed extends Command
             }
         }
         $this->info('Todos los feeds RSS han sido procesados exitosamente.');
-
+*/
         // Llama al servicio de mantenimiento después de procesar todos los feeds
         $maintenanceService = new NewsItemMaintenanceService();
         $maintenanceService->maintainDatabase();
