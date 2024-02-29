@@ -11,13 +11,15 @@ use DateTime;
 
 class LdsNewsFeedProcessor implements FeedProcessorInterface
 {
+    protected $source;
     protected $country;
     protected $language;
 
-    public function __construct(string $country, string $language)
+    public function __construct(string $country, string $language, string $source)
     {
         $this->country = $country;
         $this->language = $language;
+        $this->source = $source;
     }
 
     public function processFeed(string $feedUrl): void
@@ -59,10 +61,11 @@ class LdsNewsFeedProcessor implements FeedProcessorInterface
                     'link' => $link,
                     'pub_date' => $publishedDate->format('Y-m-d H:i:s'),
                     'author' => $author,
-                    'source' => 'La Iglesia de Jesucristo - ' . $this->country,
+                    'source' => 'La Iglesia de Jesucristo - ' . $this->source,
                     'featured_image' => $featuredImage,
                     'content' => $content,
-                    'language' => $this->language
+                    'language' => $this->language,
+                    'country' => $this->country,
                 ]);
             }
         } catch (Exception $e) {

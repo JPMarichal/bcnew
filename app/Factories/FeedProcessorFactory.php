@@ -21,22 +21,19 @@ class FeedProcessorFactory
             // Extrae la configuración específica para el feed
             $feedConfig = $ldsNewsFeedsConfig[$feedIdentifier];
             // Extrae país e idioma de la configuración
-            $country = $feedConfig['source'];
-            $language = $feedConfig['language'] ; // Asume 'es' como idioma predeterminado si no se especifica
+            $country = $feedConfig['country'];
+            $language = $feedConfig['language'] ; 
+            $source = $feedConfig['source'];
             
             // Retorna una instancia del procesador dinámico para los feeds LDS, pasando país e idioma
-            return new LdsNewsFeedProcessor($country, $language);
+            return new LdsNewsFeedProcessor($country, $language, $source);
         } else {
             // Lógica existente para seleccionar procesadores de feeds específicos
             switch ($feedIdentifier) {
-                case 'default':
-                    return new DefaultFeedProcessor();
                 case 'masFe':
                     return new MasFeNewsFeedProcessor();
                 case 'faroALasNaciones':
                     return new FaroALasNacionesFeedProcessor();
-                case 'zonaMormon':
-                    return new ZonaMormonNewsFeedProcessor();
                 case 'theChurchNews':
                     return new TheChurchNewsFeedProcessor();
                 // Agrega aquí más casos para otros dominios con procesadores específicos
