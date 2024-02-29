@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use SimpleXMLElement;
 use App\Models\NewsItem;
 use App\Services\NewsItemMaintenanceService;
+use App\Services\NewsTransformerService; 
 
 class ProcessNewsFeed extends Command
 {
@@ -49,5 +50,10 @@ class ProcessNewsFeed extends Command
         $maintenanceService = new NewsItemMaintenanceService();
         $maintenanceService->maintainDatabase();
         $this->info('La base de datos ha sido mantenida.');
+
+        // Nuevo código para transformar y guardar las noticias
+        $transformerService = new NewsTransformerService();
+        $transformerService->transformAndSaveNewsItems();
+        $this->info('Las noticias han sido transformadas y guardadas.');
     }
 }
