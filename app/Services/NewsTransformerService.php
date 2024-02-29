@@ -23,27 +23,37 @@ class NewsTransformerService
 
         foreach ($newsItems as $newsItem) {
             $content = $newsItem->content;
-            $title = $this->generateTextWithOpenAI($content, 'titulo');
-            $description = 'Fake description';
-            $newContent = 'Fake content';
-          //  $description = $this->generateTextWithOpenAI($content, 'descripcion');
-          //  $newContent = $this->generateTextWithOpenAI($content, 'contenido');
+            $title = $this->generateTitle($content);
 
-            if ($title && $description && $newContent) {
+            if ($title) {
                 $slug = Str::slug($title);
                 $this->saveTransformedNewsItem([
                     'title' => $title,
-                    'description' => $description,
+                    'description' => 'Fake description', // Placeholder
                     'slug' => $slug,
-                    'content' => $newContent,
+                    'content' => 'Fake content', // Placeholder
                 ], $newsItem);
             } else {
-                Log::info("La inserción del registro ha sido omitida debido a una falla en la generación de texto con OpenAI.", ['newsItem' => $newsItem->id]);
+                Log::info("Omitida la inserción del registro debido a fallo en la generación del título.", ['newsItem' => $newsItem->id]);
             }
         }
     }
 
-    private function generateTextWithOpenAI(string $content, string $type): string
+    private function generateTitle(string $content): string
+    {
+        $prompt = "Basándote en el contenido proporcionado, que trata sobre eventos y actividades de La Iglesia de Jesucristo de los Santos de los Últimos Días, crea un título en español que sea informativo, expresivo y llamativo. El título debe ser una oración completa que responda efectivamente a las preguntas de las 6w sin usar colones ni hipercapitalización. Debe ser directo y capturar la acción principal del contenido, presentando los hechos de manera clara y atractiva para el lector. Asegúrate de que el título refleje el tema central de manera precisa, evitando generalidades y siendo específico sobre quién está involucrado, qué está sucediendo, y dónde y por qué es relevante. Contenido: $content";
+
+        $title = $this->callOpenAI($prompt, 60);
+
+        // Ajustes finales para asegurar que el título sea más breve y no termine en punto
+        $titleWithoutQuotes = str_replace(['"', "'"], '', $title); // Eliminar comillas
+        $titleWithoutPeriod = rtrim($titleWithoutQuotes, '.'); // Eliminar punto al final si existe
+
+        return $titleWithoutPeriod;
+    }
+
+
+    private function callOpenAI(string $prompt, int $maxTokens): string
     {
         try {
             $response = Http::withHeaders([
@@ -51,20 +61,19 @@ class NewsTransformerService
                 'Authorization' => 'Bearer ' . $this->openAiApiKey,
             ])->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    ["role" => "user", "content" => "Genera un $type basado en: $content"]
-                ],
+                'messages' => [["role" => "user", "content" => $prompt]],
                 'temperature' => 0.7,
+                'max_tokens' => $maxTokens,
             ]);
 
             if ($response->successful() && !empty($response->json()['choices'][0]['message']['content'])) {
                 return trim($response->json()['choices'][0]['message']['content']);
             } else {
-                Log::error("Llamada a OpenAI fallida o sin contenido.", ['response' => $response->body()]);
+                Log::error("Falló la llamada a OpenAI o el contenido está vacío.", ['response' => $response->body()]);
                 return '';
             }
         } catch (\Exception $e) {
-            Log::error("Excepción capturada al llamar a OpenAI.", ['exception' => $e->getMessage()]);
+            Log::error("Excepción al intentar generar texto con OpenAI.", ['exception' => $e->getMessage()]);
             return '';
         }
     }
