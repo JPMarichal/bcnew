@@ -49,7 +49,8 @@ class MasFeNewsFeedProcessor implements FeedProcessorInterface
                 'source' => 'Más Fe',
                 'featured_image' => $featuredImage,
                 'content' => trim($content),
-                'language' => 'es'
+                'language' => 'es',
+                'country' => 'Perú',
             ]);
         }
     }

@@ -52,7 +52,8 @@ class TheChurchNewsFeedProcessor implements FeedProcessorInterface
                 'source' => 'The Church News',
                 'featured_image' => $featuredImage,
                 'content' => $content,
-                'language' => 'es'
+                'language' => 'es',
+                'country' => 'Estados Unidos'
             ]);
         }
     }

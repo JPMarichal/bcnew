@@ -52,6 +52,7 @@ class FaroALasNacionesFeedProcessor implements FeedProcessorInterface
                     'featured_image' => $featuredImage,
                     'content' => trim($content),
                     'language' => 'es',
+                    'country' => 'Chile',
                 ]);
             } catch (Exception $e) {
                 // Considerar agregar un manejo de excepción o log aquí
