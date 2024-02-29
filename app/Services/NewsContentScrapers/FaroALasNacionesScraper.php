@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\NewsContentScrapers;
 
 use App\Contracts\NewsContentScraperInterface;
@@ -45,8 +46,17 @@ class FaroALasNacionesScraper implements NewsContentScraperInterface
 
     public function extractAuthor(): ?string
     {
-        if (!$this->crawler) return null;
-        $author = $this->crawler->filter('.post-author-date .post-author')->first()->text();
-        return $author ?: 'Autor desconocido';
+        if (!$this->crawler) return 'Autor desconocido';
+        // Ajustamos el selector para apuntar directamente al anchor (<a>) que tiene la clase 'post-author'
+        $authorNode = $this->crawler->filter('a.post-author');
+        // Verificamos si el nodo existe
+        if ($authorNode->count() > 0) {
+            $authorText = trim($authorNode->text());
+            // Verificamos si el texto extraído, después de hacer trim, no está vacío
+            if (!empty($authorText)) {
+                return $authorText;
+            }
+        }
+        return 'Autor desconocido';
     }
 }
