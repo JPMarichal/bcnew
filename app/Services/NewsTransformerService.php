@@ -67,16 +67,26 @@ class NewsTransformerService
 
         // Ajustar la longitud a 120 caracteres, si es necesario
         if (strlen($finalDescription) > 160) {
-            $finalDescription = substr($finalDescription, 0, 160).'...';
+            $finalDescription = substr($finalDescription, 0, 160) . '...';
         }
+
+        $finalDescription = mb_convert_encoding($finalDescription, 'UTF-8', 'UTF-8');
 
         return $finalDescription;
     }
 
     private function generateContent(string $content): string
     {
-        // Contenido fake para pruebas. Este será reemplazado por contenido real generado.
-        return "Este es un contenido generado automáticamente para pruebas. Será refinado posteriormente.";
+        $safeContent = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
+
+        $prompt = <<<EOT
+Soy un escritor de artículos de blog de noticias que escribe en código HTML y específicamente en español. Mi tarea es hacer curación de contenidos a partir de artículos existentes proporcionados en formato HTML, obtenidos mediante técnicas de scrapping. Ignoraré las imágenes y figuras del contenido original. No usaré el tag article. Comenzaré cada artículo con un primer párrafo sin título que sirve como introducción. Reescribiré estos artículos de manera extensa y detallada, utilizando encabezados de segundo nivel (h2) y tercer nivel (h3) para el resto del contenido, mejorando la legibilidad. Las citas textuales de lo que las personas hayan dicho son de especial importancia y serán enfatizadas en blockquotes, siguiendo el formato de ejemplo: "Reflexionando en su conversión, el élder Kearon dijo: [blockquote con sus palabras textuales]". Los títulos serán informativos por sí mismos, eliminando el uso del colon para asegurar que expresen una sola idea coherente. Mantendré toda la información importante, incluyendo anécdotas, citas textuales, estadísticas, historias y momentos memorables en detalle, al tiempo que elimino elementos de publicidad, identificaciones de la fuente original y enlaces irrelevantes. El contenido final será presentado en un tono positivo, informativo, espiritual y alentador, en HTML correcto. Mi propósito es realizar una restructuración completa, no un resumen, asegurando que cada artículo sea interesante y atraiga a los lectores. Cada artículo concluirá con una lista de puntos destacados y una pregunta reflexiva. Contenido: $safeContent
+EOT;
+
+        $generatedContent = $this->callOpenAI($prompt, 2000); // Ajusta el max_tokens según la necesidad
+
+        // El contenido generado ya estará listo para usar.
+        return '<article id="news_content">'. $generatedContent . '</article>';
     }
 
     private function callOpenAI(string $prompt, int $maxTokens): string

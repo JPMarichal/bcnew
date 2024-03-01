@@ -15,7 +15,7 @@ class ProcessNewsFeed extends Command
 
     public function handle()
     {
-/*
+
         $feeds = config('ldsnewsfeeds'); // Carga las configuraciones de feeds de la Sala de Prensa
 
         foreach ($feeds as $identifier => $config) {
@@ -45,15 +45,18 @@ class ProcessNewsFeed extends Command
             }
         }
         $this->info('Todos los feeds RSS han sido procesados exitosamente.');
-*/
+
         // Llama al servicio de mantenimiento después de procesar todos los feeds
         $maintenanceService = new NewsItemMaintenanceService();
         $maintenanceService->maintainDatabase();
         $this->info('La base de datos ha sido mantenida.');
+        
+        $this->info('');
+        $this->info('Se procede a la transformación. Favor de esperar...');
 
         // Nuevo código para transformar y guardar las noticias
         $transformerService = new NewsTransformerService();
         $transformerService->transformAndSaveNewsItems();
-        $this->info('Las noticias han sido transformadas y guardadas.');
+        $this->info('Se han generado las noticias públicas.');
     }
 }
