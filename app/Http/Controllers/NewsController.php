@@ -14,15 +14,15 @@ class NewsController extends Controller
             $news = NewsPost::whereYear('pub_date', '=', $year)
                 ->whereMonth('pub_date', '=', $month)
                 ->orderBy('pub_date', 'desc')
-                ->paginate(10);
+                ->paginate(12);
         } elseif ($month) {
             $year = Carbon::now()->year;
             $news = NewsPost::whereYear('pub_date', '=', $year)
                 ->whereMonth('pub_date', '=', $month)
                 ->orderBy('pub_date', 'desc')
-                ->paginate(10);
+                ->paginate(12);
         } else {
-            $news = NewsPost::orderBy('pub_date', 'desc')->paginate(10);
+            $news = NewsPost::orderBy('pub_date', 'desc')->paginate(12);
         }
 
         return view('news.index', compact('news'));

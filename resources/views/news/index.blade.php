@@ -1,33 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Noticias</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Listado de Noticias</h1>
-        <ul class="list-unstyled">
-            @foreach ($news as $newsItem)
-                <li class="mb-2">
-                    <a href="{{ route('noticias.show', $newsItem->slug) }}">{{ $newsItem->title }}</a>
-                </li>
-            @endforeach
-        </ul>
-        <!-- Paginación -->
-        <div class="d-flex justify-content-center">
-            {{ $news->links() }}
+@include('layouts.header')
+
+<div class="container mt-5">
+    <h1>Noticias de la Iglesia de Jesucristo <br/>de los Santos de los Ultimos Días</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach ($news as $newsItem)
+        <div class="col">
+            <div class="card h-100">
+                <a href="{{ route('noticias.show', $newsItem->slug) }}">
+                    <img src="{{ $newsItem->featured_image }}" class="card-img-top" alt="{{ $newsItem->title }}">
+                </a>
+                <div class="card-body">
+                    <a href="{{ route('noticias.show', $newsItem->slug) }}" style="text-decoration: none; color: inherit;">
+                        <h3 class="card-title">{{ $newsItem->title }}</h3>
+                    </a>
+                    <p class="card-text text-muted" style="font-size: 0.8rem;">
+                        {{ \Carbon\Carbon::parse($newsItem->pub_date)->format('d M, Y') }} - {{ $newsItem->country }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ route('noticias.show', $newsItem->slug) }}" class="btn btn-primary">Leer más</a>
+                </div>
+            </div>
         </div>
+        @endforeach
     </div>
-    
-    <!-- Bootstrap JS and dependencies (Popper) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $news->links() }}
+    </div>
+</div>
+
+@include('layouts.footer')

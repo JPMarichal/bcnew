@@ -19,5 +19,6 @@ class NewsPost extends Model
         'content',
         'author',
     ];
-}
 
+    protected $dates = ['pub_date'];
+}
