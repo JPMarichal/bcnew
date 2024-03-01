@@ -24,18 +24,21 @@ class NewsTransformerService
         foreach ($newsItems as $newsItem) {
             $content = $newsItem->content;
             $title = $this->generateTitle($content);
+            $description = $this->generateDescription($content);
+            $newContent = $this->generateContent($content); // Genera contenido fake para pruebas
 
-            if ($title) {
-                $slug = Str::slug($title);
-                $this->saveTransformedNewsItem([
-                    'title' => $title,
-                    'description' => 'Fake description', // Placeholder
-                    'slug' => $slug,
-                    'content' => 'Fake content', // Placeholder
-                ], $newsItem);
-            } else {
-                Log::info("Omitida la inserción del registro debido a fallo en la generación del título.", ['newsItem' => $newsItem->id]);
+            // Si alguno de los campos generados está vacío, no insertar la noticia
+            if (empty($title) || empty($description) || empty($newContent)) {
+                Log::info("Omitida la inserción del registro debido a un campo vacío.", ['newsItem' => $newsItem->id]);
+                continue;
             }
+
+            $this->saveTransformedNewsItem([
+                'title' => $title,
+                'description' => $description,
+                'slug' => Str::slug($title),
+                'content' => $newContent,
+            ], $newsItem);
         }
     }
 
@@ -45,13 +48,36 @@ class NewsTransformerService
 
         $title = $this->callOpenAI($prompt, 60);
 
-        // Ajustes finales para asegurar que el título sea más breve y no termine en punto
-        $titleWithoutQuotes = str_replace(['"', "'"], '', $title); // Eliminar comillas
-        $titleWithoutPeriod = rtrim($titleWithoutQuotes, '.'); // Eliminar punto al final si existe
+        // Eliminar comillas simples y dobles, y punto al final si existe
+        $titleWithoutQuotes = str_replace(['"', "'"], '', $title);
+        $titleWithoutPeriod = rtrim($titleWithoutQuotes, '.');
 
         return $titleWithoutPeriod;
     }
 
+    private function generateDescription(string $content): string
+    {
+        $prompt = "Basándote en el contenido proporcionado, que trata sobre eventos y actividades de La Iglesia de Jesucristo de los Santos de los Últimos Días, escribe una descripción en español que sea clara, concisa y atractiva para SEO. La descripción debe ser una única oración que responda a '¿Por qué debo leer esta noticia?', incluyendo un verbo de acción variado al inicio y no usando el verbo 'Descubre'. Limita la descripción a 160 caracteres para asegurar brevedad y directividad. Contenido: $content";
+
+        $description = $this->callOpenAI($prompt, 160);
+
+        // Eliminar comillas simples y dobles, y asegurar la longitud adecuada
+        $descriptionWithoutQuotes = str_replace(['"', "'"], '', $description);
+        $finalDescription = rtrim($descriptionWithoutQuotes, '.'); // Eliminar punto al final si existe
+
+        // Ajustar la longitud a 120 caracteres, si es necesario
+        if (strlen($finalDescription) > 160) {
+            $finalDescription = substr($finalDescription, 0, 160).'...';
+        }
+
+        return $finalDescription;
+    }
+
+    private function generateContent(string $content): string
+    {
+        // Contenido fake para pruebas. Este será reemplazado por contenido real generado.
+        return "Este es un contenido generado automáticamente para pruebas. Será refinado posteriormente.";
+    }
 
     private function callOpenAI(string $prompt, int $maxTokens): string
     {
