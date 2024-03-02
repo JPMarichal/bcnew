@@ -13,7 +13,7 @@ class NewsRssGenerator
 
         $rssFeed = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"></rss>');
         $channel = $rssFeed->addChild('channel');
-        $channel->addChild('title', 'Noticias de la Iglesia RSS Feed');
+        $channel->addChild('title', 'Noticias RSS Feed');
         $channel->addChild('link', url('/'));
         $channel->addChild('description', 'Últimas 20 noticias.');
         $channel->addChild('language', 'es');
@@ -22,7 +22,18 @@ class NewsRssGenerator
             $item = $channel->addChild('item');
             $item->addChild('title', $newsItem->title);
             $item->addChild('link', route('noticias.show', $newsItem->slug));
-            $item->addChild('description', $newsItem->excerpt);
+            
+            $description = $newsItem->description ?? 'Descripción no disponible';
+            $item->addChild('description', htmlspecialchars($description));
+
+            // Añadir la imagen destacada usando el elemento <enclosure>
+            if ($newsItem->featured_image) {
+                $enclosure = $item->addChild('enclosure');
+                $enclosure->addAttribute('url', $newsItem->featured_image);
+                $enclosure->addAttribute('type', 'image/jpeg');
+                // Opcional: $enclosure->addAttribute('length', 'TamañoDelArchivo');
+            }
+
             $item->addChild('pubDate', Carbon::parse($newsItem->pub_date)->toRssString());
         }
 
