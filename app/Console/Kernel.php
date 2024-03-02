@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('news:process')->everyTenMinutes();
+        $schedule->command('sitemap:generate')->daily();
     }
 
     /**
