@@ -10,24 +10,29 @@ class NewsController extends Controller
 {
     public function index(Request $request, $month = null, $year = null)
     {
+        // Preparar la consulta base de noticias
+        $query = NewsPost::query();
+
+        // Intenta obtener mes y año de la URL o de los parámetros de consulta
+        $month = $month ?: $request->query('month');
+        $year = $year ?: $request->query('year', Carbon::now()->year); // Asegura que el año por defecto sea el actual
+
         if ($month && $year) {
-            $news = NewsPost::whereYear('pub_date', '=', $year)
-                ->whereMonth('pub_date', '=', $month)
-                ->orderBy('pub_date', 'desc')
-                ->paginate(12);
+            $query->whereYear('pub_date', '=', $year)
+                ->whereMonth('pub_date', '=', $month);
         } elseif ($month) {
-            $year = Carbon::now()->year;
-            $news = NewsPost::whereYear('pub_date', '=', $year)
-                ->whereMonth('pub_date', '=', $month)
-                ->orderBy('pub_date', 'desc')
-                ->paginate(12);
-        } else {
-            $news = NewsPost::orderBy('pub_date', 'desc')->paginate(12);
+            $query->whereYear('pub_date', '=', $year) // Usa el año actual si solo se proporciona el mes
+                ->whereMonth('pub_date', '=', $month);
         }
 
-        return view('news.index', compact('news'));
-    }
+        $news = $query->orderBy('pub_date', 'desc')->paginate(12);
 
+        // Ajusta aquí para obtener los años disponibles
+        $years = NewsPost::selectRaw('YEAR(pub_date) as year')->groupBy('year')->orderBy('year', 'desc')->pluck('year');
+
+        // Pasar los años y las noticias a la vista
+        return view('news.index', compact('news', 'years'));
+    }
 
     public function show($slugOrId)
     {
