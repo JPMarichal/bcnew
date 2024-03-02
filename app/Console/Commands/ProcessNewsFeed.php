@@ -11,7 +11,7 @@ use App\Services\NewsTransformerService;
 class ProcessNewsFeed extends Command
 {
     protected $signature = 'news:process';
-    protected $description = 'Procesa el feed RSS y actualiza la base de datos con las nuevas noticias';
+    protected $description = 'Genera noticias por medio de scrapping e inteligencia artificial';
 
     public function handle()
     {
