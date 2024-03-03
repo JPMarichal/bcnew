@@ -7,19 +7,21 @@ $color-amarillo-claro: lightyellow; // Amarillo claro
 // Función para generar paletas de colores
 @function generate-color-palette($base-color, $amount: 20) {
   $color-palette: ();
+
   @for $i from 1 through $amount {
-    $percentage: percentage($i / $amount);
+    $percentage: percentage(math.div($i, $amount));
+
     $color: mix(white, $base-color, $percentage);
     // Usa math.div para la división
     $scale-index: floor(math.div($i * 100, $amount));
-    $color-palette: map-merge($color-palette, ('color-' + $scale-index: $color));
+    $color-palette: map-merge($color-palette, ('color-'+ $scale-index: $color));
   }
+
   @return $color-palette;
 }
 
 // Generación de paletas de colores
-$colors: (
-  "gray": generate-color-palette(#000, 20),
+$colors: ("gray": generate-color-palette(#000, 20),
   "red": generate-color-palette(#f00, 20),
   "orangered": generate-color-palette(orangered, 20),
   "orange": generate-color-palette(orange, 20),
@@ -45,13 +47,10 @@ $colors: (
   "silver": generate-color-palette(silver, 20),
   "grey": generate-color-palette(grey, 20),
   "ivory": generate-color-palette(ivory, 20),
-  "beige": generate-color-palette(beige, 20)
-);
+  "beige": generate-color-palette(beige, 20));
 
-$armonias: (
-  "calida": ("red", "orangered", "orange", "coral", "gold", "yellow"),
-  "fria": ("cyan", "lightblue", "blue", "navy", "indigo", "violet")
-);
+$armonias: ("calida": ("red", "orangered", "orange", "coral", "gold", "yellow"),
+  "fria": ("cyan", "lightblue", "blue", "navy", "indigo", "violet"));
 
 // Función para obtener colores de una armonía específica
 @function color-de-armonia($nombre-armonia, $indice) {
@@ -63,11 +62,13 @@ $armonias: (
 // Función para generar armonías monocromáticas ajustada a 10 colores
 @function generar-armonia-monocromatica($color-base, $cantidad: 10) {
   $armonia-monocromatica: ();
+
   @for $i from 1 through $cantidad {
     $luminosidad: 10% * ($i - 1); // Ajuste para soportar 10 variaciones
     $color-variado: mix($color-base, white, $luminosidad);
-    $armonia-monocromatica: map-merge($armonia-monocromatica, ('color-' + $i: $color-variado));
+    $armonia-monocromatica: map-merge($armonia-monocromatica, ('color-'+ $i: $color-variado));
   }
+
   @return $armonia-monocromatica;
 }
 
@@ -77,5 +78,3 @@ $monocromatico-rojo: generar-armonia-monocromatica(red);
 $monocromatico-cafe: generar-armonia-monocromatica(brown);
 $monocromatico-naranja: generar-armonia-monocromatica(orange);
 $monocromatico-verde: generar-armonia-monocromatica(green);
-
-
