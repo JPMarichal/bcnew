@@ -13,7 +13,6 @@
     'pinterest' => ['icon' => 'fa-pinterest-p', 'color' => '#BD081C', 'name' => 'Pinterest', 'shareUrl' => "http://pinterest.com/pin/create/button/?url={$url}"],
     'gmail' => ['icon' => 'fa-envelope', 'color' => '#D44638', 'name' => 'Gmail', 'shareUrl' => "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=Título del Artículo&body={$url}"],
     'reddit' => ['icon' => 'fa-reddit-alien', 'color' => '#FF4500', 'name' => 'Reddit', 'shareUrl' => "https://reddit.com/submit?url={$url}&title=Título del Artículo"],
-    'tumblr' => ['icon' => 'fa-tumblr', 'color' => '#34526f', 'name' => 'Tumblr', 'shareUrl' => "http://www.tumblr.com/share/link?url={$url}&name=Título del Artículo&description=Descripción"],
     ];
     @endphp
 
