@@ -1,7 +1,7 @@
 @include('layouts.header')
 
 <div class="container mt-5">
-    <h1>Noticias de la Iglesia de Jesucristo <br/>de los Santos de los Ultimos Días</h1>
+    <h1>Noticias de la Iglesia de Jesucristo <br />de los Santos de los Ultimos Días</h1>
     <x-news.filters :years="$years" />
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach ($news as $newsItem)
@@ -27,7 +27,7 @@
     </div>
     <!-- Paginación -->
     <div class="d-flex justify-content-center mt-4">
-        {{ $news->links() }}
+        <x-custom-pagination :paginator="$news" />
     </div>
 </div>
 

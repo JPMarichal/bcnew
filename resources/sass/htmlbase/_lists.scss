@@ -1,74 +1,136 @@
-ol{
-    display: block;
-    list-style-type: none;
-    counter-reset: li;
+ol {
+  display: block;
+  list-style-type: none;
+  counter-reset: li;
+  position: relative;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+
+  li {
+    // padding: 0.5rem 0 0.5rem 2.5rem;
+    padding-left: 2.5rem;
+    margin-right: 2.5rem;
+    border: 0;
     position: relative;
-    padding-bottom: 0.5rem;
-    padding-left:0;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end:0px;
-    padding-inline-start: 40px;
-    li{
-       // padding: 0.5rem 0 0.5rem 2.5rem;
-        padding-left: 2.5rem;
-        margin-right: 2.5rem;
-        border:0;
-        position:relative;
-        margin-bottom:0.25rem;
-        border-bottom: 1px dotted blue;
-    }
-    li::before{
-        width:calc(1.5rem - 2px);
-        height: calc(1.5rem - 2px);
-        font-size: calc(1rem - 2px);
-        content: counter(li);
-        counter-increment: li;
-        position: absolute;
-        left: 0;
-        color: wheat;
-        font-weight: 500;
-        text-align: center;
-        border-radius: 50%;
-        background-color: blue;
-    }
+    margin-bottom: 0.25rem;
+    border-bottom: 1px dotted blue;
+  }
+
+  li::before {
+    width: calc(1.5rem - 2px);
+    height: calc(1.5rem - 2px);
+    font-size: calc(1rem - 2px);
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 0;
+    color: wheat;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 50%;
+    background-color: blue;
+  }
 }
 
 ul:not(.navbar-nav, .dropdown-menu) {
-    display: block;
-    list-style-type: none;
+  display: block;
+  list-style-type: none;
+  position: relative;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+
+  li {
+    padding-left: 2.5rem;
+    margin-right: 2.5rem;
+    border: 0;
     position: relative;
-    padding-bottom: 0.5rem;
-    padding-left: 0;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-  
-    li {
-      padding-left: 2.5rem;
-      margin-right: 2.5rem;
-      border: 0;
-      position: relative;
-      margin-bottom: 0.25rem;
-      border-bottom: 1px dotted blue;
-  
-      &:before {
-        content: '\f00c'; // Asegúrate de elegir el ícono correcto de FontAwesome
-        font-family: 'FontAwesome';
-        position: absolute;
-        left: 0;
-        color: wheat;
-        font-weight: 500;
-        text-align: center;
-        background-color: blue;
-        width: 1.5rem;
-        height: 1.5rem;
-        line-height: 1.5rem;
-        border-radius: 50%;
-      }
+    margin-bottom: 0.25rem;
+    border-bottom: 1px dotted blue;
+
+    &:before {
+      content: '\f00c'; // Asegúrate de elegir el ícono correcto de FontAwesome
+      font-family: 'FontAwesome';
+      position: absolute;
+      left: 0;
+      color: wheat;
+      font-weight: 500;
+      text-align: center;
+      background-color: blue;
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      border-radius: 50%;
     }
   }
-    
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; // Permite que los elementos de paginación se ajusten en líneas
+  gap: 10px; // Espacio entre elementos de paginación
+
+  .page-link {
+      padding: 5px 10px;
+      min-width: 30px; // Asegura un ancho mínimo para cada elemento de paginación
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      color: #007bff;
+      background-color: #fff;
+      text-decoration: none;
+
+      &:hover {
+          background-color: #f8f9fa;
+      }
+
+      &.disabled, &.active {
+          color: #6c757d;
+          background-color: #e9ecef;
+          border-color: #ddd;
+          cursor: not-allowed;
+          
+          &:hover {
+              background-color: #e9ecef;
+          }
+      }
+
+      &.active {
+          color: #fff;
+          background-color: #007bff;
+          border-color: #007bff;
+      }
+  }
+}
+
+// Media query para pantallas pequeñas
+@media (max-width: 576px) {
+  .pagination-container .page-link {
+      padding: 2px 6px;
+      font-size: 12px; // Reduce el tamaño del texto para ahorrar espacio
+  }
+}
+
+// Opcional: Media query para pantallas muy pequeñas
+@media (max-width: 400px) {
+  .pagination-container {
+      justify-content: space-between;
+  }
+  .pagination-container .page-link {
+      padding: 2px 4px;
+      font-size: 10px; // Reduce aún más el tamaño del texto
+      min-width: 25px; // Reduce el ancho mínimo para cada elemento de paginación
+  }
+}
+
+
