@@ -16,7 +16,7 @@
     <!-- FontAwesome -->
     <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet">
     <!-- Vite: tus estilos y JS personalizados -->
-    @vite(['resources/sass/styles.scss', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 </head>
 <body>
 <div class="container-fluid my-0 mx-0">
