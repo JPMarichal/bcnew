@@ -31,7 +31,7 @@
 
         <!-- Contenido de la noticia -->
         <div class="col-md-11">
-            <img src="{{ $newsItem->featured_image }}" class="news-image">
+            <img src="{{ $newsItem->featured_image }}" class="news-image" alt="{{ $newsItem->title }}" title="{{ $newsItem->title }}">
             {!! $newsItem->content !!}
         </div>
     </div>
