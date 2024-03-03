@@ -1,5 +1,23 @@
 @include('layouts.header')
 
+<style>
+    .news-image {
+        max-width: 45%;
+        border-radius: 20px;
+        float: right;
+        margin-left: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .news-image {
+            max-width: 100%;
+            float: none;
+            margin: 0 auto 20px;
+            display: block;
+        }
+    }
+</style>
+
 <div class="container mt-5">
     <h1>{{ $newsItem->title }}</h1>
 
@@ -13,10 +31,10 @@
 
         <!-- Contenido de la noticia -->
         <div class="col-md-11">
+            <img src="{{ $newsItem->featured_image }}" class="news-image">
             {!! $newsItem->content !!}
         </div>
     </div>
-
 
     <a href="{{ route('noticias.index') }}" class="btn btn-primary mt-3">
         <i class="fas fa-arrow-left"></i> Regresar al listado
