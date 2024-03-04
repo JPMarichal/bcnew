@@ -1,5 +1,9 @@
-@include('layouts.header')
+@extends('layouts.app')
 
+@section('title', 'Noticias')
+@section('description', 'Noticias de la Iglesia de Jesucristo de los Santos de los Ultimos Días')
+
+@section('content')
 <div class="container mt-5">
     <h1>Noticias de la Iglesia de Jesucristo <br />de los Santos de los Ultimos Días</h1>
     <x-news.filters :years="$years" />
@@ -30,5 +34,4 @@
         <x-custom-pagination :paginator="$news" />
     </div>
 </div>
-
-@include('layouts.footer')
+@endsection

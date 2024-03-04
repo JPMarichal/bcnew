@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticación con Redes Sociales</title>
+    <!-- Título dinámico -->
+    <title>@yield('title', 'Biblicomentarios.com')</title>
+    <!-- Descripción dinámica -->
+    <meta name="description" content="@yield('description', 'Descripción predeterminada de tu sitio')">
     <link rel="icon" href="{{ asset('icons/favicon.png') }}" type="image/png">
     <!-- Fuentes principales -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,4 @@
     <!-- Vite: tus estilos y JS personalizados -->
     @vite(['resources/js/app.js'])
 </head>
-<body>
-<div class="container-fluid my-0 mx-0">
-@include('components.main_header')
+

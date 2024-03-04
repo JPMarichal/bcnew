@@ -1,4 +1,3 @@
-@include('layouts.header')
 
 <x-app-layout>
     <x-slot name="header">
@@ -18,4 +17,3 @@
     </div>
 </x-app-layout>
 
-@include('layouts.footer')

@@ -1,5 +1,9 @@
-@include('layouts.header')
+@extends('layouts.app')
 
+@section('title', 'Perfil del Usuario')
+@section('description', 'Perfil de usuario y su información')
+
+@section('content')
 <style>
     .nav-tabs .nav-link.active {
         background-color: #007bff;
@@ -65,5 +69,4 @@
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Profile content</div>
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Contact content</div>
 </div>
-
-@include('layouts.footer')
+@endsection

@@ -1,5 +1,9 @@
-@include('layouts.header')
+@extends('layouts.app')
 
+@section('title', $newsItem->title)
+@section('description', $newsItem->description)
+
+@section('content')
 <style>
     .news-image {
         max-width: 45%;
@@ -24,12 +28,10 @@
     <x-news.meta-bar :newsItem="$newsItem" />
 
     <div class="row">
-        <!-- Barra flotante a la izquierda -->
         <div class="col-md-1">
             <x-social-share-bar />
         </div>
 
-        <!-- Contenido de la noticia -->
         <div class="col-md-11">
             <img src="{{ $newsItem->featured_image }}" class="news-image" alt="{{ $newsItem->title }}" title="{{ $newsItem->title }}">
             {!! $newsItem->content !!}
@@ -37,10 +39,8 @@
         </div>
     </div>
 
-
     <a href="{{ route('noticias.index') }}" class="btn btn-primary mt-3">
         <i class="fas fa-arrow-left"></i> Regresar al listado
     </a>
 </div>
-
-@include('layouts.footer')
+@endsection
