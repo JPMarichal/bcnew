@@ -1,7 +1,12 @@
-@include('layouts.header')
+@extends('layouts.main')
 
-<div class="mt-3">
-    <a href="{{ route('logout') }}" class="btn btn-warning">Cerrar Sesión</a>
+@section('title', 'Cerrar Sesión')
+
+@section('content')
+<div class="text-center mt-3">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-warning">Cerrar Sesión</button>
+    </form>
 </div>
-
-@include('layouts.footer')
+@endsection

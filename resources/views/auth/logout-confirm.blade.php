@@ -1,6 +1,10 @@
-@include('layouts.header')
+@extends('layouts.main')
 
-<h2 class="mt-5">Has salido exitosamente del sitio</h2>
-<p>¡Esperamos verte de nuevo pronto!</p>
+@section('title', 'Sesión Cerrada')
 
-@include('layouts.footer')
+@section('content')
+<div class="text-center mt-5">
+    <h2>Has salido exitosamente del sitio</h2>
+    <p>¡Esperamos verte de nuevo pronto!</p>
+</div>
+@endsection

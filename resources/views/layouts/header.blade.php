@@ -1,6 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Título dinámico -->
     <title>@yield('title', 'Biblicomentarios.com')</title>
     <!-- Descripción dinámica -->
@@ -18,6 +19,5 @@
     <!-- FontAwesome -->
     <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet">
     <!-- Vite: tus estilos y JS personalizados -->
-    @vite(['resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-
