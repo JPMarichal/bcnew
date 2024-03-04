@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'Noticias')
 @section('description', 'Noticias de la Iglesia de Jesucristo de los Santos de los Ultimos Días')
