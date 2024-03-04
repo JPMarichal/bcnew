@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autenticación con Redes Sociales</title>
+    <link rel="icon" href="{{ asset('icons/favicon.png') }}" type="image/png">
     <!-- Fuentes principales -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.bunny.net">
