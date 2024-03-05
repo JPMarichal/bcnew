@@ -13,6 +13,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/noticias">Noticias de la Iglesia</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Artículos</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -23,6 +26,12 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Estudio de las Escrituras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Glosarios</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contacto</a>
