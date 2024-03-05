@@ -45,4 +45,20 @@ class NewsController extends Controller
 
         return view('news.show', compact('newsItem'));
     }
+
+    public function search(Request $request)
+    {
+        $queryText = $request->input('query');
+        // Escapar caracteres especiales para regex y preparar la expresión para buscar palabras completas
+        $regex = preg_quote($queryText, '/');
+
+        $news = NewsPost::query()
+            ->whereRaw("title REGEXP '[[:<:]]" . $regex . "[[:>:]]'")
+            ->orWhereRaw("description REGEXP '[[:<:]]" . $regex . "[[:>:]]'")
+            ->orWhereRaw("content REGEXP '[[:<:]]" . $regex . "[[:>:]]'")
+            ->orderBy('pub_date', 'desc')
+            ->paginate(12);
+
+        return view('news.index', compact('news'));
+    }
 }

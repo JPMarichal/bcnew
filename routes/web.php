@@ -42,6 +42,8 @@ Route::prefix('noticias')->group(function () {
     Route::get('/pag{page}', [NewsController::class, 'index'])->where('page', '[0-9]+');
     Route::get('/{month}/{year}', [NewsController::class, 'index'])->where(['month' => '\d{2}', 'year' => '\d{4}']);
     Route::get('/{month}', [NewsController::class, 'index'])->where('month', '\d{2}');
+    Route::get('/buscar', [NewsController::class, 'search'])->name('noticias.search');
+    
     // Ruta unificada para mostrar noticias por slug o id
     Route::get('/{slugOrId}', [NewsController::class, 'show'])->name('noticias.show')->where('slugOrId', '^[a-z0-9-]+(?:\/[0-9]+)?$');
 });
