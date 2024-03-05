@@ -10,7 +10,7 @@
             <option value="">Mes</option>
             <!-- Los meses se llenarán dinámicamente basado en la selección del año -->
         </select>
-        <button type="submit" class="btn btn-primary">Filtrar</button>
+        <button type="submit" class="btn btn-primary" style="background-color: blue;">Filtrar</button>
     </form>
 </div>
 
