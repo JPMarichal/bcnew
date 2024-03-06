@@ -1,7 +1,7 @@
 {{-- Open Graph / Facebook --}}
 <meta property="og:site_name" content="@yield('site_name', 'Biblicomentarios.com')">
 <meta property="og:title" content="@yield('title', 'Biblicomentarios.com')">
-<meta property="og:description" content="@yield('description', 'Descripción predeterminada de tu sitio')">
+<meta property="og:description" content="@yield('description', 'Análisis de la Biblia y de las revelaciones modernas')">
 <meta property="og:image" content="@yield('featured_image', asset('path_to_default_image'))">
 <meta property="og:url" content="@yield('url', request()->url())">
 <meta property="og:type" content="@yield('type', 'website')">
@@ -17,13 +17,11 @@
 {{-- Twitter --}}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="@yield('title', 'Biblicomentarios.com')">
-<meta name="twitter:description" content="@yield('description', 'Descripción predeterminada de tu sitio')">
+<meta name="twitter:description" content="@yield('description', 'Análisis de la Biblia y de las revelaciones modernas')">
 <meta name="twitter:image" content="@yield('featured_image', asset('path_to_default_image'))">
-<meta name="author" content="@yield('author', 'Nombre del Autor')">
-<meta name="twitter:label1" content="Written by">
-<meta name="twitter:data1" content="@yield('twitter_author', 'Nombre del Autor')">
-<meta name="twitter:label2" content="Est. reading time">
-<meta name="twitter:data2" content="@yield('reading_time', 'Tiempo de lectura')">
+<meta name="author" content="@yield('author', 'Juan Pablo Marichal')">
+<meta name="twitter:label1" content="Autor">
+<meta name="twitter:data1" content="@yield('twitter_author', 'Juan Pablo Marichal')">
 
 {{-- URL Canónica --}}
 <link rel="canonical" href="@yield('canonical_url', request()->url())">
