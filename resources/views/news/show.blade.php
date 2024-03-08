@@ -6,6 +6,7 @@
 @section('published_time', \Carbon\Carbon::parse($newsItem->pub_date)->toIso8601String())
 @section('modified_time', \Carbon\Carbon::parse($newsItem->updated_at)->toIso8601String())
 @section('author', 'Juan Pablo Marichal')
+@section('type', 'article')
 @section('twitter_author', 'JPMarichal' ?? 'JPMarichal') 
 
 @section('content')
