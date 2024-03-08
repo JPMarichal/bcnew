@@ -14,3 +14,4 @@
 
 <!-- Manifiesto de la aplicación web para especificar los iconos en dispositivos Android y otros ajustes de la PWA (opcional) -->
 <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
