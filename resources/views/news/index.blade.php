@@ -1,7 +1,17 @@
 @extends('layouts.main')
 
-@section('title', 'Noticias')
-@section('description', 'Noticias de la Iglesia de Jesucristo de los Santos de los Ultimos Días')
+@section('title', 'Noticias de la Iglesia de Jesucristo de los Santos de los Últimos Días')
+@section('description', 'Mantente al día con las últimas noticias relacionadas con la Iglesia de Jesucristo de los Santos de los Últimos Días.')
+
+@if($news->isNotEmpty())
+    @section('featured_image', $news->first()->featured_image)
+    @section('published_time', now()->toIso8601String())
+    @section('modified_time', now()->toIso8601String())
+    @section('author', 'Juan Pablo Marichal')
+    @section('type', 'article')
+    @section('twitter_author', 'JPMarichal')
+@endif
+
 
 @section('content')
 <div class="container mt-5">
