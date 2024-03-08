@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('robots', 'index, follow')
 
 @section('title', $newsItem->title)
 @section('description', $newsItem->description)

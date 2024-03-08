@@ -2,6 +2,7 @@
 
 @section('title', 'Noticias de la Iglesia de Jesucristo de los Santos de los Últimos Días')
 @section('description', 'Mantente al día con las últimas noticias relacionadas con la Iglesia de Jesucristo de los Santos de los Últimos Días.')
+@section('robots', 'index, follow')
 
 @if($news->isNotEmpty())
     @section('featured_image', $news->first()->featured_image)

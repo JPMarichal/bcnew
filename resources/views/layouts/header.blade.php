@@ -1,5 +1,6 @@
 <head>
     @include('components.header.meta')
+    @include('components.header.robots')
     @include('components.header.favicons')
     @include('components.header.social')
     @include('components.header.fonts')

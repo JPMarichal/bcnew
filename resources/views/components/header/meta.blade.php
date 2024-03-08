@@ -5,6 +5,7 @@
 <!-- Título y descripción general -->
 <title>@yield('title', 'Biblicomentarios.com')</title>
 <meta name="description" content="@yield('description', 'Análisis de la Biblia y de las revelaciones modernas')">
+<meta name="language" content="Spanish">
 
 <link rel="manifest" href="manifest.webmanifest">
 
