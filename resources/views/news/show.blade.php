@@ -8,7 +8,36 @@
 @section('modified_time', \Carbon\Carbon::parse($newsItem->updated_at)->toIso8601String())
 @section('author', 'Juan Pablo Marichal')
 @section('type', 'article')
-@section('twitter_author', 'JPMarichal' ?? 'JPMarichal') 
+@section('twitter_author', 'JPMarichal')
+
+@section('schema_markup')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ url()->current() }}"
+  },
+  "headline": "{{ $newsItem->title }}",
+  "image": [
+    "{{ $newsItem->featured_image }}"
+  ],
+  "datePublished": "{{ \Carbon\Carbon::parse($newsItem->pub_date)->toIso8601String() }}",
+  "dateModified": "{{ \Carbon\Carbon::parse($newsItem->updated_at)->toIso8601String() }}",
+  "author": {
+    "@type": "Person",
+    "name": "Juan Pablo Marichal"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BcNew"
+    // Aquí se omitió el "logo"
+  },
+  "description": "{{ $newsItem->description }}"
+}
+</script>
+@endsection
 
 @section('content')
 <style>

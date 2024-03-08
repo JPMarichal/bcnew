@@ -6,4 +6,6 @@
     @include('components.header.fonts')
     @include('components.header.styles')
     @include('components.header.scripts')
+
+    @yield('schema_markup') 
 </head>
