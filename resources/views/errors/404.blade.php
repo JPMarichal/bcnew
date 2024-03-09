@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('robots', 'noindex, follow')
 
-@section('title', 'Página no encontrada')
+@section('title', 'Página no encontrada | ' . Request::path())
 @section('description', 'La página que estás buscando no existe o ha sido movida.')
 @section('author', 'Juan Pablo Marichal')
 @section('type', 'website')
