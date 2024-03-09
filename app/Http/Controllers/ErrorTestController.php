@@ -77,4 +77,9 @@ class ErrorTestController extends Controller
     {
         abort(504, 'Error 504: Tiempo de Espera del Gateway Excedido.');
     }
+
+    public static function genericError()
+    {
+        abort(505, 'Error 505: Error genérico.');
+    }
 }

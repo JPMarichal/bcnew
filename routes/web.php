@@ -51,6 +51,7 @@ Route::prefix('test-errors')->group(function () {
     Route::get('/502', [ErrorTestController::class, 'badGateway'])->name('test.502');
     Route::get('/503', [ErrorTestController::class, 'serviceUnavailable'])->name('test.503');
     Route::get('/504', [ErrorTestController::class, 'gatewayTimeout'])->name('test.504');
+    Route::get('/505', [ErrorTestController::class, 'genericError'])->name('test.generic');
 });
 
 
