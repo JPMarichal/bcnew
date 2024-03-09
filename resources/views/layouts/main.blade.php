@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" prefix="og: https://ogp.me/ns#">
-@include('layouts.header')
-
+<head>
+    @include('layouts.header')
+</head>
 <body>
-    <div class="container-fluid my-0 mx-0">
+    <header>
         @include('components.main_header')
-        @yield('content')
-    </div>
+    </header>
 
-    @include('layouts.footer')
+    <main>
+        @yield('content')
+    </main>
+
+    <footer>
+        @include('layouts.footer')
+    </footer>
 </body>
 </html>
