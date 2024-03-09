@@ -25,7 +25,6 @@
 
         .news-link:hover {
             color: #007bff;
-            /* O el color que prefieras para el hover */
         }
 
         .news-thumbnail {
@@ -43,25 +42,28 @@
     </style>
 
     <div class="row">
-        <div class="col-md-6 col-sm-12 news-section">
+        <section class="col-md-6 col-sm-12 news-section">
             <h4 style="border-bottom:1px solid orange;">Últimas noticias</h4>
             @foreach ($latestNews as $news)
             <div class="d-flex align-items-center news-item">
                 <a href="{{ route('noticias.show', $news->slug) }}" class="news-link">
-                    <img src="{{ $news->featured_image }}" alt="thumbnail" class="news-thumbnail">
+                    <img src="{{ $news->featured_image }}" alt="{{ $news->title }} thumbnail" class="news-thumbnail">
                 </a>
                 <a href="{{ route('noticias.show', $news->slug) }}" class="news-link">{{ $news->title }}</a>
             </div>
             @endforeach
-        </div>
-        <div class="col-md-6 col-sm-12 news-section">
+        </section>
+
+        <section class="col-md-6 col-sm-12 news-section">
             <h4 style="border-bottom:1px solid orange;">Tal vez te interese</h4>
             @foreach ($randomNews as $news)
             <div class="d-flex align-items-center news-item">
-                <img src="{{ $news->featured_image }}" alt="thumbnail" class="news-thumbnail">
+                <a href="{{ route('noticias.show', $news->slug) }}" class="news-link">
+                    <img src="{{ $news->featured_image }}" alt="{{ $news->title }} thumbnail" class="news-thumbnail">
+                </a>
                 <a href="{{ route('noticias.show', $news->slug) }}" class="news-link">{{ $news->title }}</a>
             </div>
             @endforeach
-        </div>
+        </section>
     </div>
 </div>
