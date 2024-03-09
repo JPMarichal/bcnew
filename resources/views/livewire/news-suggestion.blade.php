@@ -1,4 +1,4 @@
-<div>
+<aside>
     <style>
         .news-section {
             border: 1px solid #ccc;
@@ -66,4 +66,4 @@
             @endforeach
         </section>
     </div>
-</div>
+</aside>
