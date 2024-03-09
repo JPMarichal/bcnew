@@ -1,4 +1,4 @@
-<div class="barra-flotante" style="border: 1px solid grey; padding: 10px; text-align: center;">
+<aside class="barra-flotante" style="border: 1px solid grey; padding: 10px; text-align: center;">
     <div style="background-color: grey; color: white; padding: 2px; margin-bottom: 1rem; font-size: 0.7rem;">
         COMPARTE
     </div>
@@ -21,4 +21,4 @@
         <i class="{{ $network === 'gmail' ? 'fas' : 'fab' }} {{ $data['icon'] }} text-white" style="font-size: 1.2rem;"></i>
     </a>
     @endforeach
-</div>
+</aside>
