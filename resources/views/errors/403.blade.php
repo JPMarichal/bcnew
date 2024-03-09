@@ -43,4 +43,4 @@
     </nav>
     <a href="/" class="btn btn-primary">Volver al inicio</a>
 </main>
-@endsection
+@endsection 
