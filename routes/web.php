@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ErrorTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,23 @@ Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallba
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 require __DIR__.'/auth.php';
+
+// Grupo de rutas para pruebas de errores HTTP
+Route::prefix('test-errors')->group(function () {
+    Route::get('/400', [ErrorTestController::class, 'badRequest'])->name('test.400');
+    Route::get('/401', [ErrorTestController::class, 'unauthorized'])->name('test.401');
+    Route::get('/403', [ErrorTestController::class, 'forbidden'])->name('test.403');
+    Route::get('/404', [ErrorTestController::class, 'notFound'])->name('test.404');
+    Route::get('/405', [ErrorTestController::class, 'methodNotAllowed'])->name('test.405');
+    Route::get('/408', [ErrorTestController::class, 'requestTimeout'])->name('test.408');
+    Route::get('/429', [ErrorTestController::class, 'tooManyRequests'])->name('test.429');
+    Route::get('/500', [ErrorTestController::class, 'internalServerError'])->name('test.500');
+    Route::get('/501', [ErrorTestController::class, 'notImplemented'])->name('test.501');
+    Route::get('/502', [ErrorTestController::class, 'badGateway'])->name('test.502');
+    Route::get('/503', [ErrorTestController::class, 'serviceUnavailable'])->name('test.503');
+    Route::get('/504', [ErrorTestController::class, 'gatewayTimeout'])->name('test.504');
+});
+
 
 // Grupo de rutas para noticias
 Route::prefix('noticias')->group(function () {
