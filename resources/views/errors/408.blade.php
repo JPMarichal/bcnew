@@ -33,13 +33,6 @@
             El servidor ha cerrado la conexión porque la solicitud ha excedido el tiempo de espera permitido. Esto suele ser temporal. Te recomendamos intentar nuevamente en unos momentos. Si el problema persiste, por favor contacta al administrador del sitio.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras el tiempo de espera excedido">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

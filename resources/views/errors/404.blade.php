@@ -34,13 +34,6 @@
             Aquí tienes algunas opciones para encontrar lo que buscas:
         </p>
     </section>
-    <nav aria-label="Opciones de navegación para la página no encontrada">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

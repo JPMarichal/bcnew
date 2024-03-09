@@ -33,13 +33,6 @@
             Ha ocurrido un error interno mientras intentábamos procesar tu solicitud. Esto generalmente es temporal y estamos trabajando para solucionarlo lo antes posible. Agradecemos tu paciencia.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras el error interno">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

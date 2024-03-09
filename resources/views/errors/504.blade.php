@@ -33,13 +33,6 @@
             Lamentablemente, tu solicitud no puede ser procesada en este momento debido a un retraso en la respuesta desde el servidor ascendente o una aplicación auxiliar. Esto suele ser temporal. Te sugerimos intentar nuevamente en unos minutos. Si el problema persiste, por favor contacta al administrador del sitio.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras el error de tiempo de espera">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

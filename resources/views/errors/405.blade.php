@@ -34,13 +34,6 @@
             Verifica la URL e inténtalo nuevamente o utiliza un método HTTP diferente. Si necesitas ayuda, no dudes en contactar al administrador del sitio.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras el error de método no permitido">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

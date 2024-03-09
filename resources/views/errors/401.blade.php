@@ -33,13 +33,6 @@
             Para ver esta página necesitas estar autenticado. Si tienes una cuenta, por favor <a href="/login" class="text-primary">inicia sesión</a>. Si el problema persiste, contacta al administrador del sitio.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras requerir autenticación">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
+    @include('components.error-navigation')
 </main>
 @endsection

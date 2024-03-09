@@ -33,13 +33,6 @@
             Estamos realizando mantenimiento programado o estamos experimentando una sobrecarga de tráfico en este momento. Por favor, vuelve a intentarlo más tarde. Apreciamos tu paciencia y comprensión.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación durante el mantenimiento">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection

@@ -33,13 +33,6 @@
             Nuestro sistema ha detectado un número inusualmente alto de solicitudes desde tu dirección IP o usuario. Esto puede ocurrir al intentar actualizar una página repetidamente o al usar una herramienta automatizada. Por favor, espera unos minutos antes de intentar nuevamente. Si crees que esto es un error, contacta al administrador del sitio.
         </p>
     </section>
-    <nav aria-label="Opciones de navegación tras recibir el aviso de demasiadas solicitudes">
-        <ul class="list-unstyled">
-            <li><a href="/" class="text-primary">Inicio</a></li>
-            <li><a href="/noticias" class="text-primary">Últimas Noticias</a></li>
-            <li><a href="/contacto" class="text-primary">Contacto</a></li>
-        </ul>
-    </nav>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    @include('components.error-navigation')
 </main>
 @endsection
