@@ -2,12 +2,14 @@
     <div class="d-flex flex-column flex-md-row justify-content-between">
         <form action="{{ route('noticias.index') }}" method="GET" class="mb-3 mb-md-0 w-100" style="max-width: 100%;">
             <div class="d-flex justify-content-between">
+                <label for="yearSelect" class="visually-hidden">Año</label>
                 <select name="year" id="yearSelect" class="form-select mx-2" onchange="updateMonthSelect()">
                     <option value="">Año</option>
                     @foreach ($years as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
                 </select>
+                <label for="monthSelect" class="visually-hidden">Mes</label>
                 <select name="month" id="monthSelect" class="form-select mx-2" disabled>
                     <option value="">Mes</option>
                     <!-- Los meses se llenarán dinámicamente basado en la selección del año -->

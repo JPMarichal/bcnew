@@ -1,4 +1,4 @@
-<div class="border border-secondary my-3 p-2" style="color: darkgrey;">
+<aside class="border border-secondary my-3 p-2" style="color: darkgrey;">
     <a href="{{ route('noticias.index') }}" class="text-dark" style="text-decoration: none;">
         <i class="fas fa-arrow-left"></i> Todas las noticias
     </a>
