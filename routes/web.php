@@ -19,8 +19,8 @@ use App\Http\Controllers\SitePagesController;
 */
 
 Route::get('/', function () {
-    return view('home')->name('home');
-});
+    return view('home');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
