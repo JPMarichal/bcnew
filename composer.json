@@ -17,6 +17,7 @@
         "livewire/livewire": "^3.4",
         "p3k/picofeed": "^0.1.40",
         "simplepie/simplepie": "^1.8",
+        "spatie/laravel-cookie-consent": "^3.3",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {
