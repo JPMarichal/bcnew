@@ -41,4 +41,9 @@ class SitePagesController extends Controller
 
         return back()->with('success', 'Gracias por contactarnos. Pronto estaremos en comunicación contigo.');
     }
+
+    public function cookiesPolicy()
+    {
+        return view('cookies-policy');
+    }
 }

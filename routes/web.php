@@ -58,11 +58,11 @@ Route::prefix('test-errors')->group(function () {
 // Grupo de rutas para las páginas del sitio
 Route::group(['prefix' => 'site'], function () {
     Route::get('about', [SitePagesController::class, 'about'])->name('site.about');
-    Route::get('privacy-policy', [SitePagesController::class, 'privacyPolicy'])->name('site.privacy-policy'); 
+    Route::get('privacy-policy', [SitePagesController::class, 'privacyPolicy'])->name('site.privacy-policy');
+    Route::get('cookies-policy', [SitePagesController::class, 'cookiesPolicy'])->name('site.cookies-policy');
     Route::get('contact', [SitePagesController::class, 'contact'])->name('site.contact');
     Route::post('contact', [SitePagesController::class, 'sendContactEmail'])->name('site.sendContactEmail');
 });
-
 
 // Grupo de rutas para noticias
 Route::prefix('noticias')->group(function () {
