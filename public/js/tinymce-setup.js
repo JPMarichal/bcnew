@@ -14,4 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
         'table | blockquote | ' +
         'h1 h2'
     });
+
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function() {
+            tinymce.triggerSave();
+        });
+    });
 });
