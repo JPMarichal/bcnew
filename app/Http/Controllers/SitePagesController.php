@@ -16,4 +16,29 @@ class SitePagesController extends Controller
     {
         return view('privacy-policy'); // Asegúrate de que el nombre de la vista corresponda al archivo real en tu proyecto.
     }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    public function sendContactEmail(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        \Mail::send('emails.contact', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'bodyMessage' => $request->message
+        ], function ($message) {
+            $message->from('noreply@biblicomentarios.com', 'Biblicomentarios Contact');
+            $message->to('jpmarichal@gmail.com')->subject('Contacto desde Biblicomentarios');
+        });
+
+        return back()->with('success', 'Gracias por contactarnos. Pronto estaremos en comunicación contigo.');
+    }
 }
