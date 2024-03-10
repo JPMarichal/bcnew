@@ -11,5 +11,10 @@
 <!-- TinyMCE -->
 <script src="{{ asset('js/tinymce-setup.js') }}"></script>
 
+<script type="text/javascript">
+    $('#contactForm').submit(function() {
+    tinymce.triggerSave(); // Esto fuerza a TinyMCE a guardar el contenido actual en el textarea
+});
+</script>
 </body>
 </html>

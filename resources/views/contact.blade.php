@@ -28,7 +28,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <form method="POST" action="{{ route('site.sendContactEmail') }}">
+    <form method="POST" action="{{ route('site.sendContactEmail') }}" id="contactForm">
         @csrf
         <div class="form-group">
             <label for="name">Nombre:</label>
@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <label for="message">Mensaje:</label>
-            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            <textarea class="form-control" id="message" name="message" rows="5"></textarea>
         </div>
         <button type="submit" class="btn btn-primary mt-4 mb-5 text-center bg-success">Enviar</button>
     </form>
