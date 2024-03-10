@@ -58,7 +58,7 @@ Route::prefix('test-errors')->group(function () {
 // Grupo de rutas para las páginas del sitio
 Route::group(['prefix' => 'site'], function () {
     Route::get('about', [SitePagesController::class, 'about'])->name('site.about');
-    // Puedes añadir más rutas para otras páginas aquí, siguiendo el mismo patrón
+    Route::get('privacy-policy', [SitePagesController::class, 'privacyPolicy'])->name('site.privacy-policy'); // Nueva ruta para la Política de Privacidad
 });
 
 
