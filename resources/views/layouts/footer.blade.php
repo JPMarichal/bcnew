@@ -8,5 +8,8 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- TinyMCE -->
+<script src="{{ asset('js/tinymce-setup.js') }}"></script>
+
 </body>
 </html>
