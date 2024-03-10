@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ErrorTestController;
+use App\Http\Controllers\SitePagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\ErrorTestController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home')->name('home');
 });
 
 Route::get('/dashboard', function () {
@@ -52,6 +53,12 @@ Route::prefix('test-errors')->group(function () {
     Route::get('/503', [ErrorTestController::class, 'serviceUnavailable'])->name('test.503');
     Route::get('/504', [ErrorTestController::class, 'gatewayTimeout'])->name('test.504');
     Route::get('/505', [ErrorTestController::class, 'genericError'])->name('test.generic');
+});
+
+// Grupo de rutas para las páginas del sitio
+Route::group(['prefix' => 'site'], function () {
+    Route::get('about', [SitePagesController::class, 'about'])->name('site.about');
+    // Puedes añadir más rutas para otras páginas aquí, siguiendo el mismo patrón
 });
 
 

@@ -37,7 +37,7 @@
           <a class="nav-link" href="#">Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Acerca de</a>
+          <a class="nav-link" href="{{route('site.about')}}">Acerca de</a>
         </li>
       </ul>
     </div>
