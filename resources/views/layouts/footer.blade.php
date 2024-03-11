@@ -1,4 +1,4 @@
-<footer style="background-color: #8C4421; color: #FFF5E4; padding-top: 16px; padding-bottom: 8px;">
+<footer class="mt-5" style="background-color: #8C4421; color: #FFF5E4; padding-top: 16px; padding-bottom: 8px;">
     <div class="container">
         <div class="row">
             <!-- Sección de redes sociales -->
