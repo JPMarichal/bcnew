@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
         autosave_retention: "2m",
         autoresize_bottom_margin: 50,
         end_container_on_empty_block: true,
-        height: 200,
+        height: 300,
+        min_height:300
     });
 
     document.querySelectorAll('form').forEach(function (form) {
