@@ -1,4 +1,5 @@
-<footer class="mt-5" style="background-color: #8C4421; color: #FFF5E4; padding-top: 16px; padding-bottom: 8px;">
+<footer class="mt-5" style="background-color: #8C4421; color: #FFF5E4; padding-top: 12px; padding-bottom: 8px;">
+    <div style="height:5px;background-color:#FFD580" class="mb-4">&nbsp;</div>
     <div class="container">
         <div class="row">
             <!-- Sección de redes sociales -->
@@ -41,6 +42,7 @@
             </div>
         </div>
     </div>
+    <div style="height:5px;background-color:#FFD580" class="mt-4 mb-2">&nbsp;</div>
 
     @include('components.footer_scripts')
 </footer>
