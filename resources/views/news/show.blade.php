@@ -72,7 +72,7 @@
                 <x-social-share-bar />
             </div>
 
-            <div class="col-md-11">
+            <div class="col-md-10">
                 <img src="{{ $newsItem->featured_image }}" class="news-image" alt="{{ $newsItem->title }}" title="{{ $newsItem->title }}">
                 {!! $newsItem->content !!}
                 @livewire('news-suggestion')
