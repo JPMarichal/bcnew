@@ -4,8 +4,17 @@
     transition: background-color 0.3s, color 0.3s; /* Transición suave */
 }
 
-.menu-principal .navbar-nav .nav-link:hover, .menu-principal .navbar-nav .nav-link:focus {
+/* Aplica estilos de hover y focus solo a los enlaces que no son activos */
+.menu-principal .navbar-nav .nav-link:not(.active):hover, 
+.menu-principal .navbar-nav .nav-link:not(.active):focus {
     background-color: #8B4513; /* Fondo café */
     color: #FFD700; /* Letra amarilla */
     border-radius: 10px;
+}
+
+.menu-principal .navbar-nav .nav-link.active {
+    background-color: #FFD700; /* Fondo amarillo */
+    color: #8B4513; /* Letra café */
+    font-weight: bolder;
+    border-radius: 10px; /* Asegura consistencia en el estilo del borde */
 }
