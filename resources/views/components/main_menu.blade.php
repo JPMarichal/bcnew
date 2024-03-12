@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light mt-0 mx-auto">
+<nav class="navbar navbar-expand-sm navbar-light mt-0 mx-auto menu-principal">
   <div class="container-fluid">
     <!-- Botón hamburguesa para pantallas pequeñas -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
