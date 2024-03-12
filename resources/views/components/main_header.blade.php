@@ -1,4 +1,5 @@
-<div class="main-header bg-white border" style="display: flex; justify-content: space-between; align-items: center;">
+<div class="main-header bg-white px-3" 
+    style="display: flex; justify-content: space-between; align-items: center; border-bottom:4px solid brown;">
     <div class="logo">
         <!-- Logo, ajusta para ocupar espacio adecuado en móviles y más en pantallas grandes -->
         @include('components.logo')
