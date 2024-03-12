@@ -34,7 +34,7 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-0">
     <article>
         <header>
             <h1>Política de Cookies</h1>

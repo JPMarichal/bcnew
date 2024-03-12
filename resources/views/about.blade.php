@@ -33,7 +33,7 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-0">
     <article>
         <h1>Acerca de Nosotros</h1>
 

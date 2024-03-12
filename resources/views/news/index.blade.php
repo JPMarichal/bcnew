@@ -14,7 +14,7 @@
 @endif
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-0">
     <h1>Noticias de la Iglesia de Jesucristo <br />de los Santos de los Ultimos Días</h1>
     <x-news.filters :years="$years" />
     <div class="row row-cols-1 row-cols-md-3 g-4">

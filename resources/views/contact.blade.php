@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-0">
     <h1>Contacto</h1>
     <p>En Biblicomentarios estamos siempre dispuestos a escuchar. Ya sea que tengas preguntas, comentarios, o simplemente quieras compartir tus reflexiones, nos encantaría oírte. Tu voz es importante para nosotros y nos esforzamos por mejorar y enriquecer nuestra comunidad con cada aporte. No dudes en llenar el siguiente formulario con tus datos y mensaje. ¡Estamos aquí para ti!</p>
     @if(session('success'))

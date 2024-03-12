@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-<div class="container mt-5 mb-4">
+<div class="container mt-0 mb-4">
     <h1>Política de Privacidad</h1>
     <p>En Biblicomentarios, la privacidad de nuestros visitantes es de extrema importancia. Esta Política de Privacidad describe detalladamente los tipos de información personal que recopilamos y registramos, cómo la usamos, y cómo puedes gestionar tu información personal.</p>
 

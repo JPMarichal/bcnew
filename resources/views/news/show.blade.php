@@ -61,7 +61,7 @@
     }
 </style>
 
-<div class="container mt-5">
+<div class="container mt-0">
     <article>
         <h1>{{ $newsItem->title }}</h1>
 
