@@ -14,6 +14,10 @@ class Pericopa extends Model
         'versiculo_inicial',
         'versiculo_final',
         'descripcion',
+        'title',
+        'description',
+        'featured_image',
+        'keywords'
     ];
 
     public function capitulo()

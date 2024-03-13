@@ -26,6 +26,10 @@ class Libro extends Model
         'temas_estructura',
         'sumario',
         'url',
+        'title',
+        'description',
+        'featured_image',
+        'keywords'
     ];
 
     /**

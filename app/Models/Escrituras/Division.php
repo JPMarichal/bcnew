@@ -11,7 +11,14 @@ class Division extends Model
 
     protected $table = 'divisiones';
 
-    protected $fillable = ['volumen_id', 'nombre'];
+    protected $fillable = [
+        'volumen_id', 
+        'nombre',
+        'title',
+        'description',
+        'featured_image',
+        'keywords'
+    ];
 
     /**
      * Indica que una división pertenece a un volumen.

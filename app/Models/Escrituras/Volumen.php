@@ -9,4 +9,12 @@ class Volumen extends Model
 {
     use HasFactory;
     protected $table = 'volumenes';
+
+    protected $fillable = [
+        'title',
+        'description',
+        'featured_image',
+        'keywords',
+        'nombre'
+    ];
 }

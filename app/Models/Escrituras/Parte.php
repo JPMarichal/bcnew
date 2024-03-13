@@ -14,6 +14,10 @@ class Parte extends Model
         'sumario',
         'descripcion',
         'orden',
+        'title',
+        'description',
+        'featured_image',
+        'keywords'
     ];
 
     /**

@@ -16,7 +16,7 @@ class Versiculo extends Model
         'referencia',
         'imagen',
         'pie_imagen',
-        'video',
+        'video'
     ];
 
     /**

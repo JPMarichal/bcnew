@@ -28,6 +28,10 @@ class Capitulo extends Model
         'introduccion',
         'conclusion',
         'estado_publicacion',
+        'title',
+        'description',
+        'featured_image',
+        'keywords'
     ];
 
     /**
