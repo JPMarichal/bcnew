@@ -75,3 +75,8 @@ Route::prefix('noticias')->group(function () {
     // Ruta unificada para mostrar noticias por slug o id
     Route::get('/{slugOrId}', [NewsController::class, 'show'])->name('noticias.show')->where('slugOrId', '^[a-z0-9-]+(?:\/[0-9]+)?$');
 });
+
+Route::prefix('escrituras')->group(function () {
+    Route::get('/volumenes', [App\Http\Controllers\Escrituras\VolumenController::class, 'index'])->name('volumenes.index');
+    Route::get('/volumenes/{nombre}', [App\Http\Controllers\Escrituras\VolumenController::class, 'show'])->name('volumenes.show');
+});
