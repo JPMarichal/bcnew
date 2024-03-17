@@ -10,6 +10,7 @@
         "fabpot/goutte": "^4.0",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/laravel-ui-adminlte": "^5.2",
+        "intervention/image": "^3.5",
         "laravel/framework": "^10.10",
         "laravel/helpers": "^1.7",
         "laravel/sanctum": "^3.3",
