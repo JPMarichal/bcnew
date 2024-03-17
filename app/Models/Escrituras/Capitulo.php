@@ -12,7 +12,7 @@ class Capitulo extends Model
         'libro_id',
         'parte_id',
         'num_capitulo',
-        'capitulo',
+        'referencia',
         'abreviatura',
         'num_versiculos',
         'titulo_capitulo',
