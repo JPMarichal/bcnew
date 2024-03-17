@@ -49,4 +49,9 @@ class Capitulo extends Model
     {
         return $this->belongsTo(Parte::class, 'parte_id');
     }
+
+    public function pericopas()
+    {
+        return $this->hasMany(Pericopa::class, 'capitulo_id')->orderBy('versiculo_inicial', 'asc');
+    }
 }

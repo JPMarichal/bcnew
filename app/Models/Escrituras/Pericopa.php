@@ -24,4 +24,9 @@ class Pericopa extends Model
     {
         return $this->belongsTo(Capitulo::class, 'capitulo_id');
     }
+
+    public function versiculos()
+    {
+        return $this->hasMany(Versiculo::class, 'pericopa_id');
+    }
 }
