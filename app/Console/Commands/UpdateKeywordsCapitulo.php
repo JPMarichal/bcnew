@@ -36,7 +36,7 @@ class UpdateKeywordsCapitulo extends Command
                 list($chapter, $title, $description, $keywords) = array_map('trim', $record);
 
                 // Buscar y actualizar el modelo correspondiente
-                Capitulo::where('capitulo', $chapter)->update([
+                Capitulo::where('referencia', $chapter)->update([
                     'title' => $title,
                     'description' => $description,
                     'keywords' => $keywords,
