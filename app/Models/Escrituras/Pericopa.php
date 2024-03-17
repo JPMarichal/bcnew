@@ -27,6 +27,6 @@ class Pericopa extends Model
 
     public function versiculos()
     {
-        return $this->hasMany(Versiculo::class, 'pericopa_id');
+        return $this->hasMany(Versiculo::class, 'pericopa_id')->orderBy('num_versiculo', 'asc');;
     }
 }
