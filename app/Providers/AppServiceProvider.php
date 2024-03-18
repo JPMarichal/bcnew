@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
        // View::composer(['news.index', 'components.filters'], NewsComposer::class);
-        View::composer('*', NewsComposer::class);
+        View::composer(['news.index', 'news.show'], NewsComposer::class);
     }
 }
