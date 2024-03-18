@@ -69,7 +69,7 @@
     <div class="text-center mb-2">
         <center> <audio src="{{$capitulo->url_audio}}" controls preload='metadata'></audio></center>
     </div>
-    <h2 class="text-center p-1" style="border-top: 1px solid green;  background-color:#C6E2B8">{{$capitulo->referencia}}</h2>
+    <h2 class="text-center p-1" style="border-top: 1px solid green; background-color:#C6E2B8">{{$capitulo->referencia}}</h2>
     <div class="row">
         <div class="col-1 text-center" id="navleft">
             <a href="{{ route('capitulos.show', ['nombre' => $capituloAnterior->referencia]) }}" class="btn btn-personalizado btn-flotante">
@@ -79,9 +79,20 @@
         <div class="col-12" id="contenido">
             @foreach ($capitulo->pericopas as $pericopa)
             <div class="pericopa">
-                <h2>{{ $pericopa->titulo }}</h2>
+                <h2>
+                    {{ $pericopa->titulo }}
+                    @if (!empty($pericopa->descripcion))
+                    <button class="btn btn-sm float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescripcion{{$loop->index}}" aria-expanded="false" aria-controls="collapseDescripcion{{$loop->index}}">
+                        <b><i class="fas fa-chevron-down"></i></b>
+                    </button>
+                    @endif
+                </h2>
                 @if (!empty($pericopa->descripcion))
-                <div class="border rounded p-2 bg-light">{!! $pericopa->descripcion !!}</div>
+                <div class="collapse" id="collapseDescripcion{{$loop->index}}">
+                    <div class="border rounded p-2 bg-light mb-2">
+                        {!! $pericopa->descripcion !!}
+                    </div>
+                </div>
                 @endif
                 @foreach ($pericopa->versiculos as $index => $versiculo)
                 @livewire('escrituras.versiculo', ['versiculo' => $versiculo, 'esPar' => $index % 2 == 0], key($versiculo->id))
@@ -96,6 +107,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection
