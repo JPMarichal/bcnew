@@ -15,6 +15,7 @@
 <div class="container mt-3">
     <h1 class="mb-2">{{$volumen->nombre }}</h1>
     <div class="border border-rounded p-2 bg-success text-white text-center mb-3">{{$volumen->description}}</div>
+    @livewire('escrituras-navigation', ['tipo' => 'volumen', 'nombre' => $volumen->nombre])
     @foreach ($volumen->divisiones as $division)
         <h2>{{$division->nombre}}</h2>
         <div>{{ $division->description }}</div>

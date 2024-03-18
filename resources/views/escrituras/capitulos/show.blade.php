@@ -46,6 +46,7 @@
 <div class="container mt-3">
     <h1 class="mb-2">{{$capitulo->referencia}} <br /> {{$capitulo->title }}</h1>
     <div class="border border-rounded p-2 bg-success text-white text-center mt-0 mb-3">{{$capitulo->description}}</div>
+    @livewire('escrituras-navigation', ['tipo' => 'capitulo', 'nombre' => $capitulo->referencia])
    <div class="text-center"><center> <audio src="{{$capitulo->url_audio}}" controls preload='metadata'></audio></center></div>
     <div class="row">
         <div class="col-1 text-center" id="navleft">
