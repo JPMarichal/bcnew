@@ -85,5 +85,5 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/libros', [LibroController::class, 'index'])->name('libros.index');
     Route::get('/libros/{nombre}', [LibroController::class, 'show'])->name('libros.show');
     Route::get('/capitulos', [CapituloController::class, 'index'])->name('capitulos.index');
-    Route::get('/capitulos/{nombre}', [CapituloController::class, 'show'])->name('capitulos.show');
+    Route::get('/capitulo/{nombre}', [CapituloController::class, 'show'])->name('capitulos.show');
 });
