@@ -34,4 +34,9 @@ class Versiculo extends Model
     {
         return $this->belongsTo(Pericopa::class, 'pericopa_id');
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(VersiculoComentario::class, 'versiculo_id')->orderBy('orden', 'asc');
+    }
 }
