@@ -52,4 +52,9 @@ class Libro extends Model
     {
         return $this->hasMany(Parte::class, 'libro_id')->orderBy('id', 'asc');
     }
+
+    public function capitulos()
+    {
+        return $this->hasMany(Capitulo::class, 'libro_id')->orderBy('id', 'asc');
+    }
 }

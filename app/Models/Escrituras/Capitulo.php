@@ -54,4 +54,9 @@ class Capitulo extends Model
     {
         return $this->hasMany(Pericopa::class, 'capitulo_id')->orderBy('versiculo_inicial', 'asc');
     }
+
+    public function versiculos()
+    {
+        return $this->hasMany(Versiculo::class, 'capitulo_id')->orderBy('id', 'asc');
+    }
 }
