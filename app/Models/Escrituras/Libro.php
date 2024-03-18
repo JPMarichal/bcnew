@@ -47,4 +47,9 @@ class Libro extends Model
     {
         return $this->belongsTo(Division::class);
     }
+
+    public function partes()
+    {
+        return $this->hasMany(Parte::class, 'libro_id')->orderBy('id', 'asc');
+    }
 }

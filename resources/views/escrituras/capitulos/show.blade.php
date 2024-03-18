@@ -15,14 +15,20 @@
 <div class="container mt-3">
     <h1 class="mb-2">{{$capitulo->referencia}} <br /> {{$capitulo->title }}</h1>
     <div class="border border-rounded p-2 bg-success text-white text-center mt-0 mb-3">{{$capitulo->description}}</div>
-    @foreach ($capitulo->pericopas as $pericopa)
-    <div>
-        <h2>{{ $pericopa->titulo }}</h2>
-        <p>{{ $pericopa->descripcion }}</p>
-        @foreach ($pericopa->versiculos as $versiculo)
-        <p><strong> {{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}</p>
+    <div class="row">
+        <div class="col-1"><</div>
+        <div class="col-10">
+        @foreach ($capitulo->pericopas as $pericopa)
+        <div >
+            <h2>{{ $pericopa->titulo }}</h2>
+            <p>{{ $pericopa->descripcion }}</p>
+            @foreach ($pericopa->versiculos as $versiculo)
+            <p><strong> {{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}</p>
+            @endforeach
+        </div>
         @endforeach
+        </div>
+        <div class="col-1">></div>
     </div>
-    @endforeach
 </div>
 @endsection

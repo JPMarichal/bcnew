@@ -27,4 +27,9 @@ class Parte extends Model
     {
         return $this->belongsTo(Libro::class, 'libro_id');
     }
+
+    public function capitulos()
+    {
+        return $this->hasMany(Capitulo::class, 'parte_id')->orderBy('id', 'asc');
+    }
 }
