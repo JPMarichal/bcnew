@@ -10,13 +10,13 @@
         <div class="modal-dialog modal-xl" style="max-width: 85%;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="comentariosModalLabel-{{ $versiculo->id }}">Comentarios del Versículo {{ $versiculo->num_versiculo }}</h5>
+                    <h2 class="modal-title" id="comentariosModalLabel-{{ $versiculo->id }}">Comentarios al Versículo {{ $versiculo->num_versiculo }}</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
                     @foreach($versiculo->comentarios as $comentario)
-                    <div>
-                        <h5>{{ $comentario->titulo }}</h5>
+                    <div class="border rounded p-3 mb-2">
+                        <h4 class="mb-2" style="border-bottom:1px solid brown">{{ $comentario->titulo }}</h4>
                         {!! $comentario->comentario !!}
                     </div>
                     @endforeach
