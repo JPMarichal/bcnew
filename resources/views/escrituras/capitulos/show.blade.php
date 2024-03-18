@@ -39,6 +39,9 @@
         padding-left: 50px; /* Ajuste opcional para no superponerse con el botón flotante izquierdo */
         padding-right: 50px; /* Ajuste opcional para no superponerse con el botón flotante derecho */
     }
+    .collapse-button {
+        cursor: pointer;
+    }
 </style>
 <div class="container mt-3">
     <h1 class="mb-2">{{$capitulo->referencia}} <br /> {{$capitulo->title }}</h1>
@@ -52,10 +55,21 @@
         <div class="col-12" id="contenido">
             @foreach ($capitulo->pericopas as $pericopa)
             <div>
-                <h2>{{ $pericopa->titulo }}</h2>
-                <p>{{ $pericopa->descripcion }}</p>
+                <h2>
+                    {{ $pericopa->titulo }}
+                    @if (!empty($pericopa->descripcion))
+                        <a data-bs-toggle="collapse" href="#collapseDescripcion{{$loop->index}}" role="button" aria-expanded="false" aria-controls="collapseDescripcion{{$loop->index}}" class="float-end collapse-button">
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                    @endif
+                </h2>
+                @if (!empty($pericopa->descripcion))
+                    <div class="collapse bg-light p-2 border rounded" id="collapseDescripcion{{$loop->index}}">
+                        {!! $pericopa->descripcion !!}
+                    </div>
+                @endif
                 @foreach ($pericopa->versiculos as $versiculo)
-                <p><strong> {{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}</p>
+                <p><strong>{{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}</p>
                 @endforeach
             </div>
             @endforeach
