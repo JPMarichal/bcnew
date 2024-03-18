@@ -26,11 +26,22 @@ class CapituloController extends Controller
      */
     public function show($referencia)
     {
-        // Buscar el capítulo por su campo de referencia
-        $capitulo = Capitulo::where('referencia', $referencia)->firstOrFail();
+        $capituloActual = Capitulo::where('referencia', $referencia)->firstOrFail();
 
-        // Retornar una vista con los detalles del capítulo
-        // Asumiendo que tienes una vista llamada 'escrituras.capitulo.show' y pasas el capítulo a la vista
-        return view('escrituras.capitulos.show', compact('capitulo'));
+        // Encontrar el capítulo anterior, si no hay, seleccionar el último de todos los capítulos
+        $capituloAnterior = Capitulo::where('id', '<', $capituloActual->id)
+                                    ->orderBy('id', 'desc')
+                                    ->first() ?? Capitulo::orderBy('id', 'desc')->first();
+
+        // Encontrar el capítulo siguiente, si no hay, seleccionar el primero de todos los capítulos
+        $capituloSiguiente = Capitulo::where('id', '>', $capituloActual->id)
+                                      ->orderBy('id', 'asc')
+                                      ->first() ?? Capitulo::orderBy('id', 'asc')->first();
+
+        return view('escrituras.capitulos.show', [
+            'capitulo' => $capituloActual,
+            'capituloAnterior' => $capituloAnterior,
+            'capituloSiguiente' => $capituloSiguiente,
+        ]);
     }
 }
