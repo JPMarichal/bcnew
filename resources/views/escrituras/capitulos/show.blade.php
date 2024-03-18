@@ -16,35 +16,48 @@
     .versiculo {
         padding: 5px;
     }
+
     .versiculo-par {
         background-color: #F4F9F4;
     }
+
     .btn-flotante {
         position: fixed;
         z-index: 2;
     }
+
     #navleft .btn-flotante {
         left: 10px;
-        top: 50%; /* Centrar verticalmente */
+        top: 50%;
+        /* Centrar verticalmente */
     }
+
     #navright .btn-flotante {
         right: 10px;
-        top: 50%; /* Centrar verticalmente */
+        top: 50%;
+        /* Centrar verticalmente */
     }
+
     .btn-personalizado {
         background-color: white;
         color: black;
         border: 2px solid green;
     }
+
     .btn-personalizado:hover {
         background-color: green;
         color: white;
-        border: 2px solid green; /* Mantener el borde */
+        border: 2px solid green;
+        /* Mantener el borde */
     }
+
     #contenido {
-        padding-left: 50px; /* Ajuste opcional para no superponerse con el botón flotante izquierdo */
-        padding-right: 50px; /* Ajuste opcional para no superponerse con el botón flotante derecho */
+        padding-left: 50px;
+        /* Ajuste opcional para no superponerse con el botón flotante izquierdo */
+        padding-right: 50px;
+        /* Ajuste opcional para no superponerse con el botón flotante derecho */
     }
+
     .collapse-button {
         cursor: pointer;
     }
@@ -65,9 +78,7 @@
         </div>
         <div class="col-12" id="contenido">
             @foreach ($capitulo->versiculos as $index => $versiculo)
-            <div class="versiculo {{ $index % 2 == 0 ? '' : 'versiculo-par' }}">
-                <strong>{{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}
-            </div>
+            @livewire('escrituras.versiculo', ['versiculo' => $versiculo, 'esPar' => $index % 2 == 0], key($versiculo->id))
             @endforeach
         </div>
         <div class="col-1 text-center" id="navright">
