@@ -13,6 +13,12 @@
 
 @section('content')
 <style>
+    .versiculo {
+        padding: 5px;
+    }
+    .versiculo-par {
+        background-color: #F4F9F4;
+    }
     .btn-flotante {
         position: fixed;
         z-index: 2;
@@ -47,37 +53,25 @@
     <h1 class="mb-2">{{$capitulo->referencia}} <br /> {{$capitulo->title }}</h1>
     <div class="border border-rounded p-2 bg-success text-white text-center mt-0 mb-3">{{$capitulo->description}}</div>
     @livewire('escrituras-navigation', ['tipo' => 'capitulo', 'nombre' => $capitulo->referencia])
-   <div class="text-center"><center> <audio src="{{$capitulo->url_audio}}" controls preload='metadata'></audio></center></div>
+    <div class="text-center mb-2">
+        <center> <audio src="{{$capitulo->url_audio}}" controls preload='metadata'></audio></center>
+    </div>
+    <h2 class="text-center p-1" style="border-top: 1px solid green;  background-color:#C6E2B8">{{$capitulo->referencia}}</h2>
     <div class="row">
         <div class="col-1 text-center" id="navleft">
-            <a href="{{ route('capitulos.show', $capituloAnterior->referencia) }}" class="btn btn-personalizado btn-flotante">
+            <a href="{{ route('capitulos.show', ['nombre' => $capituloAnterior->referencia]) }}" class="btn btn-personalizado btn-flotante">
                 <i class="fas fa-chevron-left"></i>
             </a>
         </div>
         <div class="col-12" id="contenido">
-            @foreach ($capitulo->pericopas as $pericopa)
-            <div>
-                <h2>
-                    {{ $pericopa->titulo }}
-                    @if (!empty($pericopa->descripcion))
-                        <a data-bs-toggle="collapse" href="#collapseDescripcion{{$loop->index}}" role="button" aria-expanded="false" aria-controls="collapseDescripcion{{$loop->index}}" class="float-end collapse-button">
-                            <i class="fas fa-chevron-down"></i>
-                        </a>
-                    @endif
-                </h2>
-                @if (!empty($pericopa->descripcion))
-                    <div class="collapse bg-light p-2 border rounded" id="collapseDescripcion{{$loop->index}}">
-                        {!! $pericopa->descripcion !!}
-                    </div>
-                @endif
-                @foreach ($pericopa->versiculos as $versiculo)
-                <p><strong>{{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}</p>
-                @endforeach
+            @foreach ($capitulo->versiculos as $index => $versiculo)
+            <div class="versiculo {{ $index % 2 == 0 ? '' : 'versiculo-par' }}">
+                <strong>{{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}
             </div>
             @endforeach
         </div>
         <div class="col-1 text-center" id="navright">
-            <a href="{{ route('capitulos.show', $capituloSiguiente->referencia) }}" class="btn btn-personalizado btn-flotante">
+            <a href="{{ route('capitulos.show', ['nombre' => $capituloSiguiente->referencia]) }}" class="btn btn-personalizado btn-flotante">
                 <i class="fas fa-chevron-right"></i>
             </a>
         </div>
