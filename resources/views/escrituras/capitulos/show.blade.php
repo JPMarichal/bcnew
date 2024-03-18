@@ -77,8 +77,16 @@
             </a>
         </div>
         <div class="col-12" id="contenido">
-            @foreach ($capitulo->versiculos as $index => $versiculo)
-            @livewire('escrituras.versiculo', ['versiculo' => $versiculo, 'esPar' => $index % 2 == 0], key($versiculo->id))
+            @foreach ($capitulo->pericopas as $pericopa)
+            <div class="pericopa">
+                <h2>{{ $pericopa->titulo }}</h2>
+                @if (!empty($pericopa->descripcion))
+                <div class="border rounded p-2 bg-light">{!! $pericopa->descripcion !!}</div>
+                @endif
+                @foreach ($pericopa->versiculos as $index => $versiculo)
+                @livewire('escrituras.versiculo', ['versiculo' => $versiculo, 'esPar' => $index % 2 == 0], key($versiculo->id))
+                @endforeach
+            </div>
             @endforeach
         </div>
         <div class="col-1 text-center" id="navright">
