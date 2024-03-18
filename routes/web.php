@@ -81,9 +81,9 @@ Route::prefix('noticias')->group(function () {
 
 Route::prefix('escrituras')->group(function () {
     Route::get('/volumenes', [VolumenController::class, 'index'])->name('volumenes.index');
-    Route::get('/volumenes/{nombre}', [VolumenController::class, 'show'])->name('volumenes.show');
+    Route::get('/volumen/{nombre}', [VolumenController::class, 'show'])->name('volumenes.show');
     Route::get('/libros', [LibroController::class, 'index'])->name('libros.index');
-    Route::get('/libros/{nombre}', [LibroController::class, 'show'])->name('libros.show');
+    Route::get('/libro/{nombre}', [LibroController::class, 'show'])->name('libros.show');
     Route::get('/capitulos', [CapituloController::class, 'index'])->name('capitulos.index');
     Route::get('/capitulo/{nombre}', [CapituloController::class, 'show'])->name('capitulos.show');
 });
