@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Escrituras;
 
 use Livewire\Component;
@@ -22,6 +23,7 @@ class Versiculo extends Component
     public function abrirModal()
     {
         $this->mostrarModal = true;
+     //   $this->emit('inicializarTinyMCE', 'comentario-' . $this->versiculo->id);
     }
 
     public function cerrarModal()
@@ -31,7 +33,7 @@ class Versiculo extends Component
 
     public function guardarComentario()
     {
-        
+
         $this->validate([
             'nuevoComentarioTitulo' => 'required|string|max:255',
             'nuevoComentarioContenido' => 'required|string',
@@ -45,7 +47,6 @@ class Versiculo extends Component
         ]);
 
         $this->reset(['nuevoComentarioTitulo', 'nuevoComentarioContenido', 'mostrarModal']);
-        
     }
 
     public function render()

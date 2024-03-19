@@ -61,12 +61,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="comentario-{{ $versiculo->id }}" class="form-label">Comentario</label>
-                            <textarea class="form-control" id="comentario-{{ $versiculo->id }}" name="comentario-{{ $versiculo->id }}" rows="5" wire:model.defer="nuevoComentarioContenido"></textarea>
+                            <textarea class="form-control livewire-ignore" id="comentario-{{ $versiculo->id }}" name="comentario-{{ $versiculo->id }}" rows="5" wire:model.defer="nuevoComentarioContenido"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" wire:click="cerrarModal">
-                          <i class="fa fa-close" aria-hidden="true"></i>  Cerrar
+                            <i class="fa fa-close" aria-hidden="true"></i> Cerrar
                         </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-save" aria-hidden="true"></i> Guardar
@@ -78,4 +78,34 @@
     </div>
     <div class="modal-backdrop fade show"></div> <!-- Asegúrate de que este div solo se renderice junto con el modal -->
     @endif
+
+    <script>
+        document.addEventListener('livewire:load', function() {
+            function inicializarTinyMCE() {
+                // Asegúrate de destruir cualquier instancia previa para evitar duplicados
+                if (tinymce.get('comentario-{{ $versiculo->id }}')) {
+                    tinymce.get('comentario-{{ $versiculo->id }}').remove();
+                }
+
+                // Inicializa TinyMCE en el textarea
+                tinymce.init({
+                    selector: '#comentario-{{ $versiculo->id }}',
+                    // Tus opciones de configuración de TinyMCE aquí...
+                    setup: function(editor) {
+                        editor.on('Change', function(e) {
+                            // Actualiza manualmente el valor del textarea para que Livewire lo detecte
+                            @this.set('nuevoComentarioContenido', editor.getContent());
+                        });
+                    }
+                });
+            }
+
+            window.livewire.on('mostrarModal', () => {
+                inicializarTinyMCE();
+            });
+
+            // Opcional: Si el modal se muestra inmediatamente al cargar la página, inicializa TinyMCE directamente.
+            inicializarTinyMCE();
+        });
+    </script>
 </div>

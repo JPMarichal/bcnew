@@ -1,52 +1,45 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Inicialización global de TinyMCE para todos los textarea excepto aquellos marcados para ser ignorados
     tinymce.init({
-        selector: 'textarea',
+        selector: 'textarea:not(.livewire-ignore)', // Ignora los textarea con clase .livewire-ignore
         menubar: true,
         language: 'es',
         plugins: [
-            'advlist',
-            'autolink',
-            'lists',
-            'link',
-            'image',
-            'charmap',
-            'preview',
-            'anchor',
-            'searchreplace',
-            'code',
-            'fullscreen',
-            'media',
-            'table',
-            'help',
-            'wordcount',
-            'emoticons',
-            'autosave',
-            'autoresize',
-            'quickbars'
+            'advlist autolink lists link image charmap preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount emoticons',
+            'autosave autoresize quickbars'
         ],
-        toolbar: 
-            ['undo redo | formatselect | ' +
-            'bold italic | ' +
-            'alignleft aligncenter alignright alignjustify | ' +
-            'bullist numlist | ' ,
-            'link unlink image media table| ' +
-            'emoticons | ' +
-            'removeformat | '+
-            'preview fullscreen | help ' +
-            ' code'],
-        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-        autosave_ask_before_unload: true,
-        autosave_interval: "30s",
-        autosave_retention: "2m",
-        autoresize_bottom_margin: 50,
-        end_container_on_empty_block: true,
-        height: 300,
-        min_height:300
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
 
-    document.querySelectorAll('form').forEach(function (form) {
-        form.addEventListener('submit', function () {
-            tinymce.triggerSave();
+    // Función específica para re-inicializar TinyMCE para textareas en modales de Livewire
+    window.inicializarTinyMCEParaLivewire = function(id) {
+        // Asegurarse de destruir cualquier instancia anterior para evitar duplicados
+        if (tinymce.get(id)) {
+            tinymce.get(id).remove();
+        }
+    
+        // Inicializar TinyMCE específicamente para el textarea indicado
+        tinymce.init({
+            selector: '#' + id,
+            menubar: true,
+            language: 'es',
+            plugins: [
+                'advlist autolink lists link image charmap preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount emoticons',
+                'autosave autoresize quickbars'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         });
-    });
+    }
 });
