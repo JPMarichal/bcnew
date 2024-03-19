@@ -9,7 +9,7 @@
     @auth
     @if(auth()->user()->hasRole('Administrador'))
     <!-- Botón para abrir modal de agregar comentario -->
-    <button class="btn btn-sm mx-0 px-0" style="background-color: transparent;" data-bs-toggle="modal" data-bs-target="#agregarComentarioModal-{{ $versiculo->id }}" title="Agregar comentario a {{$versiculo->referencia}}">
+    <button class="btn btn-sm" style="background-color: transparent;" wire:click="abrirModal" title="Agregar comentario">
         <i class="fas fa-plus" style="color: #94c9c9;"></i>
     </button>
 
@@ -44,12 +44,14 @@
     </div>
 
     <!-- Modal para agregar nuevo comentario, controlado por atributos de Bootstrap -->
-    <div class="modal fade" id="agregarComentarioModal-{{ $versiculo->id }}" tabindex="-1" aria-labelledby="agregarComentarioModalLabel-{{ $versiculo->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-xl" style="max-width: 85%;">
+    @if($mostrarModal)
+    <!-- Modal para agregar nuevo comentario -->
+    <div class="modal fade show d-block" id="agregarComentarioModal-{{ $versiculo->id }}" tabindex="-1" aria-labelledby="agregarComentarioModalLabel-{{ $versiculo->id }}" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="agregarComentarioModalLabel">Agregar Comentario</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close" wire:click="cerrarModal" aria-label="Cerrar"></button>
                 </div>
                 <form wire:submit.prevent="guardarComentario">
                     <div class="modal-body">
@@ -59,36 +61,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="comentario-{{ $versiculo->id }}" class="form-label">Comentario</label>
-                            <textarea class="form-control" id="comentario-{{ $versiculo->id }}" rows="5" wire:model.defer="nuevoComentarioContenido" required></textarea>
+                            <textarea class="form-control" id="comentario-{{ $versiculo->id }}" name="comentario-{{ $versiculo->id }}" rows="5" wire:model.defer="nuevoComentarioContenido"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-secondary" wire:click="cerrarModal">
+                          <i class="fa fa-close" aria-hidden="true"></i>  Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save" aria-hidden="true"></i> Guardar
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOMContentLoaded');
-            document.querySelectorAll('[id^="agregarComentarioModal-"]').forEach(function(modal) {
-                $(modal).on('shown.bs.modal', function() {
-                    let versiculoId = this.id.split('-').pop();
-                    let tituloId = `titulo-${versiculoId}`;
-                    let comentarioId = `comentario-${versiculoId}`; // Asegúrate de tener este ID único también
-
-                    navigator.clipboard.readText().then(text => {
-                        if (text) document.getElementById(tituloId).value = text;
-                    }).catch(err => {
-                        console.error('Failed to read clipboard contents: ', err);
-                    });
-                });
-            });
-        });
-    </script>
-
-
+    <div class="modal-backdrop fade show"></div> <!-- Asegúrate de que este div solo se renderice junto con el modal -->
+    @endif
 </div>

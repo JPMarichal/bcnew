@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Escrituras;
 
 use Livewire\Component;
@@ -10,7 +9,7 @@ class Versiculo extends Component
 {
     public ModeloVersiculo $versiculo;
     public bool $esPar;
-    public $mostrarModalAgregarComentario = false;
+    public bool $mostrarModal = false; // Propiedad para controlar la visibilidad del modal
     public $nuevoComentarioTitulo = '';
     public $nuevoComentarioContenido = '';
 
@@ -20,23 +19,33 @@ class Versiculo extends Component
         $this->esPar = $esPar;
     }
 
+    public function abrirModal()
+    {
+        $this->mostrarModal = true;
+    }
+
+    public function cerrarModal()
+    {
+        $this->mostrarModal = false;
+    }
+
     public function guardarComentario()
     {
+        
         $this->validate([
             'nuevoComentarioTitulo' => 'required|string|max:255',
             'nuevoComentarioContenido' => 'required|string',
         ]);
 
         VersiculoComentario::create([
-            'versiculo_id' => $this->versiculo->id, // Acceder directamente al id del versículo
+            'versiculo_id' => $this->versiculo->id,
             'titulo' => $this->nuevoComentarioTitulo,
             'comentario' => $this->nuevoComentarioContenido,
-            'orden' => VersiculoComentario::where('versiculo_id', $this->versiculo->id)->max('orden') + 1 ?? 0,
+            'orden' => VersiculoComentario::where('versiculo_id', $this->versiculo->id)->max('orden') + 1,
         ]);
 
-        $this->mostrarModalAgregarComentario = false;
-        $this->versiculo->load('comentarios'); // Recargar los comentarios para incluir el nuevo
-        $this->emit('comentarioAgregado'); // Opcional: Emitir un evento si necesitas actualizar alguna parte de tu componente o realizar alguna acción después de agregar un comentario.
+        $this->reset(['nuevoComentarioTitulo', 'nuevoComentarioContenido', 'mostrarModal']);
+        
     }
 
     public function render()
