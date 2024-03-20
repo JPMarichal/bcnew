@@ -1,7 +1,8 @@
 <div>
     <div>
-        <button class="btn btn-primary float-end mb-3" wire:click="clearForm()">Nuevo Comentario</button>
+        <button class="btn btn-primary  mb-3" wire:click="clearForm()">Nuevo Comentario</button>
 
+        <div class="px-5">
         <form wire:submit.prevent="{{ $comentarioId ? 'updateComment' : 'saveComment' }}">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
@@ -20,11 +21,12 @@
                 <button type="button" class="btn btn-secondary" wire:click="clearForm()">Limpiar</button>
             </div>
         </form>
+        </div>
 
         <div class="mt-4">
-            <div class="list-group">
+        <div class="list-group" wire:key="comentarios-list-{{ $reRenderKey }}">
                 @foreach($comentarios as $comentario)
-                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" wire:key="comentario-{{ $comentario->id }}-{{ $reRenderKey }}">
                     <div>{{ $comentario->titulo }}</div>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-secondary" wire:click="moveUp({{ $comentario->id }})">

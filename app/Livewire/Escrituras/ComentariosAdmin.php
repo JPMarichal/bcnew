@@ -12,6 +12,8 @@ class ComentariosAdmin extends Component
     public $titulo = '';
     public $comentario = '';
     public $comentarioId = null;
+    public $comentarios = [];
+    public $reRenderKey = 0;
 
     protected $rules = [
         'titulo' => 'required|string|max:255',
@@ -21,6 +23,7 @@ class ComentariosAdmin extends Component
     public function mount($versiculoId)
     {
         $this->versiculoId = $versiculoId;
+        $this->loadComments(); // Cargar comentarios al inicializar el componente
     }
 
     public function render()
@@ -96,7 +99,9 @@ class ComentariosAdmin extends Component
             $currentComment->save();
             $previousComment->save();
         }
-    }
+
+        $this->reRenderKey++; // Incrementar la clave para forzar re-renderización
+        $this->loadComments();    }
 
     public function moveDown($id)
     {
@@ -113,10 +118,19 @@ class ComentariosAdmin extends Component
             $currentComment->save();
             $nextComment->save();
         }
+
+        $this->reRenderKey++; // Incrementar la clave para forzar re-renderización
+        $this->loadComments();    }
+
+    protected function loadComments()
+    {
+        $versiculo = Versiculo::find($this->versiculoId);
+        $this->comentarios = collect($versiculo->comentarios()->orderBy('orden')->get());
     }
 
     private function resetInput()
     {
         $this->reset(['titulo', 'comentario', 'comentarioId']);
+        $this->loadComments(); // Cargar comentarios al inicializar el componente
     }
 }
