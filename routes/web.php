@@ -9,6 +9,7 @@ use App\Http\Controllers\SitePagesController;
 use App\Http\Controllers\Escrituras\VolumenController;
 use App\Http\Controllers\Escrituras\LibroController;
 use App\Http\Controllers\Escrituras\CapituloController;
+use App\Http\Controllers\Escrituras\VersiculoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,4 +87,6 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/libro/{nombre}', [LibroController::class, 'show'])->name('libros.show');
     Route::get('/capitulos', [CapituloController::class, 'index'])->name('capitulos.index');
     Route::get('/capitulo/{nombre}', [CapituloController::class, 'show'])->name('capitulos.show');
+    Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'show'])->name('versiculos.comentarios');
+    Route::get('/versiculo/{referencia}/comentarios/admin', [VersiculoController::class, 'admin'])->name('versiculos.comentarios.admin');
 });

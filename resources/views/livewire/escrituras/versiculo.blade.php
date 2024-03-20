@@ -14,9 +14,9 @@
     </button>
 
     <!-- Botón para funcionalidades de administración de comentarios (CRUD) -->
-    <button class="btn btn-sm mx-0 px-0" style="background-color: transparent;" title="Editar comentarios de {{$versiculo->referencia}}">
+    <a href="{{ route('versiculos.comentarios.admin', $versiculo->referencia) }}" target="_blank" class="btn btn-sm mx-0 px-0" style="background-color: transparent;" title="Editar comentarios">
         <i class="fas fa-pencil-alt" style="color: #94c9c9;"></i>
-    </button>
+    </a>
     @endif
     @endauth
 
