@@ -101,7 +101,8 @@ class ComentariosAdmin extends Component
         }
 
         $this->reRenderKey++; // Incrementar la clave para forzar re-renderización
-        $this->loadComments();    }
+        $this->loadComments();
+    }
 
     public function moveDown($id)
     {
@@ -120,12 +121,14 @@ class ComentariosAdmin extends Component
         }
 
         $this->reRenderKey++; // Incrementar la clave para forzar re-renderización
-        $this->loadComments();    }
+        $this->loadComments();
+    }
 
     protected function loadComments()
     {
         $versiculo = Versiculo::find($this->versiculoId);
         $this->comentarios = collect($versiculo->comentarios()->orderBy('orden')->get());
+        $this->dispatch('moved');
     }
 
     private function resetInput()
