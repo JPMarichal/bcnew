@@ -55,6 +55,8 @@
     </style>
 
     <script>
+        let $editor = null;
+
         document.addEventListener('DOMContentLoaded', function() {
             // Obtén versiculoId desde el atributo data del div que engloba el formulario.
             const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
@@ -74,9 +76,9 @@
         });
 
         // Función para inicializar TinyMCE
-        function initializeTinyMCE(versiculoId) {
+       async function initializeTinyMCE(versiculoId) {
             console.log("Inicializando TinyMCE para", versiculoId);
-            tinymce.init({
+            const editors = await tinymce.init({
                 selector: `#comentario-${versiculoId}`,
                 menubar: true,
                 language: 'es',
@@ -98,6 +100,8 @@
                     });
                 }
             });
+
+            $editor = editors[0]; 
         }
 
         // Función para sincronizar el contenido de TinyMCE antes de enviar el formulario
@@ -110,15 +114,13 @@
         }
 
         function clearTinyMCE(versiculoId) {
-            console.log("Limpiando TinyMCE para", versiculoId);
-
-            console.log('Limpiando titulo ', versiculoId);
-            document.getElementById(`titulo-${versiculoId}`).value = '';
-            /*
-                        if (tinymce.get(`comentario-${versiculoId}`)) {
-                            console.log('Limpiando comentario');
-                            tinymce.get(`comentario-${versiculoId}`).setContent('');
-                        }*/
+            if ($editor) {
+                document.getElementById(`titulo-${versiculoId}`).value = ''; // Limpia el título
+                document.getElementById(`comentario-${versiculoId}`).value = ''; // Limpia el textarea
+                tinyMCE.get(`comentario-${versiculoId}`).setContent(''); // Limpia el contenido de TinyMCE
+            } else {
+                console.log("El editor TinyMCE no está inicializado.");
+            }
         }
     </script>
 </div>
