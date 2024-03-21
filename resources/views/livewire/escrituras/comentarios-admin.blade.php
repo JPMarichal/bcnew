@@ -57,20 +57,21 @@
     <script>
         let $editor = null;
 
+        // Se ejecuta cuando se ha cargado el DOM
         document.addEventListener('DOMContentLoaded', function() {
             // Obtén versiculoId desde el atributo data del div que engloba el formulario.
             const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
 
+            // Limpieza del formulario en el botón Limpiar
             window.addEventListener('clear-tinymce', event => {
-                console.log('Sí paso por el listener de clear-tinymce');
                 clearTinyMCE(versiculoId);
             });
 
             // Inicializa TinyMCE con el versiculoId correcto
             initializeTinyMCE(versiculoId);
 
+            // Se ejecuta cuando se presiona una de las flechas de dirección
             Livewire.on('moved', () => {
-                // Si necesitas reinicializar TinyMCE después de eventos Livewire, asegúrate de pasar el versiculoId.
                 initializeTinyMCE(versiculoId);
             });
         });
@@ -113,6 +114,7 @@
             }
         }
 
+        // Función para borrar el contenido de TinyMCE
         function clearTinyMCE(versiculoId) {
             if ($editor) {
                 document.getElementById(`titulo-${versiculoId}`).value = ''; // Limpia el título
