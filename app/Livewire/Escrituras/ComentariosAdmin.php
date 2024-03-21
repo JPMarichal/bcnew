@@ -5,6 +5,7 @@ namespace App\Livewire\Escrituras;
 use Livewire\Component;
 use App\Models\Escrituras\Versiculo;
 use App\Models\Escrituras\VersiculoComentario;
+use Monolog\Logger;
 
 class ComentariosAdmin extends Component
 {
@@ -17,13 +18,13 @@ class ComentariosAdmin extends Component
 
     protected $rules = [
         'titulo' => 'required|string|max:255',
-        'comentario' => 'required|string',
+        'comentario' => 'string',
     ];
 
     public function mount($versiculoId)
     {
         $this->versiculoId = $versiculoId;
-        $this->loadComments(); // Cargar comentarios al inicializar el componente
+        $this->loadComments();
     }
 
     public function render()
@@ -46,7 +47,7 @@ class ComentariosAdmin extends Component
             'orden' => $orden,
         ]);
 
-        $this->resetInput();
+        $this->clearForm();
     }
 
     public function edit($id)
@@ -69,7 +70,16 @@ class ComentariosAdmin extends Component
             ]);
         }
 
-        $this->resetInput();
+        $this->clearForm();
+    }
+
+    public function clearForm()
+    {
+        $this->reset(['titulo', 'comentario', 'comentarioId']);
+        $this->loadComments();
+        $logger = new Logger('name');
+        $this->dispatch('clear-tinymce', ['versiculoId' => $this->versiculoId]);
+        $logger->info('Formulario limpiado');
     }
 
     public function confirmDelete($id)
