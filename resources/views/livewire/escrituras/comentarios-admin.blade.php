@@ -184,11 +184,6 @@
                 }
 
                 initializeTinyMCE(versiculoId);
-
-                // Restablece las propiedades
-                @this.set('comentarioId', null);
-                @this.set('titulo', '');
-                @this.set('comentario', '');
             }
         });
 
