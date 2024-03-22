@@ -17,7 +17,7 @@
                 @else
                 <button type="button" class="btn btn-success btn-save" data-versiculo-id="{{ $versiculoId }}">Guardar</button>
                 @endif
-                <button type="button" class="btn btn-secondary" wire:click="clearForm()">Limpiar</button>
+                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')">Limpiar</button>
             </div>
         </div>
 
@@ -157,17 +157,27 @@
                 });
             }
 
-            // Función para borrar el contenido de TinyMCE
-            function clearTinyMCE(versiculoId) {
-                if ($editor) {
-                    document.getElementById(`titulo-${versiculoId}`).value = ''; // Limpia el título
-                    document.getElementById(`comentario-${versiculoId}`).value = ''; // Limpia el textarea
-                    tinyMCE.get(`comentario-${versiculoId}`).setContent(''); // Limpia el contenido de TinyMCE
-                    initializeTinyMCE(versiculoId);
+            // Función para borrar el contenido del formulario
+            window.clearTinyMCE = function(versiculoId) {
+                // Limpiar el título
+                const tituloInput = document.getElementById(`titulo-${versiculoId}`);
+                if (tituloInput) {
+                    tituloInput.value = '';
                 }
+
+                // Limpiar el textarea (por si acaso no estás usando TinyMCE o para asegurar que esté vacío)
+                const comentarioTextarea = document.getElementById(`comentario-${versiculoId}`);
+                if (comentarioTextarea) {
+                    comentarioTextarea.value = '';
+                }
+
+                // Limpiar TinyMCE
+                if (tinymce.get(`comentario-${versiculoId}`)) {
+                    tinymce.get(`comentario-${versiculoId}`).setContent('');
+                }
+
+                initializeTinyMCE(versiculoId);
             }
-
-
         });
 
         function setCommentIdToDelete(id, titulo) {
