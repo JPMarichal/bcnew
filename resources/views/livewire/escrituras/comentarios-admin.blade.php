@@ -2,37 +2,37 @@
     <div>
         <!-- Editor -->
         <div class="px-5 border rounded" data-versiculo-id="{{ $versiculoId }}">
-            <h3 class="text-center mb-3" style="background-color:gainsboro">Editor</h3>
+            <h3 class="text-center mb-3" style="background-color:gainsboro" title="Aquí puedes crear un nuevo comentario o editar uno existente.">Editor</h3>
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo" required>
+                <label for="titulo" class="form-label" title="Escribe aquí el título de tu comentario">Título</label>
+                <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo"  title="Escribe aquí el título de tu comentario" required>
             </div>
             <div class="mb-3" style="height: 40vh" wire:ignore>
-                <label for="comentario-{{ $versiculoId }}" class="form-label">Comentario</label>
+                <label for="comentario-{{ $versiculoId }}" class="form-label"  title="Escribe aquí el contenido de tu comentario">Comentario</label>
                 <textarea class="form-control" id="comentario-{{ $versiculoId }}" name="comentario-{{ $versiculoId }}" rows="5" wire:model.defer="comentario"></textarea>
             </div>
             <div class="mb-3">
+                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Limpia el formulario">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
                 @if($comentarioId)
-                <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}">
+                <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}" title="Guarda el comentario editado">
                     <i class="fas fa-edit"></i> Actualizar
                 </button>
                 @else
-                <button type="button" class="btn btn-success btn-save" data-versiculo-id="{{ $versiculoId }}">
+                <button type="button" class="btn btn-success btn-save" data-versiculo-id="{{ $versiculoId }}" title="Guarda el nuevo comentario">
                     <i class="fas fa-save"></i> Guardar
                 </button>
                 @endif
-                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')">
-                    <i class="fas fa-eraser"></i> Limpiar
-                </button>
             </div>
 
         </div>
 
         <!-- Grid -->
         <div class="mt-4 border rounded p-3">
-            <h3 class="text-center mb-3" style="background-color:gainsboro">Listado de comentarios</h3>
+            <h3 class="text-center mb-3" style="background-color:gainsboro" title="Aquí se muestran todos los comentarios asociados a este versículo. Puedes reordenarlos, editarlos o eliminarlos.">Listado de comentarios</h3>
             <div class="text-end">
-                <button class="btn btn-primary btn-sm mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')">
+                <button class="btn btn-primary btn-sm mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Prepara el formulario para agregar un nuevo comentario">
                     <i class="fas fa-plus"></i> Nuevo Comentario
                 </button>
             </div>
@@ -41,16 +41,16 @@
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" wire:key="comentario-{{ $comentario->id }}-{{ $reRenderKey }}">
                     <div>{{ $comentario->titulo }}</div>
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-success" wire:click="moveUp({{ $comentario->id }})">
+                        <button class="btn btn-sm btn-success" wire:click="moveUp({{ $comentario->id }})" title="Subir comentario">
                             <i class="fas fa-arrow-up"></i>
                         </button>
-                        <button class="btn btn-sm btn-success" wire:click="moveDown({{ $comentario->id }})">
+                        <button class="btn btn-sm btn-success" wire:click="moveDown({{ $comentario->id }})" title="Bajar comentario">
                             <i class="fas fa-arrow-down"></i>
                         </button>
-                        <button class="btn btn-sm btn-info" wire:click="edit({{ $comentario->id }})">
+                        <button class="btn btn-sm btn-info" wire:click="edit({{ $comentario->id }})" title="Editar comentario">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmDelete" onclick="setCommentIdToDelete({{ $comentario->id }}, '{{ $comentario->titulo }}')">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmDelete" onclick="setCommentIdToDelete({{ $comentario->id }}, '{{ $comentario->titulo }}')" title="Eliminar comentario">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
