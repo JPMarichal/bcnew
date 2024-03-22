@@ -1,7 +1,5 @@
 <div>
     <div>
-        <button class="btn btn-primary mb-3" wire:click="clearForm()">Nuevo Comentario</button>
-
         <div class="px-5" data-versiculo-id="{{ $versiculoId }}">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
@@ -22,6 +20,9 @@
         </div>
 
         <div class="mt-4">
+            <div>
+                <button class="btn btn-primary mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')">Nuevo Comentario</button>
+            </div>
             <div class="list-group" wire:key="comentarios-list-{{ $reRenderKey }}">
                 @foreach($comentarios as $comentario)
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" wire:key="comentario-{{ $comentario->id }}-{{ $reRenderKey }}">
@@ -177,6 +178,11 @@
                 }
 
                 initializeTinyMCE(versiculoId);
+
+                // Restablece las propiedades
+                @this.set('comentarioId', null);
+                @this.set('titulo', '');
+                @this.set('comentario', '');
             }
         });
 

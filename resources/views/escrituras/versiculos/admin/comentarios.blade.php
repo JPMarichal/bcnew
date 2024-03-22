@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Comentarios a {{ $versiculo->referencia }} (admin)</h1>
+    <h1>Editor de comentarios a <br/>{{ $versiculo->referencia }}</h1>
             @livewire('escrituras.comentarios-admin', ['versiculoId' => $versiculo->id])
 </div>
 @endsection
