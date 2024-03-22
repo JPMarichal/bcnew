@@ -1,6 +1,8 @@
 <div>
     <div>
-        <div class="px-5" data-versiculo-id="{{ $versiculoId }}">
+        <!-- Editor -->
+        <div class="px-5 border rounded" data-versiculo-id="{{ $versiculoId }}">
+            <h3 class="text-center mb-3" style="background-color:gainsboro">Editor</h3>
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
                 <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo" required>
@@ -19,9 +21,13 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <div>
-                <button class="btn btn-primary mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')">Nuevo Comentario</button>
+        <!-- Grid -->
+        <div class="mt-4 border rounded p-3">
+            <h3 class="text-center mb-3" style="background-color:gainsboro">Listado de comentarios</h3>
+            <div class="text-end">
+                <button class="btn btn-primary btn-sm mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')">
+                    <i class="fas fa-plus"></i> Nuevo Comentario
+                </button>
             </div>
             <div class="list-group" wire:key="comentarios-list-{{ $reRenderKey }}">
                 @foreach($comentarios as $comentario)
