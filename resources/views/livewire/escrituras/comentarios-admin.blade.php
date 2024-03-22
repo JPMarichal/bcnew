@@ -5,10 +5,10 @@
             <h3 class="text-center mb-3" style="background-color:gainsboro" title="Aquí puedes crear un nuevo comentario o editar uno existente.">Editor</h3>
             <div class="mb-3">
                 <label for="titulo" class="form-label" title="Escribe aquí el título de tu comentario">Título</label>
-                <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo"  title="Escribe aquí el título de tu comentario" required>
+                <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo" title="Escribe aquí el título de tu comentario" required>
             </div>
             <div class="mb-3" style="height: 40vh" wire:ignore>
-                <label for="comentario-{{ $versiculoId }}" class="form-label"  title="Escribe aquí el contenido de tu comentario">Comentario</label>
+                <label for="comentario-{{ $versiculoId }}" class="form-label" title="Escribe aquí el contenido de tu comentario">Comentario</label>
                 <textarea class="form-control" id="comentario-{{ $versiculoId }}" name="comentario-{{ $versiculoId }}" rows="5" wire:model.defer="comentario"></textarea>
             </div>
             <div class="mb-3">
@@ -96,6 +96,8 @@
             // Obtén versiculoId desde el atributo data del div que engloba el formulario.
             const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
 
+            const tituloInput = document.getElementById(`titulo-{{ $versiculoId }}`);
+
             // Inicializa TinyMCE con el versiculoId correcto
             initializeTinyMCE(versiculoId);
 
@@ -129,6 +131,24 @@
                     }
                 }).catch(error => console.error(error));
             };
+
+            // Añade manejadores de eventos para input y paste
+            tituloInput.addEventListener('input', handleTitleChange);
+            tituloInput.addEventListener('paste', handleTitleChange);
+
+            // Función para manejar cambios en el campo de título
+            function handleTitleChange(event) {
+                // Temporizador para manejar el contenido pegado correctamente
+                setTimeout(() => {
+                    let value = event.target.value;
+                    // Elimina cualquier punto final
+                    value = value.replace(/\.$/, '');
+                    // Convierte la primera letra en mayúscula
+                    value = value.charAt(0).toUpperCase() + value.slice(1);
+                    // Actualiza el valor del campo de título
+                    event.target.value = value;
+                }, 1);
+            }
 
             // Función para inicializar TinyMCE
             async function initializeTinyMCE(versiculoId) {
