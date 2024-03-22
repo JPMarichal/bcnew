@@ -36,12 +36,34 @@
                         <button class="btn btn-sm btn-info" wire:click="edit({{ $comentario->id }})">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger" wire:click="confirmDelete({{ $comentario->id }})">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmDelete" onclick="setCommentIdToDelete({{ $comentario->id }}, '{{ $comentario->titulo }}')">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </div>
                 @endforeach
+            </div>
+        </div>
+
+        <!-- Modal de Confirmación para Eliminar Comentario -->
+        <div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-labelledby="modalConfirmDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalConfirmDeleteLabel">Confirmar Eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que quieres eliminar este comentario?
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -144,6 +166,26 @@
                     initializeTinyMCE(versiculoId);
                 }
             }
+
+
+        });
+
+        function setCommentIdToDelete(id, titulo) {
+            console.log(titulo);
+            // Asigna el ID del comentario al botón de confirmación dentro del modal
+            document.getElementById('confirmDelete').setAttribute('data-comment-id', id);
+
+            // Actualiza el contenido del <li> con el título del comentario
+            document.querySelector('#modalConfirmDelete .modal-body ul li').textContent = titulo;
+        }
+
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            // Llama al método de Livewire para eliminar el comentario
+            @this.call('deleteComment', commentId);
+
+            // Opcional: Ocultar el modal manualmente después de confirmar
+            $('#modalConfirmDelete').modal('hide');
         });
     </script>
 

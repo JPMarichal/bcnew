@@ -118,7 +118,13 @@ class ComentariosAdmin extends Component
 
     public function deleteComment($id)
     {
-        VersiculoComentario::find($id)->delete();
+        $comentario = VersiculoComentario::find($id);
+        if ($comentario) {
+            $comentario->delete();
+            // Incrementar reRenderKey para forzar la re-renderización
+            $this->reRenderKey++;
+            $this->loadComments(); 
+        }
     }
 
     public function moveUp($id)
