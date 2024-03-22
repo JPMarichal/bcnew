@@ -114,14 +114,24 @@
                 tinymce.get(`comentario-${versiculoId}`).setContent(event.detail[0].comentario);
 
                 // Oculta el botón Guardar y muestra el botón Actualizar
-                document.querySelector('.btn-save').style.display = 'none';
-                document.querySelector('.btn-update').style.display = 'inline-block';
+                if (document.querySelector('.btn-save') !== null) {
+                    document.querySelector('.btn-save').style.display = 'none';
+                }
+
+                if (document.querySelector('.btn-update') !== null) {
+                    document.querySelector('.btn-update').style.display = 'inline-block';
+                }
             });
 
             window.addEventListener('reset-form', function() {
                 // Muestra el botón Guardar y oculta el botón Actualizar
-                document.querySelector('.btn-save').style.display = 'inline-block';
-                document.querySelector('.btn-update').style.display = 'none';
+                if (document.querySelector('.btn-save')!== null) {
+                    document.querySelector('.btn-save').style.display = 'inline-block';
+                }
+
+                if (document.querySelector('.btn-update')!== null) {
+                    document.querySelector('.btn-update').style.display = 'none';
+                }
             });
 
             // Se ejecuta cuando se presiona el botón Guardar o Actualizar
@@ -140,6 +150,8 @@
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
+                        //    @this->comentario = tinymce.get(`comentario-${versiculoId}`) -> getContent();
+                        //    @this->titulo = document.getElementById(`titulo-${versiculoId}`).value;
                         @this.call('initUpdateComment', tinymce.get(`comentario-${versiculoId}`).getContent());
                         clearTinyMCE(versiculoId);
                     } else {
@@ -210,6 +222,7 @@
 
             // Función para borrar el contenido del formulario
             window.clearTinyMCE = function(versiculoId) {
+                console.log("Limpieza");
                 // Limpiar el título
                 const tituloInput = document.getElementById(`titulo-${versiculoId}`);
                 if (tituloInput) {
@@ -226,6 +239,9 @@
                 if (tinymce.get(`comentario-${versiculoId}`)) {
                     tinymce.get(`comentario-${versiculoId}`).setContent('');
                 }
+
+                // document.querySelector('.btn-save').style.display = 'inline-block';
+                // document.querySelector('.btn-update').style.display = 'none';
 
                 initializeTinyMCE(versiculoId);
             }

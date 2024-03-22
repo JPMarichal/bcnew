@@ -91,7 +91,7 @@ class ComentariosAdmin extends Component
     public function updateComment()
     {
         $this->validate();
-
+dd($this->comentario);
         if ($this->comentarioId) {
             $comentario = VersiculoComentario::find($this->comentarioId);
             $comentario->update([
@@ -110,6 +110,7 @@ class ComentariosAdmin extends Component
         $logger = new Logger('name');
         $this->dispatch('clear-tinymce', ['versiculoId' => $this->versiculoId]);
         $logger->info('Formulario limpiado');
+        $this->dispatch('reset-form');
     }
 
     public function confirmDelete($id)
