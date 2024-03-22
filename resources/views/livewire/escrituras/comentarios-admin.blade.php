@@ -57,13 +57,8 @@
 
         // Se ejecuta cuando se ha cargado el DOM
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOMContentLoaded');
-            // Espera a que Livewire esté completamente cargado
-            //  document.addEventListener('livewire:load', function() {
-            console.log('livewire:load');
             // Obtén versiculoId desde el atributo data del div que engloba el formulario.
             const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
-            console.log(versiculoId);
 
             // Inicializa TinyMCE con el versiculoId correcto
             initializeTinyMCE(versiculoId);
@@ -74,20 +69,19 @@
             });
             //   });
 
+            // Se ejecuta cuando se presiona
             document.body.addEventListener('click', function(event) {
                 const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
                 if (event.target.matches('.btn-update')) {
-                    console.log('Actualizar');
                     // Botón actualizar
                     window.prepareAndSaveUpdate(versiculoId, true);
                 } else if (event.target.matches('.btn-save')) {
-                    console.log('Guardar');
                     // Botón guardar
                     window.prepareAndSaveUpdate(versiculoId, false);
                 }
             });
 
-            // Función modificada para preparar y realizar el guardado/actualización
+            // Prepara y realiza el guardado o actualización
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
