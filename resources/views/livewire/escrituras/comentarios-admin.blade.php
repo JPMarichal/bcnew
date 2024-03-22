@@ -107,7 +107,24 @@
             });
             //   });
 
-            // Se ejecuta cuando se presiona
+            window.addEventListener('editing-comment', function() {
+                const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
+                const tituloInput = document.getElementById(`titulo-${versiculoId}`);
+                tituloInput.value = event.detail[0].titulo;
+                tinymce.get(`comentario-${versiculoId}`).setContent(event.detail[0].comentario);
+
+                // Oculta el botón Guardar y muestra el botón Actualizar
+                document.querySelector('.btn-save').style.display = 'none';
+                document.querySelector('.btn-update').style.display = 'inline-block';
+            });
+
+            window.addEventListener('reset-form', function() {
+                // Muestra el botón Guardar y oculta el botón Actualizar
+                document.querySelector('.btn-save').style.display = 'inline-block';
+                document.querySelector('.btn-update').style.display = 'none';
+            });
+
+            // Se ejecuta cuando se presiona el botón Guardar o Actualizar
             document.body.addEventListener('click', function(event) {
                 const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
                 if (event.target.matches('.btn-update')) {
@@ -162,7 +179,7 @@
                         'advlist', 'autolink', 'autosave', 'lists', 'link', 'image',
                         'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
                         'code', 'fullscreen', 'insertdatetime', 'media', 'table', 'help',
-                        'wordcount', 'emoticons', 'autosave',  'quickbars'
+                        'wordcount', 'emoticons', 'autosave', 'quickbars'
                     ],
                     toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
                         'alignleft aligncenter alignright alignjustify | ' +

@@ -75,6 +75,7 @@ class ComentariosAdmin extends Component
         ]);
 
         $this->clearForm();
+        $this->dispatch('reset-form');
     }
 
     public function edit($id)
@@ -83,6 +84,8 @@ class ComentariosAdmin extends Component
         $this->comentarioId = $comentario->id;
         $this->titulo = $comentario->titulo;
         $this->comentario = $comentario->comentario;
+
+        $this->dispatch('editing-comment',$comentario);
     }
 
     public function updateComment()
