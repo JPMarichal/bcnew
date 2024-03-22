@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Escrituras\Versiculo;
 use App\Models\Escrituras\VersiculoComentario;
 use Monolog\Logger;
+use Livewire\Attributes\On;
 
 class ComentariosAdmin extends Component
 {
@@ -15,6 +16,13 @@ class ComentariosAdmin extends Component
     public $comentarioId = null;
     public $comentarios = [];
     public $reRenderKey = 0;
+
+    protected $listeners = [
+        'proceedWithSave' => 'saveComment',
+        'actualizarComentario' => 'actualizarComentario',
+        'initUpdateComment' => 'initUpdateComment',
+        'initSaveComment' => 'initSaveComment',
+    ];
 
     protected $rules = [
         'titulo' => 'required|string|max:255',
@@ -34,16 +42,35 @@ class ComentariosAdmin extends Component
         return view('livewire.escrituras.comentarios-admin', compact('versiculo', 'comentarios'));
     }
 
+    public function actualizarComentario($contenido)
+    {
+        $this->comentario = $contenido;
+
+        //   $this->saveComment();
+    }
+
+    public function initSaveComment($contenido)
+    {
+        $this->comentario = $contenido;
+        $this->saveComment();
+    }
+
+    public function initUpdateComment()
+    {
+        $this->updateComment();
+    }
+
     public function saveComment()
     {
         $this->validate();
 
         $orden = VersiculoComentario::where('versiculo_id', $this->versiculoId)->max('orden') + 1;
 
+
         VersiculoComentario::create([
             'versiculo_id' => $this->versiculoId,
             'titulo' => $this->titulo,
-            'comentario' => $this->comentario,
+            'comentario' =>  $this->comentario,
             'orden' => $orden,
         ]);
 
@@ -139,11 +166,5 @@ class ComentariosAdmin extends Component
         $versiculo = Versiculo::find($this->versiculoId);
         $this->comentarios = collect($versiculo->comentarios()->orderBy('orden')->get());
         $this->dispatch('moved');
-    }
-
-    private function resetInput()
-    {
-        $this->reset(['titulo', 'comentario', 'comentarioId']);
-        $this->loadComments(); // Cargar comentarios al inicializar el componente
     }
 }
