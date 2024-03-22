@@ -13,12 +13,19 @@
             </div>
             <div class="mb-3">
                 @if($comentarioId)
-                <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}">Actualizar</button>
+                <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button>
                 @else
-                <button type="button" class="btn btn-success btn-save" data-versiculo-id="{{ $versiculoId }}">Guardar</button>
+                <button type="button" class="btn btn-success btn-save" data-versiculo-id="{{ $versiculoId }}">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
                 @endif
-                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')">Limpiar</button>
+                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
             </div>
+
         </div>
 
         <!-- Grid -->
