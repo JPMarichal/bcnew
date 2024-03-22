@@ -87,20 +87,15 @@
                 }
             });
 
-            $(document).ready(function() {
-                $('#accounts').on('click', '.btn-save', function(e) {
-                    console.log('Click on save');
-                    @this.call('initSaveComment', 33);
-                });
-            });
-
             // Función modificada para preparar y realizar el guardado/actualización
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
-                        @this.call('initUpdateComment');
+                        @this.call('initUpdateComment', tinymce.get(`comentario-${versiculoId}`).getContent());
+                        clearTinyMCE(versiculoId);
                     } else {
                         @this.call('initSaveComment', tinymce.get(`comentario-${versiculoId}`).getContent());
+                        clearTinyMCE(versiculoId);
                     }
                 }).catch(error => console.error(error));
             };
