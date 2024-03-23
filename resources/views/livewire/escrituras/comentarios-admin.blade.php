@@ -170,9 +170,6 @@
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
-                        //    @this->comentario = 'Este es el comentario actualizado';
-                        //    @this->comentario = tinymce.get(`comentario-${versiculoId}`) -> getContent();
-                        //    @this->titulo = document.getElementById(`titulo-${versiculoId}`).value;
                         @this.call('initUpdateComment', tinymce.get(`comentario-${versiculoId}`).getContent());
                         clearTinyMCE(versiculoId);
                     } else {
@@ -197,6 +194,8 @@
                     value = value.charAt(0).toUpperCase() + value.slice(1);
                     // Actualiza el valor del campo de título
                     event.target.value = value;
+                    // Se asegura que se actualice el título en el backend
+                    @this.set('titulo', value.trim());
                 }, 1);
             }
 
