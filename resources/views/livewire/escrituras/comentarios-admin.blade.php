@@ -208,6 +208,7 @@
                     menubar: true,
                     language: 'es',
                     height: '100%',
+                    entity_encoding: 'raw',
                     plugins: [
                         'advlist', 'autolink', 'autosave', 'lists', 'link', 'image',
                         'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
