@@ -150,6 +150,7 @@
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
+                    //    @this->comentario = 'Este es el comentario actualizado';
                         //    @this->comentario = tinymce.get(`comentario-${versiculoId}`) -> getContent();
                         //    @this->titulo = document.getElementById(`titulo-${versiculoId}`).value;
                         @this.call('initUpdateComment', tinymce.get(`comentario-${versiculoId}`).getContent());

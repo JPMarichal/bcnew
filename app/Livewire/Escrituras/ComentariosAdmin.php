@@ -55,8 +55,9 @@ class ComentariosAdmin extends Component
         $this->saveComment();
     }
 
-    public function initUpdateComment()
+    public function initUpdateComment($contenido)
     {
+        $this->comentario = $contenido;
         $this->updateComment();
     }
 
@@ -91,7 +92,6 @@ class ComentariosAdmin extends Component
     public function updateComment()
     {
         $this->validate();
-dd($this->comentario);
         if ($this->comentarioId) {
             $comentario = VersiculoComentario::find($this->comentarioId);
             $comentario->update([
