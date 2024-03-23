@@ -19,7 +19,6 @@ class ComentariosAdmin extends Component
 
     protected $listeners = [
         'proceedWithSave' => 'saveComment',
-        'actualizarComentario' => 'actualizarComentario',
         'initUpdateComment' => 'initUpdateComment',
         'initSaveComment' => 'initSaveComment',
     ];
@@ -40,13 +39,6 @@ class ComentariosAdmin extends Component
         $versiculo = Versiculo::find($this->versiculoId);
         $comentarios = $versiculo->comentarios()->orderBy('orden')->get();
         return view('livewire.escrituras.comentarios-admin', compact('versiculo', 'comentarios'));
-    }
-
-    public function actualizarComentario($contenido)
-    {
-        $this->comentario = $contenido;
-
-        //   $this->saveComment();
     }
 
     public function initSaveComment($contenido)

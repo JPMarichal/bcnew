@@ -49,7 +49,11 @@
             <div class="list-group" wire:key="comentarios-list-{{ $reRenderKey }}">
                 @foreach($comentarios as $comentario)
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" wire:key="comentario-{{ $comentario->id }}-{{ $reRenderKey }}">
-                    <div>{{ $comentario->titulo }}</div>
+                    <div>
+                        <a href="javascript:void(0);" onclick="openCommentModal('{{ $comentario->comentario }}')" style="text-decoration: none;" title="Haz click para ver el comentario">
+                            {{ $comentario->titulo }}
+                        </a>
+                    </div>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-success" wire:click="moveUp({{ $comentario->id }})" title="Subir comentario">
                             <i class="fas fa-arrow-up"></i>
@@ -90,6 +94,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal para mostrar el contenido del comentario -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Contenido del Comentario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body content p-3 border rounded" style="max-height: 50vh; overflow-y: auto;">
+                        <!-- Aquí se insertará el contenido del comentario -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <style type="text/css">
@@ -153,6 +173,15 @@
                     icon: event.detail[0].type,
                 });
             });
+
+            window.openCommentModal = function(commentContent) {
+                // Inserta el contenido del comentario en el cuerpo del modal
+                document.querySelector('#commentModal .modal-body').innerHTML = commentContent;
+
+                // Muestra el modal
+                var commentModal = new bootstrap.Modal(document.getElementById('commentModal'));
+                commentModal.show();
+            }
 
             // Se ejecuta cuando se presiona el botón Guardar o Actualizar
             document.body.addEventListener('click', function(event) {
