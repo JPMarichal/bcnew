@@ -77,6 +77,12 @@ class ComentariosAdmin extends Component
 
         $this->clearForm();
         $this->dispatch('reset-form');
+
+        $this->dispatch('swal:modal', [
+            'type' => 'success',
+            'title' => 'Nuevo comentario guardado',
+            'text' => 'Se ha guardado con éxito el comentario',
+        ]);
     }
 
     public function edit($id)
@@ -101,6 +107,12 @@ class ComentariosAdmin extends Component
         }
 
         $this->clearForm();
+
+        $this->dispatch('swal:modal', [
+            'type' => 'success',
+            'title' => 'Comentario actualizado',
+            'text' => 'Se actualizó el comentario con éxito',
+        ]);
     }
 
     public function clearForm()
@@ -129,6 +141,12 @@ class ComentariosAdmin extends Component
             $this->reRenderKey++;
             $this->loadComments(); 
         }
+
+        $this->dispatch('swal:modal', [
+            'type' => 'success',
+            'title' => 'El comentario se ha eliminado con éxito',
+            'text' => 'Comentario eliminado',
+        ]);
     }
 
     public function moveUp($id)

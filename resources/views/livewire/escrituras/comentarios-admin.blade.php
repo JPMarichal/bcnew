@@ -144,6 +144,16 @@
                 }
             });
 
+            window.addEventListener('swal:modal', event => {
+                console.log('Evento swal:modal');
+                console.log(event.detail[0].title);
+                Swal.fire({
+                    title: event.detail[0].title,
+                    text: event.detail[0].text,
+                    icon: event.detail[0].type,
+                });
+            });
+
             // Se ejecuta cuando se presiona el botón Guardar o Actualizar
             document.body.addEventListener('click', function(event) {
                 const versiculoId = document.querySelector('.px-5').getAttribute('data-versiculo-id');
