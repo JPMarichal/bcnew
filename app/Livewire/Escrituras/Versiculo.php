@@ -20,17 +20,6 @@ class Versiculo extends Component
         $this->esPar = $esPar;
     }
 
-    public function abrirModal()
-    {
-        $this->mostrarModal = true;
-     //   $this->emit('inicializarTinyMCE', 'comentario-' . $this->versiculo->id);
-    }
-
-    public function cerrarModal()
-    {
-        $this->mostrarModal = false;
-    }
-
     public function guardarComentario()
     {
 
