@@ -1,8 +1,15 @@
 <div>
     <div>
+        <div class="alert rounded alert-info fade show">
+            <div>{{ $versiculo->contenido}} </div>
+            <div class="text-end">({{ $versiculo->referencia }})</div>
+        </div>
         <!-- Editor -->
         <div class="px-5 border rounded" data-versiculo-id="{{ $versiculoId }}">
             <h3 class="text-center mb-3" style="background-color:gainsboro" title="Aquí puedes crear un nuevo comentario o editar uno existente.">Editor</h3>
+            <div class="alert alert-warning fade show" role="alert">
+                <p class="mb-0">Aquí puedes crear un nuevo comentario para {{$versiculo->referencia}} o editar uno existente.</p>
+            </div>
             <div class="mb-3">
                 <label for="titulo" class="form-label" title="Escribe aquí el título de tu comentario">Título</label>
                 <input type="text" class="form-control" id="titulo-{{ $versiculoId }}" name="titulo-{{ $versiculoId }}" wire:model.defer="titulo" title="Escribe aquí el título de tu comentario" required>
@@ -31,6 +38,9 @@
         <!-- Grid -->
         <div class="mt-4 border rounded p-3">
             <h3 class="text-center mb-3" style="background-color:gainsboro" title="Aquí se muestran todos los comentarios asociados a este versículo. Puedes reordenarlos, editarlos o eliminarlos.">Listado de comentarios</h3>
+            <div class="alert alert-warning fade show" role="alert">
+                <p class="mb-0">Desde aquí puedes visualizar los comentarios, reordenarlos, seleccionarlos para edición o eliminarlos.</p>
+            </div>
             <div class="text-end">
                 <button class="btn btn-primary btn-sm mb-3" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Prepara el formulario para agregar un nuevo comentario">
                     <i class="fas fa-plus"></i> Nuevo Comentario
@@ -125,11 +135,11 @@
 
             window.addEventListener('reset-form', function() {
                 // Muestra el botón Guardar y oculta el botón Actualizar
-                if (document.querySelector('.btn-save')!== null) {
+                if (document.querySelector('.btn-save') !== null) {
                     document.querySelector('.btn-save').style.display = 'inline-block';
                 }
 
-                if (document.querySelector('.btn-update')!== null) {
+                if (document.querySelector('.btn-update') !== null) {
                     document.querySelector('.btn-update').style.display = 'none';
                 }
             });
@@ -150,7 +160,7 @@
             window.prepareAndSaveUpdate = function(versiculoId, isUpdate) {
                 synchronizeTinyMCE(versiculoId).then(() => {
                     if (isUpdate) {
-                    //    @this->comentario = 'Este es el comentario actualizado';
+                        //    @this->comentario = 'Este es el comentario actualizado';
                         //    @this->comentario = tinymce.get(`comentario-${versiculoId}`) -> getContent();
                         //    @this->titulo = document.getElementById(`titulo-${versiculoId}`).value;
                         @this.call('initUpdateComment', tinymce.get(`comentario-${versiculoId}`).getContent());
