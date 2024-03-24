@@ -80,7 +80,7 @@
             @foreach ($capitulo->pericopas as $pericopa)
             <div class="pericopa">
                 <h2>
-                    {{ $pericopa->titulo }}
+                    {{ $pericopa->titulo }} (v. {{ $pericopa->versiculo_inicial}}-{{ $pericopa->versiculo_final}})
                     @if (!empty($pericopa->descripcion))
                     <button class="btn btn-sm float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescripcion{{$loop->index}}" aria-expanded="false" aria-controls="collapseDescripcion{{$loop->index}}">
                         <b><i class="fas fa-chevron-down"></i></b>
