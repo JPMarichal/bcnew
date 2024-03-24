@@ -87,6 +87,7 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/libro/{nombre}', [LibroController::class, 'show'])->name('libros.show');
     Route::get('/capitulos', [CapituloController::class, 'index'])->name('capitulos.index');
     Route::get('/capitulo/{nombre}', [CapituloController::class, 'show'])->name('capitulos.show');
+    Route::get('/capitulo/{nombre}/comentarios', [CapituloController::class, 'showComentarios'])->name('capitulos.comentarios');
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'show'])->name('versiculos.comentarios');
     Route::get('/versiculo/{referencia}/comentarios/admin', [VersiculoController::class, 'admin'])->name('versiculos.comentarios.admin');
 });
