@@ -1,5 +1,8 @@
-<div class="{{ $esPar ? 'versiculo-par' : '' }}">
-    <strong>{{ $versiculo->num_versiculo }}</strong> {{ $versiculo->contenido }}
+<div class="{{ $esPar ? 'versiculo-par' : '' }}" id="{{ $versiculo->num_versiculo }}">
+    {{-- Despliegue del versículo --}}
+    <strong>{{ $versiculo->num_versiculo }}</strong> 
+    {{ $versiculo->contenido }}
+
     @if($versiculo->comentarios->isNotEmpty())
     <button class="btn btn-sm" style="background-color: transparent;" data-bs-toggle="modal" data-bs-target="#comentariosModal-{{ $versiculo->id }}" title="Ver comentarios a {{$versiculo->referencia}}">
         <i class="fas fa-lightbulb" style="color: orange;"></i>
