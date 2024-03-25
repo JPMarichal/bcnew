@@ -77,7 +77,7 @@
         @auth
     @if(auth()->user()->hasRole('Administrador'))
     {{-- Información del id de capítulo, útil solo para el administrador --}}
-    <b>Capítulo id:</b> {{ $capitulo->id }}
+    | <b>Capítulo id:</b> {{ $capitulo->id }}
     @endif
     @endauth
     </div>
