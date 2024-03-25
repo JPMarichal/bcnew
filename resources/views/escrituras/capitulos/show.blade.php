@@ -74,7 +74,12 @@
         <a href="{{ route('capitulos.comentarios', $capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
             Ver todos los comentarios
         </a>
-        
+        @auth
+    @if(auth()->user()->hasRole('Administrador'))
+    {{-- Información del id de capítulo, útil solo para el administrador --}}
+    <b>Capítulo id:</b> {{ $capitulo->id }}
+    @endif
+    @endauth
     </div>
     <div class="row">
         <div class="col-1 text-center" id="navleft">
