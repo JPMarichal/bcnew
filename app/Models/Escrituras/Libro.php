@@ -50,7 +50,7 @@ class Libro extends Model
 
     public function partes()
     {
-        return $this->hasMany(Parte::class, 'libro_id')->orderBy('id', 'asc');
+        return $this->hasMany(Parte::class, 'libro_id')->orderBy('orden', 'asc');
     }
 
     public function capitulos()
