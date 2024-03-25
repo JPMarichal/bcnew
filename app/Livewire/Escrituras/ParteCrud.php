@@ -27,6 +27,12 @@ class ParteCrud extends Component
         $this->libros = Libro::orderBy('id', 'asc')->get();
     }
 
+    public function cambiarLibro($libroId)
+    {
+        $this->libro_id = $libroId;
+        $this->updatedLibroId($libroId);
+    }
+
     public function updatedLibroId($value)
     {
         $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
