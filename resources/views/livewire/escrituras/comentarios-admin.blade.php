@@ -27,9 +27,6 @@
                 <textarea class="form-control" id="comentario-{{ $versiculoId }}" name="comentario-{{ $versiculoId }}" rows="5" wire:model.defer="comentario"></textarea>
             </div>
             <div class="mb-3">
-                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Limpia el formulario">
-                    <i class="fas fa-eraser"></i> Limpiar
-                </button>
                 @if($comentarioId)
                 <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}" title="Guarda el comentario editado">
                     <i class="fas fa-edit"></i> Actualizar
@@ -39,6 +36,9 @@
                     <i class="fas fa-save"></i> Guardar
                 </button>
                 @endif
+                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Limpia el formulario">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
             </div>
 
         </div>
