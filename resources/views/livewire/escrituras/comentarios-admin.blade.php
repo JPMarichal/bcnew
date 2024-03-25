@@ -1,5 +1,13 @@
 <div>
     <div>
+        <div class="border rounded text-center p-1 text-small mb-2 mt-0">
+            <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+               Lectura de {{ $versiculo->capitulo->referencia }}
+            </a> | 
+            <a href="{{ route('capitulos.comentarios', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+               Ver todos los comentarios
+            </a>
+        </div>
         <div class="alert rounded alert-info fade show">
             <div>{{ $versiculo->contenido}} </div>
             <div class="text-end">({{ $versiculo->referencia }})</div>
