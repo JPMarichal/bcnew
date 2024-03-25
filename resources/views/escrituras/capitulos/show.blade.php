@@ -70,6 +70,12 @@
         <center> <audio src="{{$capitulo->url_audio}}" controls preload='metadata'></audio></center>
     </div>
     <h2 class="text-center p-1" style="border-top: 1px solid green; background-color:#C6E2B8">{{$capitulo->referencia}}</h2>
+    <div class="text-center text-small border rounded p-1">
+        <a href="{{ route('capitulos.comentarios', $capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+            Ver todos los comentarios
+        </a>
+        
+    </div>
     <div class="row">
         <div class="col-1 text-center" id="navleft">
             <a href="{{ route('capitulos.show', ['nombre' => $capituloAnterior->referencia]) }}" class="btn btn-personalizado btn-flotante">
