@@ -55,30 +55,37 @@ class ParteCrud extends Component
                 'capitulo_final_id.gte' => 'El capítulo final debe ser posterior o igual al capítulo inicial.',
             ]);
 
-          //  dd('Pasa la validación');
             $parte = new Parte();
-            if ($this->parte_id) {
-                $parte = Parte::find($this->parte_id);
-            }
 
             $parte->fill([
                 'libro_id' => $this->libro_id,
                 'nombre' => $this->titulo,
-                'orden' => $this->capitulo_inicial_id, // Ajustar según la lógica de orden
-                // Agregar más campos si es necesario
+                'orden' => $this->capitulo_inicial_id
             ]);
             $parte->save();
 
-            // Actualizar capítulos si es necesario
+            $parte->nombre = $this->titulo;
+            $parte->orden = $this->capitulo_inicial_id; // Asegúrate de que este campo se maneja según tus requisitos
+            $parte->save();
+
+            // Actualizar capítulos en el rango
+            Capitulo::where('libro_id', $this->libro_id)
+                ->whereBetween('id', [$this->capitulo_inicial_id, $this->capitulo_final_id])
+                ->update(['parte_id' => $parte->id]);
 
             $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
-            $this->dispatch('alert', 'La parte ha sido guardada con éxito.');
-        } // catch (\Throwable $th) {
-        catch (\Illuminate\Validation\ValidationException $e) {
+            $this->dispatch('alertaOperacion', 'La parte ha sido guardada con éxito.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
             $this->dispatch('swal:modal', [
                 'type' => 'error',
                 'title' => 'Error de validación',
                 'text' => implode(", ", array_flatten($e->errors())),
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('swal:modal', [
+                'type' => 'error',
+                'title' => 'Error',
+                'text' => $e->getMessage(),
             ]);
         }
     }
@@ -88,14 +95,50 @@ class ParteCrud extends Component
         $this->dispatch('confirmarEliminacion', ['parteId' => $parteId]);
     }
 
-    public function editar($parteId)
+    public function actualizar()
     {
-        dd('En editar');
-        $this->modoEdicion = true;
-        $this->parte_id = $parteId;
-        $parte = Parte::find($parteId);
-        $this->titulo = $parte->nombre;
-        // Ajustar el resto de campos
+        try {
+            $this->validate(null, [
+                'libro_id.required' => 'Es necesario seleccionar un libro.',
+                'titulo.required' => 'El campo título es obligatorio.',
+                'capitulo_inicial_id.required' => 'Debes elegir un capítulo inicial.',
+                'capitulo_final_id.required' => 'Debes elegir un capítulo final.',
+                'capitulo_final_id.gte' => 'El capítulo final debe ser posterior o igual al capítulo inicial.',
+            ]);
+
+            $parte = Parte::find($this->parte_id);
+
+            if (!$parte) {
+                throw new \Exception("La parte no existe.");
+            }
+
+            $parte->update([
+                'libro_id' => $this->libro_id,
+                'nombre' => $this->titulo,
+                'orden' => $this->capitulo_inicial_id
+            ]);
+
+            // Actualizar capítulos en el rango
+            Capitulo::where('libro_id', $this->libro_id)
+                ->whereBetween('id', [$this->capitulo_inicial_id, $this->capitulo_final_id])
+                ->update(['parte_id' => $parte->id]);
+
+            $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
+            $this->modoEdicion = false;
+            $this->dispatch('alertaOperacion', 'La parte ha sido actualizada con éxito.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->dispatch('swal:modal', [
+                'type' => 'error',
+                'title' => 'Error de validación',
+                'text' => implode(", ", array_flatten($e->errors())),
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('swal:modal', [
+                'type' => 'error',
+                'title' => 'Error',
+                'text' => $e->getMessage(),
+            ]);
+        }
     }
 
     public function eliminar($parteId)
@@ -103,7 +146,7 @@ class ParteCrud extends Component
         $parte = Parte::find($parteId);
         if ($parte) {
             $parte->delete();
-            $this->dispatch('alertDelete', 'Parte eliminada con éxito.');
+            $this->dispatch('alertaOperacion', 'Parte eliminada con éxito.');
         }
     }
 

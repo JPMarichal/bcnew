@@ -52,10 +52,10 @@
                 @enderror
             </div>
             <div class="text-end btn-group">
-                <button class="btn btn-small btn-success" id="btnGuardar" style="display:block;" wire:click="guardar">
+                <button class="btn btn-small btn-success" id="btnGuardar" wire:click="guardar" @if($modoEdicion) style="display:none;" @endif>
                     <i class="fas fa-save"></i> Guardar
                 </button>
-                <button class="btn btn-small btn-warning" id="btnActualizar" style="display:none;" wire:click="actualizar">
+                <button class="btn btn-small btn-warning" id="btnActualizar" wire:click="actualizar" @unless($modoEdicion) style="display:none;" @endunless>
                     <i class="fas fa-edit"></i> Actualizar
                 </button>
                 <button class="btn btn-small btn-secondary" id="btnLimpiar" onclick="limpiarFormulario()">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-1 border text-center">{{ $parte->capitulos->last()->num_capitulo ?? '' }}</div>
                 <div class="col-1 border text-center">
-                    <button class="btn btn-sm p-0" style="color: green;" onclick="entrarModoEdicion('{{ $parte->nombre }}')" title="Editar esta parte">
+                    <button class="btn btn-sm p-0" style="color: green;" onclick="entrarModoEdicion('{{ $parte->nombre }}','{{$parte->id}}')" title="Editar esta parte">
                         <i class="fa fa-edit"></i>
                     </button>
                 </div>
@@ -126,10 +126,10 @@
                 });
             });
 
-            window.addEventListener('alertDelete', event => {
+            window.addEventListener('alertaOperacion', event => {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Eliminación exitosa',
+                    icon: event.detail[0].type,
+                    title: event.detail[0].title,
                     text: event.detail[0].text,
                     showConfirmButton: true,
                     timer: 1500
@@ -159,10 +159,13 @@
                 document.getElementById('btnActualizar').style.display = 'none';
             }
 
-            window.entrarModoEdicion = function(parteNombre) {
+            window.entrarModoEdicion = function(parteNombre, parteId) {
+                @this.set('modoEdicion', true);
+
                 document.getElementById('textTitulo').value = parteNombre;
-                // Aquí puedes añadir lógica para llenar el formulario con los datos de la parte
-                // Por ejemplo, buscar los datos de la parte por su ID y llenar los campos del formulario
+
+                // Establecer parte_id en Livewire
+                @this.set('parte_id', parteId);
 
                 // Ajustar visibilidad de botones
                 document.getElementById('btnGuardar').style.display = 'none';
