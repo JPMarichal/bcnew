@@ -21,7 +21,7 @@
     <div class="card">
         <div class="card-header text-center">
             <h2 class="mb-0" id="libro_seleccionado">[{{ $this->libro->id}}] {{ $this->libro->nombre ?? '' }}</h2>
-            <div><a href="" target="_blank">Ver libro de {{ $this->libro->nombre ?? '' }}</a>
+            <div><a href="{{ route('libros.show', $this->libro->nombre) }}" target="_blank">Ver libro de {{ $this->libro->nombre ?? '' }}</a>
             </div>
             <div class="card-body">
                 <div class="row mb-2">
