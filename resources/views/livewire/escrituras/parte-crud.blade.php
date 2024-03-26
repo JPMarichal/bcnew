@@ -20,7 +20,7 @@
     @if($this->libro != null)
     <div class="card">
         <div class="card-header text-center">
-            <h2 id="libro_seleccionado">[{{ $this->libro->id}}] {{ $this->libro->nombre ?? '' }}</h2>            
+            <h2 id="libro_seleccionado">[{{ $this->libro->id}}] {{ $this->libro->nombre ?? '' }}</h2>
         </div>
         <div class="card-body">
             <input type="text" wire:model="titulo" placeholder="Título de la parte">
@@ -43,8 +43,8 @@
             <div class="row">
                 <div class="col-8 border">{{ $parte->nombre }}</div>
                 <div class="col-1 border text-center">
-                    <a href="{{ route('capitulos.show',$parte->capitulos->first()->referencia)}}" style="text-decoration: none;" target="_blank">
-                    {{ $parte->capitulos->first()->num_capitulo ?? '' }}
+                    <a href="{{ route('capitulos.show','1 Crónicas 1')}}" style="text-decoration: none;" target="_blank">
+                        {{ $parte->capitulos->first()->num_capitulo ?? '' }}
                     </a>
                 </div>
                 <div class="col-1 border text-center">{{ $parte->capitulos->last()->num_capitulo ?? '' }}</div>
@@ -54,7 +54,7 @@
                     </button>
                 </div>
                 <div class="col-1 border text-center">
-                    <button class="btn btn-sm p-0" style="color: red;" wire:click="eliminar({{ $parte->id }})" title="Eliminar esta parte">
+                    <button class="btn btn-sm p-0" style="color: red;" wire:click="confirmarEliminacion({{ $parte->id }})" title="Eliminar esta parte">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>
@@ -63,4 +63,36 @@
         </div>
     </div>
     @endif
+
+    <script lang="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('confirmarEliminacion', event => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "No podrás revertir esto.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, elimínala!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log('parteid');
+                        console.log(event.detail.parteId);
+                        @this.call('eliminar', event.detail[0].parteId);
+                    }
+                });
+            });
+
+            window.addEventListener('alertDelete', event => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminación exitosa',
+                    text: event.detail[0].text,
+                    showConfirmButton: true,
+                    timer: 1500
+                });
+            });
+        });
+    </script>
 </div>

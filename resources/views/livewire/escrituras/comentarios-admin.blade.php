@@ -2,10 +2,10 @@
     <div>
         <div class="border rounded text-center p-1 text-small mb-2 mt-0">
             <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-               Lectura de {{ $versiculo->capitulo->referencia }}
-            </a> | 
+                Lectura de {{ $versiculo->capitulo->referencia }}
+            </a> |
             <a href="{{ route('capitulos.comentarios', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-               Ver todos los comentarios
+                Ver todos los comentarios
             </a>
         </div>
         <div class="alert rounded alert-info fade show">
@@ -97,7 +97,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
+                        <button class="btn btn-sm p-0" style="color: red;" wire:click="confirmarEliminacion({{ $parte->id }})" title="Eliminar esta parte">
+                            <i class="fa fa-trash"></i>
+                        </button>
+
                     </div>
                 </div>
             </div>

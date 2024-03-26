@@ -63,7 +63,12 @@ class ParteCrud extends Component
         // Actualizar capítulos si es necesario
 
         $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
-        $this->emit('alert', 'La parte ha sido guardada con éxito.');
+        $this->dispatch('alert', 'La parte ha sido guardada con éxito.');
+    }
+
+    public function confirmarEliminacion($parteId)
+    {
+        $this->dispatch('confirmarEliminacion', ['parteId' => $parteId]);
     }
 
     public function editar($parteId)
@@ -80,7 +85,7 @@ class ParteCrud extends Component
         $parte = Parte::find($parteId);
         if ($parte) {
             $parte->delete();
-            $this->emit('alert', 'Parte eliminada con éxito.');
+            $this->dispatch('alertDelete', 'Parte eliminada con éxito.');
         }
     }
 
