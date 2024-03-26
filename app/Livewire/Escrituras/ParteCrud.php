@@ -20,6 +20,7 @@ class ParteCrud extends Component
         'titulo' => 'required|string|max:255',
         'capitulo_inicial_id' => 'required|numeric',
         'capitulo_final_id' => 'required|numeric',
+        'capitulo_final_id' => 'required|numeric|gte:capitulo_inicial_id',
     ];
 
     public function mount()
@@ -45,25 +46,41 @@ class ParteCrud extends Component
 
     public function guardar()
     {
-        $this->validate();
+        try {
+            $this->validate(null, [
+                'libro_id.required' => 'Es necesario seleccionar un libro.',
+                'titulo.required' => 'El campo título es obligatorio.',
+                'capitulo_inicial_id.required' => 'Debes elegir un capítulo inicial.',
+                'capitulo_final_id.required' => 'Debes elegir un capítulo final.',
+                'capitulo_final_id.gte' => 'El capítulo final debe ser posterior o igual al capítulo inicial.',
+            ]);
 
-        $parte = new Parte();
-        if ($this->parte_id) {
-            $parte = Parte::find($this->parte_id);
+          //  dd('Pasa la validación');
+            $parte = new Parte();
+            if ($this->parte_id) {
+                $parte = Parte::find($this->parte_id);
+            }
+
+            $parte->fill([
+                'libro_id' => $this->libro_id,
+                'nombre' => $this->titulo,
+                'orden' => $this->capitulo_inicial_id, // Ajustar según la lógica de orden
+                // Agregar más campos si es necesario
+            ]);
+            $parte->save();
+
+            // Actualizar capítulos si es necesario
+
+            $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
+            $this->dispatch('alert', 'La parte ha sido guardada con éxito.');
+        } // catch (\Throwable $th) {
+        catch (\Illuminate\Validation\ValidationException $e) {
+            $this->dispatch('swal:modal', [
+                'type' => 'error',
+                'title' => 'Error de validación',
+                'text' => implode(", ", array_flatten($e->errors())),
+            ]);
         }
-
-        $parte->fill([
-            'libro_id' => $this->libro_id,
-            'nombre' => $this->titulo,
-            'orden' => $this->capitulo_inicial_id, // Ajustar según la lógica de orden
-            // Agregar más campos si es necesario
-        ]);
-        $parte->save();
-
-        // Actualizar capítulos si es necesario
-
-        $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
-        $this->dispatch('alert', 'La parte ha sido guardada con éxito.');
     }
 
     public function confirmarEliminacion($parteId)
@@ -73,6 +90,7 @@ class ParteCrud extends Component
 
     public function editar($parteId)
     {
+        dd('En editar');
         $this->modoEdicion = true;
         $this->parte_id = $parteId;
         $parte = Parte::find($parteId);

@@ -25,10 +25,10 @@
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col-6 px-1 mx-0">
-                    <input type="text" id="textTitulo" class="form-control" wire:model="titulo" placeholder="Título de la parte">
+                    <input type="text" id="textTitulo" name="textTitulo" class="form-control" wire:model="titulo" placeholder="Título de la parte">
                 </div>
                 <div class="col-3 px-1 mx-0">
-                    <select class="form-select form-control" id="capitulo_inicial" wire:model="capitulo_inicial_id">
+                    <select class="form-select form-control" id="capitulo_inicial" name="capitulo_inicial" wire:model="capitulo_inicial_id">
                         <option value="">Capítulo Inicial</option>
                         @foreach ($capitulos as $capitulo)
                         <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
@@ -36,13 +36,20 @@
                     </select>
                 </div>
                 <div class="col-3 px-1 mx-0">
-                    <select class="form-select form-control" id="capitulo_final" wire:model="capitulo_final_id">
+                    <select class="form-select form-control" id="capitulo_final" name="capitulo_final" wire:model="capitulo_final_id">
                         <option value="">Capítulo Final</option>
                         @foreach ($capitulos as $capitulo)
                         <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
                         @endforeach
                     </select>
                 </div>
+            </div>
+            <div class="row mb-2">
+                @error('titulo')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
             <div class="text-end btn-group">
                 <button class="btn btn-small btn-success" id="btnGuardar" style="display:block;" wire:click="guardar">
@@ -51,7 +58,7 @@
                 <button class="btn btn-small btn-warning" id="btnActualizar" style="display:none;" wire:click="actualizar">
                     <i class="fas fa-edit"></i> Actualizar
                 </button>
-                <button class="btn btn-small btn-secondary" onclick="limpiarFormulario()">
+                <button class="btn btn-small btn-secondary" id="btnLimpiar" onclick="limpiarFormulario()">
                     <i class="fas fa-eraser"></i> Limpiar
                 </button>
             </div>
@@ -101,56 +108,66 @@
 
     <script lang="javascript">
         document.addEventListener('DOMContentLoaded', function() {
-                    window.addEventListener('confirmarEliminacion', event => {
-                        Swal.fire({
-                            title: '¿Estás seguro?',
-                            text: "No podrás revertir esto.",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: '¡Sí, elimínala!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                console.log('parteid');
-                                console.log(event.detail.parteId);
-                                @this.call('eliminar', event.detail[0].parteId);
-                            }
-                        });
-                    });
-
-                    window.addEventListener('alertDelete', event => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Eliminación exitosa',
-                            text: event.detail[0].text,
-                            showConfirmButton: true,
-                            timer: 1500
-                        });
-                    });
-
-                    window.limpiarFormulario = function() {
-                        // Resetear el valor del título
-                        document.getElementById('textTitulo').value = '';
-
-                        // Resetear los selects de capítulo inicial y final
-                        document.getElementById('capitulo_inicial').value = '';
-                        document.getElementById('capitulo_final').value = '';
-
-                        // Ajustar visibilidad de botones
-                        document.getElementById('btnGuardar').style.display = 'block';
-                        document.getElementById('btnActualizar').style.display = 'none';
+            window.addEventListener('confirmarEliminacion', event => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "No podrás revertir esto.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, elimínala!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log('parteid');
+                        console.log(event.detail.parteId);
+                        @this.call('eliminar', event.detail[0].parteId);
                     }
+                });
+            });
 
-                    window.entrarModoEdicion = function(parteNombre) {
-                        document.getElementById('textTitulo').value = parteNombre;
-                        // Aquí puedes añadir lógica para llenar el formulario con los datos de la parte
-                        // Por ejemplo, buscar los datos de la parte por su ID y llenar los campos del formulario
+            window.addEventListener('alertDelete', event => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminación exitosa',
+                    text: event.detail[0].text,
+                    showConfirmButton: true,
+                    timer: 1500
+                });
+            });
 
-                        // Ajustar visibilidad de botones
-                        document.getElementById('btnGuardar').style.display = 'none';
-                        document.getElementById('btnActualizar').style.display = 'block';
-                    }
-    });
+            window.addEventListener('swal:modal', event => {
+                console.log('Evento swal:modal');
+                Swal.fire({
+                    icon: event.detail[0].type,
+                    title: event.detail[0].title,
+                    text: event.detail[0].text,
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+
+            window.limpiarFormulario = function() {
+                // Resetear el valor del título
+                document.getElementById('textTitulo').value = '';
+
+                // Resetear los selects de capítulo inicial y final
+                document.getElementById('capitulo_inicial').value = '';
+                document.getElementById('capitulo_final').value = '';
+
+                // Ajustar visibilidad de botones
+                document.getElementById('btnGuardar').style.display = 'block';
+                document.getElementById('btnActualizar').style.display = 'none';
+            }
+
+            window.entrarModoEdicion = function(parteNombre) {
+                document.getElementById('textTitulo').value = parteNombre;
+                // Aquí puedes añadir lógica para llenar el formulario con los datos de la parte
+                // Por ejemplo, buscar los datos de la parte por su ID y llenar los campos del formulario
+
+                // Ajustar visibilidad de botones
+                document.getElementById('btnGuardar').style.display = 'none';
+                document.getElementById('btnActualizar').style.display = 'block';
+            }
+        });
     </script>
 </div>
