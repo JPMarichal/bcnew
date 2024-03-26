@@ -86,11 +86,21 @@
                 <div class="row">
                     <div class="col-8 border">{{ $parte->nombre }}</div>
                     <div class="col-1 border text-center">
+                        @if($parte->capitulos->count() > 0)
                         <a href="{{ route('capitulos.show',$parte->capitulos->first()->referencia)}}" style="text-decoration: none;" target="_blank">
                             {{ $parte->capitulos->first()->num_capitulo ?? '' }}
                         </a>
+                        @else
+                        -
+                        @endif
                     </div>
-                    <div class="col-1 border text-center">{{ $parte->capitulos->last()->num_capitulo ?? '' }}</div>
+                    <div class="col-1 border text-center">
+                        @if($parte->capitulos->count() > 0)
+                        {{ $parte->capitulos->last()->num_capitulo ?? '' }}
+                        @else
+                        -
+                        @endif
+                    </div>
                     <div class="col-1 border text-center">
                         <button class="btn btn-sm p-0" style="color: green;" onclick="entrarModoEdicion('{{ $parte->nombre }}','{{$parte->id}}')" title="Editar esta parte">
                             <i class="fa fa-edit"></i>
@@ -109,6 +119,7 @@
 
         <script lang="javascript">
             document.addEventListener('DOMContentLoaded', function() {
+                // Confirma la eliminación de la parte
                 window.addEventListener('confirmarEliminacion', event => {
                     Swal.fire({
                         title: '¿Estás seguro?',
@@ -127,7 +138,9 @@
                     });
                 });
 
+                // Retroalimenta al usuario sobre el éxito o fracaso de una operación
                 window.addEventListener('alertaOperacion', event => {
+                    console.log(event.detail[0]);
                     Swal.fire({
                         icon: event.detail[0].type,
                         title: event.detail[0].title,
@@ -137,6 +150,7 @@
                     });
                 });
 
+                // Despliega un mensaje de retroalimentación
                 window.addEventListener('swal:modal', event => {
                     console.log('Evento swal:modal');
                     Swal.fire({
@@ -147,6 +161,11 @@
                     });
                 });
 
+                window.addEventListener('reset-form', event => {
+                    limpiarFormulario();
+                });
+
+                // Limpia el formulario
                 window.limpiarFormulario = function() {
                     // Resetear el valor del título
                     document.getElementById('textTitulo').value = '';
@@ -160,6 +179,7 @@
                     document.getElementById('btnActualizar').style.display = 'none';
                 }
 
+                // Inicia la edición de una parte
                 window.entrarModoEdicion = function(parteNombre, parteId) {
                     @this.set('modoEdicion', true);
 

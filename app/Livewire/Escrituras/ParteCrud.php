@@ -74,7 +74,15 @@ class ParteCrud extends Component
                 ->update(['parte_id' => $parte->id]);
 
             $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
-            $this->dispatch('alertaOperacion', 'La parte ha sido guardada con éxito.');
+            $this->dispatch(
+                'alertaOperacion',
+                [
+                    'type' => 'success',
+                    'title' => 'Éxito',
+                    'text' => 'La parte ha sido guardada con éxito.'
+                ]
+            );
+            $this->dispatch('reset-form');
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->dispatch('swal:modal', [
                 'type' => 'error',
@@ -125,7 +133,15 @@ class ParteCrud extends Component
 
             $this->reset(['titulo', 'capitulo_inicial_id', 'capitulo_final_id', 'parte_id', 'modoEdicion']);
             $this->modoEdicion = false;
-            $this->dispatch('alertaOperacion', 'La parte ha sido actualizada con éxito.');
+            $this->dispatch(
+                'alertaOperacion',
+                [
+                    'type' => 'success',
+                    'title' => 'Éxito',
+                    'text' => 'La parte ha sido actualizada con éxito.'
+                ]
+            );
+            $this->dispatch('reset-form');
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->dispatch('swal:modal', [
                 'type' => 'error',
@@ -146,7 +162,12 @@ class ParteCrud extends Component
         $parte = Parte::find($parteId);
         if ($parte) {
             $parte->delete();
-            $this->dispatch('alertaOperacion', 'Parte eliminada con éxito.');
+            $this->dispatch('alertaOperacion', 
+            [
+                'type' => 'success',
+                'title' => 'Éxito',
+                'text' => 'La parte ha sido eliminada con éxito.'
+            ]        );
         }
     }
 
