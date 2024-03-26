@@ -152,9 +152,18 @@ class ParteCrud extends Component
 
     public function render()
     {
-        $this->partes = $this->libro_id ? Parte::where('libro_id', $this->libro_id)->orderBy('orden', 'asc')->get() : [];
+        if (!empty($this->libro_id)) {
+            // Se asume que 'orden' es el campo que indica el capítulo inicial de cada parte.
+            // Asegúrate de que esta suposición es correcta y ajusta según sea necesario.
+            $this->partes = Parte::where('libro_id', $this->libro_id)
+                ->orderBy('orden', 'asc')
+                ->get();
+        } else {
+            $this->partes = [];
+        }
+
         return view('livewire.escrituras.parte-crud', [
-            'capitulos' => $this->libro_id ? Capitulo::where('libro_id', $this->libro_id)->get() : [],
+            'capitulos' => $this->libro_id ? Capitulo::where('libro_id', $this->libro_id)->orderBy('id', 'asc')->get() : [],
         ]);
     }
 
