@@ -44,9 +44,13 @@
                     </select>
                 </div>
             </div>
-            <div class="text-end">
-                <button class="btn btn-small btn-success" wire:click="guardar"><i class="fas fa-save"></i> Guardar</button>
-                <button class="btn btn-small btn-warning" wire:click="actualizar"><i class="fas fa-edit"></i> Actualizar</button>
+            <div class="text-end btn-group">
+                <button class="btn btn-small btn-success" id="btnGuardar" style="display:block;" wire:click="guardar">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button class="btn btn-small btn-warning" id="btnActualizar" style="display:none;" wire:click="actualizar">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button>
                 <button class="btn btn-small btn-secondary" onclick="limpiarFormulario()">
                     <i class="fas fa-eraser"></i> Limpiar
                 </button>
@@ -80,7 +84,7 @@
                 </div>
                 <div class="col-1 border text-center">{{ $parte->capitulos->last()->num_capitulo ?? '' }}</div>
                 <div class="col-1 border text-center">
-                    <button class="btn btn-sm p-0" style="color: green;" wire:click="editar({{ $parte->id }})" title="Editar esta parte">
+                    <button class="btn btn-sm p-0" style="color: green;" onclick="entrarModoEdicion('{{ $parte->nombre }}')" title="Editar esta parte">
                         <i class="fa fa-edit"></i>
                     </button>
                 </div>
@@ -97,44 +101,56 @@
 
     <script lang="javascript">
         document.addEventListener('DOMContentLoaded', function() {
-            window.addEventListener('confirmarEliminacion', event => {
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "No podrás revertir esto.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '¡Sí, elimínala!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log('parteid');
-                        console.log(event.detail.parteId);
-                        @this.call('eliminar', event.detail[0].parteId);
+                    window.addEventListener('confirmarEliminacion', event => {
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: "No podrás revertir esto.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '¡Sí, elimínala!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                console.log('parteid');
+                                console.log(event.detail.parteId);
+                                @this.call('eliminar', event.detail[0].parteId);
+                            }
+                        });
+                    });
+
+                    window.addEventListener('alertDelete', event => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Eliminación exitosa',
+                            text: event.detail[0].text,
+                            showConfirmButton: true,
+                            timer: 1500
+                        });
+                    });
+
+                    window.limpiarFormulario = function() {
+                        // Resetear el valor del título
+                        document.getElementById('textTitulo').value = '';
+
+                        // Resetear los selects de capítulo inicial y final
+                        document.getElementById('capitulo_inicial').value = '';
+                        document.getElementById('capitulo_final').value = '';
+
+                        // Ajustar visibilidad de botones
+                        document.getElementById('btnGuardar').style.display = 'block';
+                        document.getElementById('btnActualizar').style.display = 'none';
                     }
-                });
-            });
 
-            window.addEventListener('alertDelete', event => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Eliminación exitosa',
-                    text: event.detail[0].text,
-                    showConfirmButton: true,
-                    timer: 1500
-                });
-            });
-        });
+                    window.entrarModoEdicion = function(parteNombre) {
+                        document.getElementById('textTitulo').value = parteNombre;
+                        // Aquí puedes añadir lógica para llenar el formulario con los datos de la parte
+                        // Por ejemplo, buscar los datos de la parte por su ID y llenar los campos del formulario
 
-        function limpiarFormulario() {
-            // Resetear el valor del título
-            document.getElementById('textTitulo').value = '';
-
-            // Resetear los selects de capítulo inicial y final
-            document.getElementById('capitulo_inicial').value = '';
-            document.getElementById('capitulo_final').value = '';
-
-            // Aquí puedes agregar cualquier otra lógica de limpieza necesaria
-        }
+                        // Ajustar visibilidad de botones
+                        document.getElementById('btnGuardar').style.display = 'none';
+                        document.getElementById('btnActualizar').style.display = 'block';
+                    }
+    });
     </script>
 </div>
