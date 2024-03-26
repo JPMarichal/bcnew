@@ -25,10 +25,10 @@
         <div class="card-body">
             <div class="row mb-2">
                 <div class="col-6 px-1 mx-0">
-            <input type="text" id="textTitulo" class="form-control" wire:model="titulo" placeholder="Título de la parte">
+                    <input type="text" id="textTitulo" class="form-control" wire:model="titulo" placeholder="Título de la parte">
                 </div>
                 <div class="col-3 px-1 mx-0">
-                    <select class="form-select form-control" id="capitulo_inicial" name="capitulo_inicial" >
+                    <select class="form-select form-control" id="capitulo_inicial" wire:model="capitulo_inicial_id">
                         <option value="">Capítulo Inicial</option>
                         @foreach ($capitulos as $capitulo)
                         <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
@@ -36,7 +36,7 @@
                     </select>
                 </div>
                 <div class="col-3 px-1 mx-0">
-                    <select class="form-select form-control" id="capitulo_final" name="capitulo_final" >
+                    <select class="form-select form-control" id="capitulo_final" wire:model="capitulo_final_id">
                         <option value="">Capítulo Final</option>
                         @foreach ($capitulos as $capitulo)
                         <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
@@ -45,9 +45,11 @@
                 </div>
             </div>
             <div class="text-end">
-            <button class="btn btn-small btn-success" wire:click="guardar"><i class="fas fa-save"></i> Guardar</button>
-            <button class="btn btn-small btn-warning" wire:click="actualizar"><i class="fas fa-edit"></i> Actualizar</button>
-            <button class="btn btn-small btn-secondary" wire:click="limpiar"><i class="fas fa-eraser"></i> Limpiar</button>
+                <button class="btn btn-small btn-success" wire:click="guardar"><i class="fas fa-save"></i> Guardar</button>
+                <button class="btn btn-small btn-warning" wire:click="actualizar"><i class="fas fa-edit"></i> Actualizar</button>
+                <button class="btn btn-small btn-secondary" onclick="limpiarFormulario()">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
             </div>
         </div>
     </div>
@@ -56,6 +58,11 @@
             <h3>Estructura del libro de {{ $this->libro->nombre }}</h3>
         </div>
         <div class="card-body">
+            <div class="text-end">
+                <button class="btn btn-primary btn-sm mb-3" onclick="limpiarFormulario()" title="Prepara el formulario para agregar una nueva parte">
+                    <i class="fas fa-plus"></i> Nueva Parte
+                </button>
+            </div>
             <div class="row" style="font-weight: bold;">
                 <div class="col-8 border">Parte</div>
                 <div class="col-1 border text-center">Inicial</div>
@@ -118,5 +125,16 @@
                 });
             });
         });
+
+        function limpiarFormulario() {
+            // Resetear el valor del título
+            document.getElementById('textTitulo').value = '';
+
+            // Resetear los selects de capítulo inicial y final
+            document.getElementById('capitulo_inicial').value = '';
+            document.getElementById('capitulo_final').value = '';
+
+            // Aquí puedes agregar cualquier otra lógica de limpieza necesaria
+        }
     </script>
 </div>

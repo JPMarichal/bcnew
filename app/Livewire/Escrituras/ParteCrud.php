@@ -9,8 +9,8 @@ use App\Models\Escrituras\Capitulo;
 
 class ParteCrud extends Component
 {
-    public $libros, $libro_id, $capitulos, $partes, $titulo, $parte_id = null;
-    public $capitulo_inicial_id, $capitulo_final_id;
+    public $libros, $libro_id, $capitulos, $partes, $titulo = null, $parte_id = null;
+    public $capitulo_inicial_id = null, $capitulo_final_id = null;
     public $modoEdicion = false;
 
     protected $listeners = ['eliminarParte' => 'eliminar'];
