@@ -23,8 +23,32 @@
             <h2 id="libro_seleccionado">[{{ $this->libro->id}}] {{ $this->libro->nombre ?? '' }}</h2>
         </div>
         <div class="card-body">
-            <input type="text" wire:model="titulo" placeholder="Título de la parte">
-            <button wire:click="guardar">Guardar</button>
+            <div class="row mb-2">
+                <div class="col-6 px-1 mx-0">
+            <input type="text" id="textTitulo" class="form-control" wire:model="titulo" placeholder="Título de la parte">
+                </div>
+                <div class="col-3 px-1 mx-0">
+                    <select class="form-select form-control" id="capitulo_inicial" name="capitulo_inicial" >
+                        <option value="">Capítulo Inicial</option>
+                        @foreach ($capitulos as $capitulo)
+                        <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3 px-1 mx-0">
+                    <select class="form-select form-control" id="capitulo_final" name="capitulo_final" >
+                        <option value="">Capítulo Final</option>
+                        @foreach ($capitulos as $capitulo)
+                        <option value="{{ $capitulo->id }}">{{ $capitulo->referencia }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="text-end">
+            <button class="btn btn-small btn-success" wire:click="guardar"><i class="fas fa-save"></i> Guardar</button>
+            <button class="btn btn-small btn-warning" wire:click="actualizar"><i class="fas fa-edit"></i> Actualizar</button>
+            <button class="btn btn-small btn-secondary" wire:click="limpiar"><i class="fas fa-eraser"></i> Limpiar</button>
+            </div>
         </div>
     </div>
     <div class="card mt-4">
