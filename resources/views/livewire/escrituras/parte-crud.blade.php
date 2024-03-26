@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-8 border">{{ $parte->nombre }}</div>
                 <div class="col-1 border text-center">
-                    <a href="{{ route('capitulos.show','1 Crónicas 1')}}" style="text-decoration: none;" target="_blank">
+                    <a href="{{ route('capitulos.show',$parte->capitulos->first()->referencia)}}" style="text-decoration: none;" target="_blank">
                         {{ $parte->capitulos->first()->num_capitulo ?? '' }}
                     </a>
                 </div>
