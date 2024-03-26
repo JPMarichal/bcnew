@@ -1,11 +1,11 @@
 <div>
     <div>
-        <div class="border rounded text-center p-1 text-small mb-2 mt-0">
+        <div class="border rounded text-center p-1 text-small mb-2">
             <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                Lectura de {{ $versiculo->capitulo->referencia }}
-            </a> |
-            <a href="{{ route('capitulos.comentarios', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-                Ver todos los comentarios
+               Lectura de {{ $versiculo->capitulo->referencia }}
+            </a> | 
+            <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+               Ver
             </a>
         </div>
         <div class="alert rounded alert-info fade show">
@@ -27,6 +27,9 @@
                 <textarea class="form-control" id="comentario-{{ $versiculoId }}" name="comentario-{{ $versiculoId }}" rows="5" wire:model.defer="comentario"></textarea>
             </div>
             <div class="mb-3">
+                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Limpia el formulario">
+                    <i class="fas fa-eraser"></i> Limpiar
+                </button>
                 @if($comentarioId)
                 <button type="button" class="btn btn-warning btn-update" data-versiculo-id="{{ $versiculoId }}" title="Guarda el comentario editado">
                     <i class="fas fa-edit"></i> Actualizar
@@ -36,9 +39,6 @@
                     <i class="fas fa-save"></i> Guardar
                 </button>
                 @endif
-                <button type="button" class="btn btn-secondary" onclick="clearTinyMCE('{{ $versiculoId }}')" title="Limpia el formulario">
-                    <i class="fas fa-eraser"></i> Limpiar
-                </button>
             </div>
 
         </div>
@@ -97,10 +97,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button class="btn btn-sm p-0" style="color: red;" wire:click="confirmarEliminacion({{ $parte->id }})" title="Eliminar esta parte">
-                            <i class="fa fa-trash"></i>
-                        </button>
-
+                        <button type="button" class="btn btn-danger" id="confirmDelete">Eliminar</button>
                     </div>
                 </div>
             </div>
