@@ -64,10 +64,6 @@ class ParteCrud extends Component
             ]);
             $parte->save();
 
-            $parte->nombre = $this->titulo;
-            $parte->orden = $this->capitulo_inicial_id; // Asegúrate de que este campo se maneja según tus requisitos
-            $parte->save();
-
             // Actualizar capítulos en el rango
             Capitulo::where('libro_id', $this->libro_id)
                 ->whereBetween('id', [$this->capitulo_inicial_id, $this->capitulo_final_id])
