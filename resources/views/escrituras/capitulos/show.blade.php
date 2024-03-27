@@ -89,21 +89,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 text-center border" id="volumen">
+                        <div class="col-3 text-center border small" id="volumen">
                             <a href="{{ route('volumenes.show', $capitulo->libro->volumen->nombre) }}">
                                 {{ $capitulo->libro->volumen->nombre }}
                             </a>
                         </div>
                         <div class="col-3
-                                text-center border">
+                                text-center border small">
                             {{ $capitulo->libro->division->nombre }}
                         </div>
-                        <div class="col-3 text-center border">
+                        <div class="col-3 text-center border small">
                             <a href="{{ route('libros.show', $capitulo->libro->nombre) }}">
                                 {{ $capitulo->libro->nombre }}
                             </a>
                         </div>
-                        <div class="col-3 text-center border">
+                        <div class="col-3 text-center border small">
                             {{ $capitulo->parte->nombre }}
                         </div>
                     </div>
