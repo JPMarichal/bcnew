@@ -13,5 +13,5 @@
 <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('android-chrome-512x512.png') }}">
 
 <!-- Manifiesto de la aplicación web para especificar los iconos en dispositivos Android y otros ajustes de la PWA (opcional) -->
-<link rel="manifest" href="{{ asset('site.webmanifest') }}">
+<link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
 

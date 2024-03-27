@@ -8,5 +8,3 @@
 <meta name="keywords" content="@yield('keywords', 'biblia,santa biblia,libro de mormón,ven sígueme,lds,sud,mormones,fe,dios, revelaciones, análisis, religión, espiritualidad,escrituras')">
 <meta name="language" content="Spanish">
 
-<link rel="manifest" href="manifest.webmanifest">
-
