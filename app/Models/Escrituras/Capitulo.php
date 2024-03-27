@@ -59,4 +59,16 @@ class Capitulo extends Model
     {
         return $this->hasMany(Versiculo::class, 'capitulo_id')->orderBy('id', 'asc');
     }
+
+    /**
+     * Cuenta el total de comentarios para los versículos de este capítulo.
+     *
+     * @return int
+     */
+    public function countVersiculosComentarios()
+    {
+        // Utiliza la relación 'versiculos' para acceder a todos los versículos de este capítulo
+        // y luego cuenta todos los comentarios relacionados.
+        return VersiculoComentario::whereIn('versiculo_id', $this->versiculos->pluck('id'))->count();
+    }
 }

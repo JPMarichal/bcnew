@@ -112,10 +112,13 @@
         </div>
 
         <div class="text-center text-small border rounded p-1">
+        @if ($capitulo->countVersiculosComentarios() > 0)
             <a href="{{ route('capitulos.comentarios', $capitulo->referencia) }}" style="text-decoration: none;"
                 target="_blank" rel="noopener noreferrer">
-                Ver todos los comentarios
-            </a>
+                Ver todos los comentarios ({{$capitulo->countVersiculosComentarios()}})
+            </a> |
+        @endif
+            
             @auth
                 @if (auth()->user()->hasRole('Administrador'))
                     {{-- Información del id de capítulo, útil solo para el administrador --}}
