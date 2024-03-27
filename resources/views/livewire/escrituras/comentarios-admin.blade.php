@@ -4,8 +4,8 @@
             <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                Lectura de {{ $versiculo->capitulo->referencia }}
             </a> | 
-            <a href="{{ route('capitulos.show', $versiculo->capitulo->referencia) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
-               Ver
+            <a href="{{ route('libros.show', $versiculo->capitulo->libro->nombre) }}" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+               Ver {{ $versiculo->capitulo->libro->nombre }}
             </a>
         </div>
         <div class="alert rounded alert-info fade show">
