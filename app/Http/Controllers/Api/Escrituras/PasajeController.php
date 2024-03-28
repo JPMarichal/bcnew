@@ -43,6 +43,9 @@ class PasajeController extends Controller
             case 'html':
                 return 'text/plain';
             case 'texto':
+                return 'text/plain';
+            case 'json':
+                return 'application/json';
             default:
                 return 'text/plain';
         }

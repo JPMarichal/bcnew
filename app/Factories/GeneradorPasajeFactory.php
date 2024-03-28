@@ -5,6 +5,7 @@ namespace App\Factories;
 use App\Generators\Contracts\GeneradorPasajeInterface;
 use App\Generators\Escrituras\Pasajes\GeneradorTexto;
 use App\Generators\Escrituras\Pasajes\GeneradorHtml;
+use App\Generators\Escrituras\Pasajes\GeneradorJson;
 // Asegúrate de incluir todos los generadores que implementes.
 
 class GeneradorPasajeFactory
@@ -23,6 +24,8 @@ class GeneradorPasajeFactory
                 return new GeneradorTexto();
             case 'html':
                 return new GeneradorHtml();
+            case 'json':
+                return new GeneradorJson();
                 // Agrega casos adicionales aquí para otros formatos.
             default:
                 throw new \Exception("Formato de salida no soportado: {$formato}");
