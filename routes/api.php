@@ -38,5 +38,7 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/capitulo/{referencia}/pericopas', [CapituloController::class, 'pericopasPorCapitulo'])->name('capitulo.pericopas');
     Route::get('/capitulo/{referencia}/versiculos', [CapituloController::class, 'versiculosPorCapitulo'])->name('capitulo.versiculos');
     Route::get('/versiculo/{referencia}', [VersiculoController::class, 'show'])->name('versiculo.show');
+    Route::get('/versiculo/{referencia}/social', [VersiculoController::class, 'social'])->name('versiculo.social');
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'comentariosPorVersiculo'])->name('versiculo.comentarios');
+    Route::get('/pasaje/{referencia}/social', [VersiculoController::class, 'pasaje_social'])->name('versiculo.pasaje_social');
 });
