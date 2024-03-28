@@ -55,31 +55,33 @@ class VersiculoController extends Controller
 
     public function pasaje_social($referencia)
     {
-        // Función de mapeo para traducir nombres de libros
-        $traducirNombreLibro = function ($nombreLibro) {
-            $mapeoNombres = [
-                'DyC' => 'Secciones',
-                'dyc' => 'Secciones',
-                'Doctrina y Convenios' => 'Secciones',
-            ];
+        // Mapeo de nombres para traducir nombres de libros a su nombre canónico
+        $mapeoNombres = [
+            'dyc' => 'Secciones',
+            'doctrina y convenios' => 'Secciones',
+            'dyC' => 'Secciones',
+        ];
 
+        // Función de mapeo para traducir nombres de libros usando el mapeo
+        $traducirNombreLibro = function ($nombreLibro) use ($mapeoNombres) {
+            $nombreLibro = strtolower($nombreLibro); // Convierte a minúsculas para la búsqueda
             return $mapeoNombres[$nombreLibro] ?? $nombreLibro;
         };
 
         preg_match('/^(.*?)(\d+:\d+(-\d+)?$)/', $referencia, $matches);
         $nombreLibro = trim($matches[1]);
-        $nombreLibro = $traducirNombreLibro($nombreLibro);
+        $nombreLibroTraducido = $traducirNombreLibro($nombreLibro);
         [$capitulo, $versiculoRango] = explode(':', $matches[2]);
         [$versiculoInicio, $versiculoFin] = explode('-', $versiculoRango) + [1 => null];
 
         $versiculoFin = $versiculoFin ?? $versiculoInicio;
 
-        $versiculos = Versiculo::whereHas('capitulo', function ($query) use ($nombreLibro, $capitulo) {
-            $query->whereHas('libro', function ($query) use ($nombreLibro) {
-                $query->where('nombre', 'like', "%{$nombreLibro}%");
-            })->where('num_capitulo', $capitulo);
+        $versiculos = \App\Models\Escrituras\Versiculo::whereHas('capitulo', function ($query) use ($nombreLibroTraducido, $capitulo) {
+            $query->whereHas('libro', function ($query) use ($nombreLibroTraducido) {
+                $query->where('nombre', '=', $nombreLibroTraducido); // Utiliza el nombre traducido
+            })->where('num_capitulo', '=', $capitulo);
         })
-            ->where('num_versiculo', '>=', $versiculoInicio)
+            ->whereBetween('num_versiculo', [$versiculoInicio, $versiculoFin])
             ->orderBy('num_versiculo', 'asc')
             ->get();
 
@@ -92,14 +94,18 @@ class VersiculoController extends Controller
         $versiculoFinalReal = $versiculos->last()->num_versiculo;
 
         // Formatea el pasaje
-        $textoParaCompartir = $versiculos->reduce(function ($carry, $versiculo) use ($versiculoInicio, $versiculoFin) {
-            if ($versiculo->num_versiculo <= $versiculoFin) {
-                return $carry .= "{$versiculo->num_versiculo} {$versiculo->contenido}\n";
-            }
-            return $carry;
+        $textoParaCompartir = $versiculos->reduce(function ($carry, $versiculo) {
+            return $carry .= "{$versiculo->num_versiculo} {$versiculo->contenido}\n";
         }, '');
 
-        $textoParaCompartir .= "({$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal})";
+        // Determina el nombre a mostrar en la referencia final
+        $nombreLibroMostrar = array_search($nombreLibroTraducido, array_map(function ($key) use ($mapeoNombres) {
+            return $mapeoNombres[$key];
+        }, array_keys($mapeoNombres)), true) ?: $nombreLibro;
+
+        $nombreLibroMostrar = $nombreLibroMostrar === 'Secciones' ? 'DyC' : $nombreLibro;
+
+        $textoParaCompartir .= "({$nombreLibroMostrar} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal})";
 
         return response(rtrim($textoParaCompartir), 200)
             ->header('Content-Type', 'text/plain');
