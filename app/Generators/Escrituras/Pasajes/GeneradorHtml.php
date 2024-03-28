@@ -21,7 +21,8 @@ class GeneradorHtml implements GeneradorPasajeInterface
         // Itera sobre cada versículo y lo añade al contenedor HTML.
         foreach ($versiculos as $versiculo) {
             $html .= sprintf(
-                '<div>%d %s</div>',
+                '
+<div>%d %s</div>',
                 $versiculo->num_versiculo,
                 e($versiculo->contenido) // Usa la función e() para escapar el contenido y evitar inyección de HTML
             );
@@ -29,12 +30,14 @@ class GeneradorHtml implements GeneradorPasajeInterface
 
         // Añade la referencia final como un elemento <cite> alineado a la derecha.
         $html .= sprintf(
-            '<cite class="text-end">%s</cite>',
+            '
+ <cite class="text-end">- %s</cite>',
             e($referenciaFinal) // Escapa la referencia final por seguridad
         );
 
         // Cierra el blockquote.
-        $html .= '</blockquote>';
+        $html .= '
+</blockquote>';
 
         return $html;
     }
