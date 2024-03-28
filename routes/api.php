@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Escrituras\LibroController;
 use App\Http\Controllers\Api\Escrituras\ParteController;
 use App\Http\Controllers\Api\Escrituras\CapituloController;
 use App\Http\Controllers\Api\Escrituras\VersiculoController;
+use App\Http\Controllers\Api\Escrituras\PasajeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,6 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/versiculo/{referencia}', [VersiculoController::class, 'show'])->name('versiculo.show');
     Route::get('/versiculo/{referencia}/social', [VersiculoController::class, 'social'])->name('versiculo.social');
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'comentariosPorVersiculo'])->name('versiculo.comentarios');
-    Route::get('/pasaje/social/{referencia}', [VersiculoController::class, 'pasaje_social'])->name('versiculo.pasaje_social');
+   // Route::get('/pasaje/social/{referencia}', [VersiculoController::class, 'pasaje_social'])->name('versiculo.pasaje_social');
+    Route::get('/pasaje/{formato}/{referencia}', [PasajeController::class, 'show'])->name('versiculo.show');
 });
