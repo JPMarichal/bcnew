@@ -12,46 +12,48 @@ class GeneradorPpt implements GeneradorPasajeInterface
         $ancho = 1920;
         $alto = 1080;
         $imagen = imagecreatetruecolor($ancho, $alto);
+        $charsperline = 55;// Cantidad de caracteres por línea.
 
-        $colorFondo = imagecolorallocate($imagen, 240, 230, 220);
-        $colorTexto = imagecolorallocate($imagen, 100, 60, 20);
+        $colorTexto = imagecolorallocate($imagen, 240, 230, 220);
+        $colorFondo = imagecolorallocate($imagen, 100, 60, 20);
+        $colorRect = imagecolorallocate($imagen, (240 + 100) / 2, (230 + 60) / 2, (220 + 20) / 2);
+        $colorReferencia = imagecolorallocate($imagen, (170 + 100) / 2, (145 + 60) / 2, (120 + 20) / 2);
 
         imagefill($imagen, 0, 0, $colorFondo);
 
-        $fuente =  public_path('fonts/OpenSans/OpenSans-Regular.ttf');
+        imagefilledrectangle($imagen, 50, 50, 1870, 200, $colorRect);
+        imagefilledrectangle($imagen, 50, 250, 1870, 1030, $colorRect);
 
-    
-        $tamanoTexto = 20; // Tamaño inicial del texto
-        $tamanoTexto = $this->ajustarTamanoTexto($versiculos, $ancho);
 
-        $y = 150; // Inicio de Y, deja espacio para un título
+
+        $fuente = public_path('fonts/OpenSans/OpenSans-Bold.ttf');
+
+        $tamanoTexto = 45; // Tamaño inicial del texto
+
+        $y = 350; // Inicio de Y, deja espacio para un título
+
         foreach ($versiculos as $versiculo) {
-            $texto = "{$versiculo->num_versiculo} {$versiculo->contenido}";
-            imagettftext($imagen, $tamanoTexto, 0, 100, $y, $colorTexto, $fuente, $texto);
-            $y += $tamanoTexto * 2; // Ajusta Y para el siguiente versículo
+            $texto = wordwrap("{$versiculo->num_versiculo} {$versiculo->contenido}", $charsperline, "\n");
+            // Divide el texto en líneas
+            $lineas = explode("\n", $texto);
+            foreach ($lineas as $linea) {
+                imagettftext($imagen, $tamanoTexto, 0, 100, $y, $colorTexto, $fuente, $linea);
+                $y += $tamanoTexto * 1.7; // Ajusta Y para la siguiente línea
+            }
         }
 
+
+        $y += $tamanoTexto * 1.7; // Ajusta Y para la siguiente línea
         // Alinea la referencia final a la derecha y abajo
         $bbox = imagettfbbox($tamanoTexto, 0, $fuente, $referenciaFinal);
         $x = $ancho - $bbox[2] - 100; // Calcula X basado en el ancho del texto
-        imagettftext($imagen, $tamanoTexto, 0, $x, $alto - 50, $colorTexto, $fuente, $referenciaFinal);
+        imagefilledrectangle($imagen, 50, $alto-160, 1870, $alto-90, $colorReferencia);
+      //  imagettftext($imagen, $tamanoTexto, 0, $x, $alto - 100, $colorTexto, $fuente, $referenciaFinal);
+        imagettftext($imagen, $tamanoTexto, 0, $x, $alto-105, $colorTexto, $fuente, $referenciaFinal);
 
         // Envía la imagen al navegador
         header('Content-Type: image/png');
         imagepng($imagen);
         imagedestroy($imagen);
-    }
-
-    protected function ajustarTamanoTexto($versiculos, $ancho)
-    {
-        // Esta es una implementación simplificada. Deberías ajustar esta lógica basada en tu contenido específico.
-        $longitudMaxima = max(array_map(function ($versiculo) {
-            return strlen($versiculo->contenido);
-        }, $versiculos->all()));
-
-        // Ajusta el tamaño del texto para que se ajuste al ancho de la imagen
-        $tamanoTexto = min(40, ($ancho / $longitudMaxima) * 0.5);
-
-        return $tamanoTexto;
     }
 }
