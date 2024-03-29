@@ -7,7 +7,7 @@ use App\Models\Escrituras\Versiculo;
 
 class PasajeService
 {
-    public function obtenerPasajeFormateado($referencia, $formato = 'texto')
+    public function obtenerPasajeFormateado($referencia, $formato = 'texto', $titulo = null)
     {
         // Mapeo de nombres para traducir nombres de libros a su nombre canónico
         $mapeoNombres = [
@@ -50,6 +50,6 @@ class PasajeService
         $generador = GeneradorPasajeFactory::crear($formato);
 
         // Genera y devuelve la salida formateada
-        return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal}");
+        return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal}", $titulo);
     }
 }

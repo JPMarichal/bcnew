@@ -13,7 +13,7 @@ class GeneradorHtml implements GeneradorPasajeInterface
      * @param  string  $referenciaFinal  Referencia final del pasaje.
      * @return string
      */
-    public function generar($versiculos, $referenciaFinal)
+    public function generar($versiculos, $referenciaFinal,$titulo=null)
     {
         // Inicializa el contenedor HTML.
         $html = '<blockquote class="pasaje">';

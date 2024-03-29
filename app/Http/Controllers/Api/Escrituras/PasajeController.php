@@ -15,16 +15,16 @@ class PasajeController extends Controller
         $this->pasajeService = $pasajeService;
     }
 
-    public function show(Request $request, $formato, $referencia)
+    public function show(Request $request, $formato, $referencia, $titulo = null)
     {
         try {
-            $respuesta = $this->pasajeService->obtenerPasajeFormateado($referencia, $formato);
+            $respuesta = $this->pasajeService->obtenerPasajeFormateado($referencia, $formato, $titulo);
 
             // Ajusta el Content-Type de la respuesta según el formato solicitado.
             $contentType = $this->determinarContentType($formato);
 
             return response($respuesta, 200)
-                    ->header('Content-Type', $contentType);
+                ->header('Content-Type', $contentType);
         } catch (\Exception $e) {
             // Manejo de errores (por ejemplo, formato no soportado o referencia inválida)
             return response()->json(['error' => $e->getMessage()], 400);
