@@ -51,7 +51,7 @@ class GeneradorPng implements GeneradorPasajeInterface
         //  imagettftext($imagen, $tamanoTexto, 0, $x, $alto - 100, $colorTexto, $fuente, $referenciaFinal);
         imagettftext($imagen, $tamanoTexto, 0, $x, $alto - 105, $colorTexto, $fuente, $referenciaFinal);
 
-        if ($titulo!==null) {
+        if ($titulo !== null) {
             // Define el color del texto del título, por ejemplo, ámbar
             $colorTitulo = imagecolorallocate($imagen, 255, 193, 7); // Ámbar
             // Asume que ya tienes definida la fuente y tamaño del título
@@ -59,9 +59,15 @@ class GeneradorPng implements GeneradorPasajeInterface
         }
 
         // Envía la imagen al navegador
-       /* header('Content-Type: image/png');
+        /* header('Content-Type: image/png');
         imagepng($imagen);
         imagedestroy($imagen);*/
-        return imagepng($imagen);
+        // Guarda la imagen en un archivo temporal
+        $rutaTemporal = tempnam(sys_get_temp_dir(), 'gen_png_') . '.png';
+        imagepng($imagen, $rutaTemporal);
+        imagedestroy($imagen);
+
+        // Ahora puedes retornar la ruta del archivo temporal para ser usada por otros procesos
+        return $rutaTemporal;
     }
 }
