@@ -41,6 +41,5 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/versiculo/{referencia}', [VersiculoController::class, 'show'])->name('versiculo.show');
     Route::get('/versiculo/{referencia}/social', [VersiculoController::class, 'social'])->name('versiculo.social');
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'comentariosPorVersiculo'])->name('versiculo.comentarios');
-   // Route::get('/pasaje/social/{referencia}', [VersiculoController::class, 'pasaje_social'])->name('versiculo.pasaje_social');
     Route::get('/pasaje/{formato}/{referencia}', [PasajeController::class, 'show'])->name('versiculo.show');
 });
