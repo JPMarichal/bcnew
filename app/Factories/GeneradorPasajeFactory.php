@@ -7,6 +7,7 @@ use App\Generators\Escrituras\Pasajes\GeneradorTexto;
 use App\Generators\Escrituras\Pasajes\GeneradorHtml;
 use App\Generators\Escrituras\Pasajes\GeneradorJson;
 use App\Generators\Escrituras\Pasajes\GeneradorPpt;
+use App\Generators\Escrituras\Pasajes\GeneradorPng;
 
 // Asegúrate de incluir todos los generadores que implementes.
 
@@ -30,6 +31,8 @@ class GeneradorPasajeFactory
                 return new GeneradorJson();
             case 'ppt':
                 return new GeneradorPpt();
+            case 'png':
+                return new GeneradorPng();
             default:
                 throw new \Exception("Formato de salida no soportado: {$formato}");
         }
