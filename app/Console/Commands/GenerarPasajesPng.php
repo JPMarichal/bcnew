@@ -38,8 +38,8 @@ class GenerarPasajesPng extends Command
             $this->info("Procesando: $referencia - $titulo");
 
             $nombreArchivo = str_replace(
-                [':', ' ', '.'],
-                ['_', '_', '_'],
+                [':', ' ', '.','¿', '¡'],
+                ['_', '_', '_', '', ''],
                 $referencia
             ) . '.png';
             $rutaSalida = "$pathSubdir/$nombreArchivo";
