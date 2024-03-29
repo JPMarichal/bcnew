@@ -46,6 +46,8 @@ class PasajeController extends Controller
                 return 'text/plain';
             case 'json':
                 return 'application/json';
+            case 'ppt':
+                return 'image/png';
             default:
                 return 'text/plain';
         }
