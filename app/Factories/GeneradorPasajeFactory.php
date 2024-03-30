@@ -24,6 +24,7 @@ class GeneradorPasajeFactory
     {
         switch (strtolower($formato)) {
             case 'texto':
+            case 'txt':
                 return new GeneradorTexto();
             case 'html':
                 return new GeneradorHtml();
