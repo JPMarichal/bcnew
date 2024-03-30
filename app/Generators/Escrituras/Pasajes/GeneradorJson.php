@@ -17,6 +17,7 @@ class GeneradorJson implements GeneradorPasajeInterface
     public function generar($versiculos, $referenciaFinal,$titulo=null)
     {
         $datosPasaje = [
+            'titulo' => $titulo,
             'versiculos' => $versiculos->map(function ($versiculo) {
                 return [
                     'num_versiculo' => $versiculo->num_versiculo,

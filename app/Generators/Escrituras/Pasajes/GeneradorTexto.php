@@ -18,6 +18,10 @@ class GeneradorTexto implements GeneradorPasajeInterface
         // Inicializa el contenedor del texto final.
         $textoParaCompartir = '';
 
+        if ($titulo!==null) {
+            $textoParaCompartir = $titulo . "\n\n";
+        }
+
         // Itera sobre cada versículo y lo añade al texto final.
         foreach ($versiculos as $versiculo) {
             $textoParaCompartir .= "{$versiculo->num_versiculo} {$versiculo->contenido}\n";
