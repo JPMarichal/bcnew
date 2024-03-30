@@ -50,6 +50,10 @@ class PasajeService
         $generador = GeneradorPasajeFactory::crear($formato);
 
         // Genera y devuelve la salida formateada
-        return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal}", $titulo);
+        if ($versiculoInicio == $versiculoFinalReal) {
+            return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}", $titulo);
+        } else {
+            return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal}", $titulo);
+        }
     }
 }
