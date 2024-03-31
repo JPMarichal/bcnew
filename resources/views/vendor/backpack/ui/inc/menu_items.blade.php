@@ -3,3 +3,4 @@
 
 <x-backpack::menu-item title="Users" icon="la la-users" :link="backpack_url('user')" />
 <x-backpack::menu-item title="Newsitems" icon="la la-question" :link="backpack_url('newsitem')" />
+<x-backpack::menu-item title="Newsposts" icon="la la-question" :link="backpack_url('newspost')" />
