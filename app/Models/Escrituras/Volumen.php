@@ -2,11 +2,13 @@
 
 namespace App\Models\Escrituras;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Volumen extends Model
 {
+    use CrudTrait;
     use HasFactory;
     protected $table = 'volumenes';
 
