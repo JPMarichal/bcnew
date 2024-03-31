@@ -93,3 +93,20 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'show'])->name('versiculos.comentarios');
     Route::get('/versiculo/{referencia}/comentarios/admin', [VersiculoController::class, 'admin'])->name('versiculos.comentarios.admin');
 });
+
+// Grupo de rutas para taxonomías con un prefijo común
+Route::prefix('taxonomies')->group(function () {
+    Route::get('/', function () {
+        return view('taxonomies.index');
+    })->name('taxonomies.index');
+
+    Route::get('/manage/{taxonomyId?}', function ($taxonomyId = null) {
+        return view('taxonomies.manage', compact('taxonomyId'));
+    })->name('taxonomies.manage');
+
+    
+    Route::get('/terms/{taxonomyId?}', function ($taxonomyId = null) {
+        return view('taxonomies.terms', compact('taxonomyId'));
+    })->name('taxonomies.terms');
+});
+

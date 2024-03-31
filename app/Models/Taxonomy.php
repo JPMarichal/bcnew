@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Taxonomy extends Model
 {
-    protected $fillable = ['name', 'slug', 'created_by'];
+    protected $fillable = ['name', 'slug', 'type', 'created_by'];
 
     public function terms()
     {
