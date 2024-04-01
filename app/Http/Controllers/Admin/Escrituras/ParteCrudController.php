@@ -68,8 +68,6 @@ class ParteCrudController extends CrudController
             'label' => 'Capítulo Final', // Etiqueta para mostrar en la cabecera de la columna
             'type' => 'string', // Tipo de columna, 'text' es adecuado para mostrar strings
         ]);
-
-        CRUD::column('title')->type('string');
     }
 
     /**
