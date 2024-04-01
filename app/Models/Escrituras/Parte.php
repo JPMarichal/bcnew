@@ -2,10 +2,12 @@
 
 namespace App\Models\Escrituras;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Parte extends Model
 {
+    use CrudTrait;
     protected $table = 'partes'; // Especifica el nombre de la tabla en español
 
     protected $fillable = [

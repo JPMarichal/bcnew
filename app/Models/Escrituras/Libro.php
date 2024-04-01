@@ -3,6 +3,7 @@
 namespace App\Models\Escrituras;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Libro extends Model
 {
@@ -48,12 +49,12 @@ class Libro extends Model
         return $this->belongsTo(Division::class);
     }
 
-    public function partes()
+    public function partes(): HasMany
     {
         return $this->hasMany(Parte::class, 'libro_id')->orderBy('orden', 'asc');
     }
 
-    public function capitulos()
+    public function capitulos(): HasMany
     {
         return $this->hasMany(Capitulo::class, 'libro_id')->orderBy('id', 'asc');
     }

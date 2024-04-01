@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin\Escrituras;
 
-use App\Http\Requests\Escrituras\VolumenRequest;
+use App\Http\Requests\Escrituras\ParteRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class VolumenCrudController
+ * Class ParteCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class VolumenCrudController extends CrudController
+class ParteCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,10 @@ class VolumenCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Escrituras\Volumen::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/escrituras/volumen');
-        CRUD::setEntityNameStrings('volúmen', 'volúmenes');
+        CRUD::setModel(\App\Models\Escrituras\Parte::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/escrituras/parte');
+        CRUD::setEntityNameStrings('parte', 'partes');
+        $this->crud->orderBy('libro_id', 'ASC')->orderBy('orden','ASC');
     }
 
     /**
@@ -44,9 +45,18 @@ class VolumenCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
-         */
-        CRUD::column('nombre')->type('string');
-        CRUD::column('description')->type('string');
+         */        
+         CRUD::column([
+            'name' => 'Libro',
+            'label' => 'Libro',
+            'type' =>'select',
+            'entity' => 'libro',
+            'attribute' => 'nombre',
+            'model'=> 'App\Models\Escrituras\Libro',
+            'orderable'=> false
+        ]);
+        CRUD::column('nombre')->type('string')->orderable(false);
+        CRUD::column('orden')->type('number')->label('Cap Inicial')->orderable(false);
     }
 
     /**
@@ -57,15 +67,15 @@ class VolumenCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VolumenRequest::class);
+        CRUD::setValidation(ParteRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
          */
-     //   CRUD::column('nombre')->type('string');
-     //   CRUD::column('description')->type('string');
+      //  CRUD::field('nombre')->validationRules('required|min:5');
+
     }
 
     /**
@@ -76,14 +86,24 @@ class VolumenCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-      //  $this->setupCreateOperation();
-        CRUD::field('name')->validationRules('required|min:5');
-      //  CRUD::field('description')->validationRules('required|min:5');
+       // $this->setupCreateOperation();
+        CRUD::field('nombre')->validationRules('required|min:5');
         CRUD::field([
-            'name'  => 'description',
-            'label' => 'Article Description',
-            'type'  => 'textarea',
-            'validationRules' => 'required|min:5'
+            'name' => 'Libro',
+            'type' =>'select',
+            'entity' => 'libro', // the method that defines the relationship in your Model
+            'attribute' => 'nombre', // foreign key attribute that is shown to user
+            'model' => "App\Models\Escrituras\Libro", // foreign key model
+            'options' => function ($query) {
+                return $query->orderBy('id', 'asc')->get();
+            },
         ]);
+        CRUD::field('title')->validationRules('');
+        CRUD::field('description')->validationRules('');
+        CRUD::field('sumario')->validationRules('');
+        CRUD::field('description')->validationRules('');
+        CRUD::field('keywords')->validationRules('');
+        CRUD::field('featured_image')->validationRules('');
+
     }
 }
