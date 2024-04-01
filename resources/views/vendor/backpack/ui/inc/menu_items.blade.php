@@ -7,16 +7,15 @@
 <x-backpack::menu-dropdown title="Escrituras" icon="la la-book">
     <x-backpack::menu-dropdown-item title="Volúmenes" icon="la la-book" :link="backpack_url('escrituras/volumen')" />
     <x-backpack::menu-dropdown-item title="Divisiones" icon="la la-book" :link="backpack_url('escrituras/division')" />
+    <x-backpack::menu-dropdown-item title="Libros" icon="la la-book" :link="backpack_url('escrituras/libro')" />
     <x-backpack::menu-dropdown-item title="Partes" icon="la la-book" :link="backpack_url('escrituras/parte')" />
+    <x-backpack::menu-dropdown-item title="Capitulos" icon="la la-book" :link="backpack_url('escrituras/capitulo')" />
+    <x-backpack::menu-dropdown-item title="Pericopas" icon="la la-book" :link="backpack_url('escrituras/pericopa')" />
+    <x-backpack::menu-dropdown-item title="Versiculos" icon="la la-book" :link="backpack_url('escrituras/versiculo')" />
+    <x-backpack::menu-dropdown-item title="Comentarios" icon="la la-book" :link="backpack_url('escrituras/versiculocomentario')" />
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Noticias" icon="la la-newspaper">
     <x-backpack::menu-dropdown-item title="Newsitems" icon="la la-newspaper" :link="backpack_url('newsitem')" />
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
-
-<x-backpack::menu-item title="Escrituras libros" icon="la la-question" :link="backpack_url('escrituras/libro')" />
-<x-backpack::menu-item title="Escrituras capitulos" icon="la la-question" :link="backpack_url('escrituras/capitulo')" />
-<x-backpack::menu-item title="Escrituras pericopas" icon="la la-question" :link="backpack_url('escrituras/pericopa')" />
-<x-backpack::menu-item title="Escrituras versiculos" icon="la la-question" :link="backpack_url('escrituras/versiculo')" />
-<x-backpack::menu-item title="Escrituras versiculocomentarios" icon="la la-question" :link="backpack_url('escrituras/versiculocomentario')" />
