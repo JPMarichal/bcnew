@@ -6,6 +6,7 @@
 
 <x-backpack::menu-dropdown title="Escrituras" icon="la la-book">
     <x-backpack::menu-dropdown-item title="Volúmenes" icon="la la-book" :link="backpack_url('escrituras/volumen')" />
+    <x-backpack::menu-dropdown-item title="Divisiones" icon="la la-book" :link="backpack_url('escrituras/division')" />
     <x-backpack::menu-dropdown-item title="Partes" icon="la la-book" :link="backpack_url('escrituras/parte')" />
 </x-backpack::menu-dropdown>
 
@@ -13,5 +14,3 @@
     <x-backpack::menu-dropdown-item title="Newsitems" icon="la la-newspaper" :link="backpack_url('newsitem')" />
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
-
-<x-backpack::menu-item title="Escrituras divisions" icon="la la-question" :link="backpack_url('escrituras/division')" />
