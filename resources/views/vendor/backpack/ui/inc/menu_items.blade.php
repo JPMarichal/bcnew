@@ -14,3 +14,9 @@
     <x-backpack::menu-dropdown-item title="Newsitems" icon="la la-newspaper" :link="backpack_url('newsitem')" />
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-item title="Escrituras libros" icon="la la-question" :link="backpack_url('escrituras/libro')" />
+<x-backpack::menu-item title="Escrituras capitulos" icon="la la-question" :link="backpack_url('escrituras/capitulo')" />
+<x-backpack::menu-item title="Escrituras pericopas" icon="la la-question" :link="backpack_url('escrituras/pericopa')" />
+<x-backpack::menu-item title="Escrituras versiculos" icon="la la-question" :link="backpack_url('escrituras/versiculo')" />
+<x-backpack::menu-item title="Escrituras versiculocomentarios" icon="la la-question" :link="backpack_url('escrituras/versiculocomentario')" />

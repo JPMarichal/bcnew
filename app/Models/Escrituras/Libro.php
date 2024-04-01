@@ -2,11 +2,13 @@
 
 namespace App\Models\Escrituras;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Libro extends Model
 {
+    use CrudTrait;
     protected $table = 'libros';
     
     protected $fillable = [

@@ -22,4 +22,9 @@ Route::group([
     Route::crud('escrituras/volumen', 'Escrituras\VolumenCrudController');
     Route::crud('escrituras/parte', 'Escrituras\ParteCrudController');
     Route::crud('escrituras/division', 'Escrituras\DivisionCrudController');
+    Route::crud('escrituras/libro', 'Escrituras\LibroCrudController');
+    Route::crud('escrituras/capitulo', 'Escrituras\CapituloCrudController');
+    Route::crud('escrituras/pericopa', 'Escrituras\PericopaCrudController');
+    Route::crud('escrituras/versiculo', 'Escrituras\VersiculoCrudController');
+    Route::crud('escrituras/versiculocomentario', 'Escrituras\VersiculocomentarioCrudController');
 }); // this should be the absolute last line of this file

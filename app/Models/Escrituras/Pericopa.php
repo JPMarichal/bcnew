@@ -2,10 +2,12 @@
 
 namespace App\Models\Escrituras;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Pericopa extends Model
 {
+    use CrudTrait;
     protected $table = 'pericopas';
 
     protected $fillable = [
