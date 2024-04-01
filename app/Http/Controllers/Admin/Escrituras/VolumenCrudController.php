@@ -29,6 +29,7 @@ class VolumenCrudController extends CrudController
         CRUD::setModel(\App\Models\Escrituras\Volumen::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/escrituras/volumen');
         CRUD::setEntityNameStrings('volúmen', 'volúmenes');
+        $this->crud->orderBy('id', 'ASC');
     }
 
     /**
