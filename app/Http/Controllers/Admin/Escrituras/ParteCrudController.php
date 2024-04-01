@@ -56,7 +56,20 @@ class ParteCrudController extends CrudController
             'orderable'=> false
         ]);
         CRUD::column('nombre')->type('string')->orderable(false);
-        CRUD::column('orden')->type('number')->label('Cap Inicial')->orderable(false);
+      
+        CRUD::column([
+            'name' => 'capitulo_inicial', // El nombre del accessor definido en el modelo
+            'label' => 'Capítulo Inicial', // Etiqueta para mostrar en la cabecera de la columna
+            'type' => 'string', // Tipo de columna, 'text' es adecuado para mostrar strings
+        ]);
+
+        CRUD::column([
+            'name' => 'capitulo_final', // El nombre del accessor definido en el modelo
+            'label' => 'Capítulo Final', // Etiqueta para mostrar en la cabecera de la columna
+            'type' => 'string', // Tipo de columna, 'text' es adecuado para mostrar strings
+        ]);
+
+        CRUD::column('title')->type('string');
     }
 
     /**

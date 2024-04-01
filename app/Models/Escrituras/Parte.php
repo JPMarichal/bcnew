@@ -34,4 +34,13 @@ class Parte extends Model
     {
         return $this->hasMany(Capitulo::class, 'parte_id')->orderBy('id', 'asc');
     }
+
+    public function getCapituloInicialAttribute(){
+        return $this->hasMany(Capitulo::class, 'parte_id')->orderBy('id', 'asc')->first()->referencia;
+    }
+
+    public function getCapituloFinalAttribute(){
+        return $this->hasMany(Capitulo::class, 'parte_id')->orderBy('id', 'desc')->first()->referencia;
+    }
+    
 }
