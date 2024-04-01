@@ -13,3 +13,5 @@
     <x-backpack::menu-dropdown-item title="Newsitems" icon="la la-newspaper" :link="backpack_url('newsitem')" />
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-item title="Escrituras divisions" icon="la la-question" :link="backpack_url('escrituras/division')" />
