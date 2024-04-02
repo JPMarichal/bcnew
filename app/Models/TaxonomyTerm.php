@@ -6,6 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class TaxonomyTerm extends Model
 {
@@ -18,6 +19,17 @@ class TaxonomyTerm extends Model
         'parent_id',
         'created_by',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($taxonomy) {
+            $taxonomy->slug = Str::slug($taxonomy->name);
+        });
+
+        static::updating(function ($taxonomy) {
+            $taxonomy->slug = Str::slug($taxonomy->name);
+        });
+    }
 
     /**
      * La taxonomía a la que pertenece el término.
