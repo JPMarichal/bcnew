@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\TaxonomyRequest;
+use App\Http\Requests\TaxonomytermRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class TaxonomyCrudController
+ * Class TaxonomytermCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class TaxonomyCrudController extends CrudController
+class TaxonomytermCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class TaxonomyCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Taxonomy::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/taxonomy');
-        CRUD::setEntityNameStrings('taxonomy', 'taxonomies');
+        CRUD::setModel(\App\Models\Taxonomyterm::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/taxonomyterm');
+        CRUD::setEntityNameStrings('taxonomyterm', 'taxonomyterms');
     }
 
     /**
@@ -47,34 +47,31 @@ class TaxonomyCrudController extends CrudController
          */
     }
 
+    /**
+     * Define what happens when the Create operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-create
+     * @return void
+     */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TaxonomyRequest::class);
+        CRUD::setValidation(TaxonomytermRequest::class);
+        CRUD::setFromDb(); // set fields from db columns.
 
-        CRUD::field('name')
-            ->type('text')
-            ->attributes(['placeholder' => 'Ingrese el nombre'])
-            ->wrapper(['class' => 'form-group col-md-6']);
-
-        CRUD::field('type')
-            ->label("Type")
-            ->type('select_from_array')
-            ->options(['Clasificador' => 'Clasificador'])
-            ->allows_null(false)
-            ->default('Clasificador')
-            ->wrapper(['class' => 'form-group col-md-6']);
-
-        // Agregar el campo is_hierarchical como un switch
-        CRUD::field([
-            'name' => 'is_hierarchical',
-            'label' => 'Es Jerárquica',
-            'type' => 'checkbox',
-            'hint' => 'Marcar si la taxonomía permite una jerarquía de términos.'
-        ]);
+        /**
+         * Fields can be defined using the fluent syntax:
+         * - CRUD::field('price')->type('number');
+         */
     }
 
+    /**
+     * Define what happens when the Update operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation(); // Reutiliza la configuración de la operación de creación
+        $this->setupCreateOperation();
     }
 }

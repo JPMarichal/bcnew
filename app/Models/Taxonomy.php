@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str; // Importar la clase Str para el slug
-use Auth; // Importar la fachada Auth para el usuario
+use Illuminate\Support\Str;
+use Auth;
 
 class Taxonomy extends Model
 {
     use CrudTrait;
 
-    protected $fillable = ['name', 'slug', 'type', 'created_by'];
+    protected $fillable = ['name', 'slug', 'type', 'created_by', 'is_hierarchical'];
 
     protected static function booted()
     {
