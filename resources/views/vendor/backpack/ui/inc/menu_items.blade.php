@@ -19,3 +19,7 @@
     <x-backpack::menu-dropdown-item title="Newsitems" icon="la la-newspaper" :link="backpack_url('newsitem')" />
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-dropdown title="Taxonomías" icon="fas fa-book">
+<x-backpack::menu-dropdown-item title="Taxonomies" icon="la la-book" :link="backpack_url('taxonomy')" />
+</x-backpack::menu-dropdown>

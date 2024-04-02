@@ -27,4 +27,5 @@ Route::group([
     Route::crud('escrituras/pericopa', 'Escrituras\PericopaCrudController');
     Route::crud('escrituras/versiculo', 'Escrituras\VersiculoCrudController');
     Route::crud('escrituras/versiculocomentario', 'Escrituras\VersiculocomentarioCrudController');
+    Route::crud('taxonomy', 'TaxonomyCrudController');
 }); // this should be the absolute last line of this file
