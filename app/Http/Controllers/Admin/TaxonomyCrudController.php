@@ -28,7 +28,7 @@ class TaxonomyCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Taxonomy::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/taxonomy');
-        CRUD::setEntityNameStrings('taxonomy', 'taxonomies');
+        CRUD::setEntityNameStrings('taxonomía', 'taxonomías');
     }
 
     /**

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TaxonomyTerm extends Model
 {
     use CrudTrait;
+    
     protected $fillable = [
         'taxonomy_id',
         'name',

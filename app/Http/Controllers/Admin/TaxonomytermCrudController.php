@@ -6,11 +6,6 @@ use App\Http\Requests\TaxonomytermRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-/**
- * Class TaxonomytermCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
 class TaxonomytermCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -19,57 +14,36 @@ class TaxonomytermCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Taxonomyterm::class);
+        CRUD::setModel(\App\Models\TaxonomyTerm::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/taxonomyterm');
-        CRUD::setEntityNameStrings('taxonomyterm', 'taxonomyterms');
+        CRUD::setEntityNameStrings('término', 'términos');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
+        CRUD::column('taxonomy_id')->label('Taxonomía')->type('select')->entity('taxonomy')->attribute('name')->model("App\Models\Taxonomy");
+        
+        CRUD::column('name')->type('text')->label('Nombre');
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        // Columna para 'parent_id' que muestra el nombre del término padre
+        CRUD::column('parent_id')->label('Término Padre')->type('select')->entity('parent')->attribute('name')->model("App\Models\TaxonomyTerm");
+
+        // Columna para 'created_by' que muestra el nombre del usuario
+        CRUD::column('created_by')->label('Creado Por')->type('select')->entity('createdBy')->attribute('name')->model("App\Models\User");
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(TaxonomytermRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('name')->type('text')->label('Nombre');
+        CRUD::field('taxonomy_id')->label('Taxonomía')->type('select')->entity('taxonomy')->model("App\Models\Taxonomy")->attribute('name');
+        CRUD::field('parent_id')->label('Término Padre')->type('select')->entity('parent')->model("App\Models\TaxonomyTerm")->attribute('name');
+        CRUD::field('created_by')->label('Creado por')->type('select')->entity('createdBy')->model("App\Models\User")->attribute('name');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

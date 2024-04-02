@@ -21,7 +21,6 @@
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-dropdown title="Taxonomías" icon="fas fa-book">
-<x-backpack::menu-dropdown-item title="Taxonomies" icon="la la-book" :link="backpack_url('taxonomy')" />
+<x-backpack::menu-dropdown-item title="Taxonomías" icon="la la-book" :link="backpack_url('taxonomy')" />
+<x-backpack::menu-dropdown-item title="Términos" icon="la la-book" :link="backpack_url('taxonomyterm')" />
 </x-backpack::menu-dropdown>
-
-<x-backpack::menu-item title="Taxonomyterms" icon="la la-question" :link="backpack_url('taxonomyterm')" />
