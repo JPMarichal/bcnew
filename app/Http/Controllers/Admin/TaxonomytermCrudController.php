@@ -23,8 +23,10 @@ class TaxonomytermCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        CRUD::column('taxonomy_id')->label('Taxonomía')->type('select')->entity('taxonomy')->attribute('name')->model("App\Models\Taxonomy");
+        CRUD::column('id')->label('ID');
         
+        CRUD::column('taxonomy_id')->label('Taxonomía')->type('select')->entity('taxonomy')->attribute('name')->model("App\Models\Taxonomy");
+
         CRUD::column('name')->type('text')->label('Nombre');
 
         // Columna para 'parent_id' que muestra el nombre del término padre

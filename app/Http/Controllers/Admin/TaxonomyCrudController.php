@@ -59,7 +59,10 @@ class TaxonomyCrudController extends CrudController
         CRUD::field('type')
             ->label("Type")
             ->type('select_from_array')
-            ->options(['Clasificador' => 'Clasificador'])
+            ->options([
+                'Clasificador' => 'Clasificador',
+                'Glosario' => 'Glosario',
+                ])
             ->allows_null(false)
             ->default('Clasificador')
             ->wrapper(['class' => 'form-group col-md-6']);
@@ -71,6 +74,8 @@ class TaxonomyCrudController extends CrudController
             'type' => 'checkbox',
             'hint' => 'Marcar si la taxonomía permite una jerarquía de términos.'
         ]);
+
+        CRUD::field('created_by')->label('Creado por')->type('select')->entity('createdBy')->model("App\Models\User")->attribute('name');
     }
 
     protected function setupUpdateOperation()
