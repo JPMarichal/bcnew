@@ -58,6 +58,10 @@ By cloning and contributing to `bcnew`, you will not only be supporting a projec
 - Experiment with Livewire and other Laravel components to create dynamic and reactive web applications.
 - Contribute to an open project, improving your skills and possibly your portfolio.
 
+## Contributing
+
+We welcome contributions from the community. Whether you have a bug fix, a new feature you'd like to add, or any other improvements, please refer to the [CONTRIBUTING.md](https://github.com/JPMarichal/bcnew/blob/main/CONTRIBUTING.md) file for guidelines on how to contribute.
+
 ## Where can I get more help, if I need it?
 
 For additional support, you can:
