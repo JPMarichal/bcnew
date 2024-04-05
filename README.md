@@ -64,7 +64,7 @@ We welcome contributions from the community. Whether you have a bug fix, a new f
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0. For more details, see the [LICENSE](https://github.com/JPMarichal/bcnew/blob/main/LICENSE) file.
+This project is licensed under the Apache License, Version 2.0. For more details, see the [LICENSE](https://github.com/JPMarichal/bcnew/blob/main/LICENSE.md) file.
 
 ## Where can I get more help, if I need it?
 
