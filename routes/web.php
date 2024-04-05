@@ -110,3 +110,7 @@ Route::prefix('taxonomies')->group(function () {
     })->name('taxonomies.terms');
 });
 
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Blog\BlogController::class, 'index'])->name('index');
+    Route::get('/{slug}', [App\Http\Controllers\Blog\BlogController::class, 'show'])->name('show');
+});
