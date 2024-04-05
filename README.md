@@ -62,6 +62,10 @@ By cloning and contributing to `bcnew`, you will not only be supporting a projec
 
 We welcome contributions from the community. Whether you have a bug fix, a new feature you'd like to add, or any other improvements, please refer to the [CONTRIBUTING.md](https://github.com/JPMarichal/bcnew/blob/main/CONTRIBUTING.md) file for guidelines on how to contribute.
 
+## License
+
+This project is licensed under the Apache License, Version 2.0. For more details, see the [LICENSE](https://github.com/JPMarichal/bcnew/blob/main/LICENSE) file.
+
 ## Where can I get more help, if I need it?
 
 For additional support, you can:
