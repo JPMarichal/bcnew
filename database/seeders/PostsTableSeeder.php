@@ -17,8 +17,8 @@ class PostsTableSeeder extends Seeder
 
         // Limpiar la tabla posts antes de la importación
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('posts')->truncate();
-        DB::table('post_meta')->truncate(); // Asegúrate de truncar también las tablas relacionadas
+      //  DB::table('posts')->truncate();
+       // DB::table('post_meta')->truncate(); // Asegúrate de truncar también las tablas relacionadas
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         foreach ($csv->getRecords() as $record) {
@@ -28,14 +28,14 @@ class PostsTableSeeder extends Seeder
             Post::create([
                 'id' => $record['ID'],
                 'title' => $record['post_title'],
-                'slug' => $record['post_name'], // 'post_name' es el slug en WP
+                'slug' => $record['post_name'].'_img', // 'post_name' es el slug en WP
                 'content' => $record['post_content'],
                 'excerpt' => $record['post_excerpt'] ?? null,
                 'author_id' => 1, // $record['post_author'], // Asegúrate de mapear correctamente los autores de WP a usuarios en Laravel
                 'status' => $status, // Usa 'draft' como valor predeterminado
                 'publish_date' => $record['post_date'] ?? null, // 'post_date' en WP
                 'post_modified' => $record['post_modified'] ?? now(),
-                // 'post_parent' => $record['post_parent'] ?? null,
+              //   'post_parent' => $record['post_parent'] ?? null,
                 'post_type' => $record['post_type'] ?? 'post',
                 'post_date' => $record['post_date'] ?? now(),
             ]);
