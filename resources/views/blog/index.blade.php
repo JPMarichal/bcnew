@@ -9,14 +9,14 @@
                     <div class="m-2 p-2 border rounded" style="height:100px;">
                     <!-- Asume que $post->image_url es la URL de la imagen del post -->
                     <a href="{{ route('blog.show', $post->slug) }}">
-                        <img src="{{ $post->image_url }}" class="card-img-top" alt="{{ $post->title }}">
+                        <img src="{{ $post->featuredImageUrl() }}" class="card-img-top" alt="{{ $post->title }}">
                     </a>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>
                         </h5>
-                        <p class="card-text">{{ $post->excerpt }}</p>
+                        <p class="card-text text-small">{{ $post->excerpt }}</p>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary btn-sm">
