@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79ea9e4ed6b73ca781ecb9fa7e480e9f",
+    "content-hash": "93ced9f09f5475ce95fdaf42de010c16",
     "packages": [
         {
             "name": "backpack/basset",
@@ -301,6 +301,56 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "bunnycdn/storage",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BunnyWay/BunnyCDN.PHP.Storage.git",
+                "reference": "456ba1612f516073380135415433bec65f11d0bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BunnyWay/BunnyCDN.PHP.Storage/zipball/456ba1612f516073380135415433bec65f11d0bf",
+                "reference": "456ba1612f516073380135415433bec65f11d0bf",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.8",
+                "php": "^7.4||^8.0",
+                "psr/http-message": "^2.0",
+                "symfony/polyfill-php80": "^1.29"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bunny\\Storage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dejan Grofelnik Pelzel",
+                    "email": "dejan@bunnycdn.com"
+                }
+            ],
+            "description": "PHP library to interact with the BunnyCDN Storage API.",
+            "homepage": "https://bunny.net/storage/",
+            "keywords": [
+                "Bunny.net",
+                "bunnyCDN",
+                "media",
+                "storage"
+            ],
+            "support": {
+                "issues": "https://github.com/BunnyWay/BunnyCDN.PHP.Storage/issues",
+                "source": "https://github.com/BunnyWay/BunnyCDN.PHP.Storage/tree/3.2.0"
+            },
+            "time": "2024-04-05T08:42:20+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
