@@ -3,41 +3,54 @@ namespace App\Services\SocialMedia;
 
 use App\Services\SocialMedia\Contracts\SocialMediaInterface;
 use Telegram\Bot\Api; // SDK de Telegram Bot
+use Illuminate\Support\Facades\Config;
 
 class TelegramService implements SocialMediaInterface
 {
     protected $telegram;
 
-    public function __construct()
+    public function __construct(Api $telegram)
     {
-        $this->telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+        $this->telegram = $telegram;
     }
 
     public function postMessage($message)
     {
-        $chatId = env('TELEGRAM_CHAT_ID');
-        $this->telegram->sendMessage([
-            'chat_id' => $chatId, 
-            'text' => $message
-        ]);
+        try {
+            $this->telegram->sendMessage([
+                'chat_id' => Config::get('services.telegram.chat_id'), 
+                'text' => $message
+            ]);
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            throw new \Exception("Error al enviar mensaje a Telegram: " . $e->getMessage());
+        }
     }
 
     public function postImage($imagePath)
     {
-        $chatId = env('TELEGRAM_CHAT_ID');
-        $this->telegram->sendPhoto([
-            'chat_id' => $chatId, 
-            'photo' => $imagePath
-        ]);
+        try {
+            $this->telegram->sendPhoto([
+                'chat_id' => Config::get('services.telegram.chat_id'), 
+                'photo' => $imagePath
+            ]);
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            throw new \Exception("Error al enviar imagen a Telegram: " . $e->getMessage());
+        }
     }
 
     public function postMessageWithImage($message, $imagePath)
     {
-        $chatId = env('TELEGRAM_CHAT_ID');
-        $this->telegram->sendPhoto([
-            'chat_id' => $chatId, 
-            'photo' => $imagePath,
-            'caption' => $message
-        ]);
+        try {
+            $this->telegram->sendPhoto([
+                'chat_id' => Config::get('services.telegram.chat_id'), 
+                'photo' => $imagePath,
+                'caption' => $message
+            ]);
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            throw new \Exception("Error al enviar mensaje con imagen a Telegram: " . $e->getMessage());
+        }
     }
 }
