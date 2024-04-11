@@ -35,4 +35,8 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+    'pinterest' => [
+        'access_token' => env('PINTEREST_ACCESS_TOKEN'),
+        'board_id' => env('PINTEREST_BOARD_ID'),
+    ]
 ];
