@@ -55,4 +55,7 @@ return [
         'facebook_page_access_token' => env('FACEBOOK_PAGE_ACCESS_TOKEN'),
         'facebook_group_access_token' =>  env('FACEBOOK_GROUP_ACCESS_TOKEN')
     ],
+    'messenger' => [
+        'access_token' => env('MESSENGER_ACCESS_TOKEN'),
+    ],
 ];

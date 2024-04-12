@@ -8,6 +8,7 @@ use App\Services\SocialMedia\FacebookGroupService;
 use App\Services\SocialMedia\PinterestService;
 use App\Services\SocialMedia\TelegramService;
 use App\Services\SocialMedia\TwitterService;
+use App\Services\SocialMedia\MessengerService;
 use Illuminate\Support\Facades\App; // Importar la fachada App
 
 class SocialMediaFactory
@@ -30,7 +31,10 @@ class SocialMediaFactory
             case 'facebook_group':
                 // Utilizar el contenedor de servicios para resolver la instancia de Facebook Group Service
                 return App::make(FacebookGroupService::class);
-                // Agregar casos para los demás servicios...
+            case 'messenger':
+                // Utilizar el contenedor de servicios para resolver la instancia de Messenger Service
+                return App::make(MessengerService::class);
+
             default:
                 throw new \Exception("Servicio de red social no soportado.");
         }
