@@ -49,4 +49,10 @@ return [
         'access_token' => env('TWITTER_ACCESS_TOKEN'),
         'access_token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),
     ],
+    'facebook' => [
+        'facebook_app_id' => env('FACEBOOK_APP_ID'),
+        'facebook_app_secret' => env('FACEBOOK_APP_SECRET'),
+        'facebook_page_access_token' => env('FACEBOOK_PAGE_ACCESS_TOKEN'),
+        'facebook_group_access_token' =>  env('FACEBOOK_GROUP_ACCESS_TOKEN')
+    ],
 ];
