@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class OpenAIService
 {
@@ -22,7 +23,8 @@ class OpenAIService
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->apiKey,
-            ]
+            ],
+            'timeout' => 10, // Tiempo de espera de 10 segundos para la solicitud
         ]);
         $this->imageUtilitiesService = $imageUtilitiesService;
     }
@@ -35,17 +37,21 @@ class OpenAIService
      */
     public function getGPT3TurboTextResponse(string $prompt)
     {
-        $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
-            'json' => [
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    ['role' => 'user', 'content' => $prompt],
-                ],
-            ]
-        ]);
+        try {
+            $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
+                'json' => [
+                    'model' => 'gpt-3.5-turbo',
+                    'messages' => [
+                        ['role' => 'user', 'content' => $prompt],
+                    ],
+                ]
+            ]);
 
-        $responseData = json_decode($response->getBody()->getContents(), true);
-        return $responseData['choices'][0]['message']['content'] ?? 'Respuesta no disponible';
+            $responseData = json_decode($response->getBody()->getContents(), true);
+            return $responseData['choices'][0]['message']['content'] ?? 'Respuesta no disponible';
+        } catch (GuzzleException $e) {
+            return 'Error al conectar con OpenAI: ' . $e->getMessage();
+        }
     }
 
     /**
@@ -56,22 +62,26 @@ class OpenAIService
      */
     public function getGPT4TextResponse(string $prompt)
     {
-        $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
-            'json' => [
-                'model' => 'gpt-4',
-                'messages' => [
-                    ['role' => 'user', 'content' => $prompt],
-                ],
-                'temperature' => 0.7,
-                'max_tokens' => 256,
-                'top_p' => 1,
-                'frequency_penalty' => 0,
-                'presence_penalty' => 0,
-            ]
-        ]);
+        try {
+            $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
+                'json' => [
+                    'model' => 'gpt-4',
+                    'messages' => [
+                        ['role' => 'user', 'content' => $prompt],
+                    ],
+                    'temperature' => 0.7,
+                    'max_tokens' => 256,
+                    'top_p' => 1,
+                    'frequency_penalty' => 0,
+                    'presence_penalty' => 0,
+                ]
+            ]);
 
-        $responseData = json_decode($response->getBody()->getContents(), true);
-        return $responseData['choices'][0]['message']['content'] ?? 'Respuesta no disponible';
+            $responseData = json_decode($response->getBody()->getContents(), true);
+            return $responseData['choices'][0]['message']['content'] ?? 'Respuesta no disponible';
+        } catch (GuzzleException $e) {
+            return 'Error al conectar con OpenAI: ' . $e->getMessage();
+        }
     }
 
     /**
@@ -86,25 +96,29 @@ class OpenAIService
      */
     public function getImage(string $prompt, string $sizeSelector)
     {
-        $size = $this->resolveSize($sizeSelector);
+        try {
+            $size = $this->resolveSize($sizeSelector);
 
-        $response = $this->client->post('https://api.openai.com/v1/images/generations', [
-            'json' => [
-                'model' => 'dall-e-3',
-                'prompt' => $prompt,
-                'n' => 1,
-                'size' => $size,
-            ]
-        ]);
+            $response = $this->client->post('https://api.openai.com/v1/images/generations', [
+                'json' => [
+                    'model' => 'dall-e-3',
+                    'prompt' => $prompt,
+                    'n' => 1,
+                    'size' => $size,
+                ]
+            ]);
 
-        $responseData = json_decode($response->getBody()->getContents(), true);
-        $imageUrl = $responseData['data'][0]['url'] ?? null;
-        
-        if ($imageUrl) {
-            return $this->imageUtilitiesService->convertImageFromUrl($imageUrl, 'webp');
+            $responseData = json_decode($response->getBody()->getContents(), true);
+            $imageUrl = $responseData['data'][0]['url'] ?? null;
+            
+            if ($imageUrl) {
+                return $this->imageUtilitiesService->convertImageFromUrl($imageUrl, 'webp');
+            }
+
+            return 'Imagen no disponible';
+        } catch (GuzzleException $e) {
+            return 'Error al conectar con OpenAI: ' . $e->getMessage();
         }
-
-        return 'Imagen no disponible';
     }
 
     /**
