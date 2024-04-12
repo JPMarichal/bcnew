@@ -58,4 +58,7 @@ return [
     'messenger' => [
         'access_token' => env('MESSENGER_ACCESS_TOKEN'),
     ],
+    'whatsapp' => [
+        'whatsapp_bussiness_token' => env('WHATSAPP_BUSINESS_TOKEN'),
+    ],
 ];
