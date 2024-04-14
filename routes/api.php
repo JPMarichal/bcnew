@@ -43,3 +43,8 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'comentariosPorVersiculo'])->name('versiculo.comentarios');
     Route::get('/pasaje/{formato}/{referencia}/{titulo?}', [PasajeController::class, 'show'])->name('versiculo.show');
 });
+
+use App\Http\Controllers\OpenAIController;
+
+Route::post('/openai/text-response', [OpenAIController::class, 'getTextResponse']);
+Route::post('/openai/get-image', [OpenAIController::class, 'getImage']);

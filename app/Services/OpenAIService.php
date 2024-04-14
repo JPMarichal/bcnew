@@ -24,7 +24,7 @@ class OpenAIService
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->apiKey,
             ],
-            'timeout' => 10, // Tiempo de espera de 10 segundos para la solicitud
+            'timeout' => 30, // Tiempo de espera de 10 segundos para la solicitud
         ]);
         $this->imageUtilitiesService = $imageUtilitiesService;
     }
