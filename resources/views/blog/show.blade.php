@@ -89,4 +89,7 @@
             {!! $post->content !!}
         </section>
     </article>
+
+    <livewire:comment-section :post="$post" />
+
 @endsection
