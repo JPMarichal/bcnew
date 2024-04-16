@@ -10,33 +10,47 @@ class InjectAds
     {
         $response = $next($request);
 
-        // Verifica si la ruta actual corresponde a la vista de detalle de blog
         if ($request->is('blog/*') && $response instanceof \Illuminate\Http\Response && $response->isSuccessful()) {
             $content = $response->getContent();
+            $adFrequency = env('AD_FREQUENCY', 4); // Utiliza una variable de entorno o un valor predeterminado
 
-            // Divide el contenido en bloques para evitar blockquotes
-            $blocks = preg_split('/(<blockquote.*?>.*?<\/blockquote>)/is', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-            $newContent = '';
+            // Asegurarse de que solo modificamos el contenido dentro de la sección 'blog_content'
+            $content = preg_replace_callback(
+                '/(<section id="blog_content" class="[^"]+">)(.*?)(<\/section>)/is',
+                function ($matches) use ($adFrequency) {
+                    $innerContent = $matches[2]; // Contenido dentro de blog_content
+                    $headerCount = 0;
+                    $firstAdPlaced = false;
+                    $newInnerContent = '';
 
-            foreach ($blocks as $block) {
-                // Si el bloque es un blockquote, añádelo sin modificaciones
-                if (preg_match('/<blockquote.*?>.*?<\/blockquote>/is', $block)) {
-                    $newContent .= $block;
-                } else {
-                    // Si no, inserta anuncios en los párrafos
-                    $paragraphs = explode('</p>', $block);
-                    foreach ($paragraphs as $index => $paragraph) {
-                        $newContent .= $paragraph . '</p>';
-                        if (rand(0, 4) === 2) {  // Probabilidad de 1 en 5 de insertar un anuncio
-                            $newContent .= view('components.ad-placeholder')->render();
+                    // Evitar modificar contenido dentro de blockquotes y considerar tags de WordPress
+                    $blocks = preg_split('/(<blockquote.*?>.*?<\/blockquote>|<!-- \/wp:paragraph -->)/is', $innerContent, -1, PREG_SPLIT_DELIM_CAPTURE);
+                    foreach ($blocks as $block) {
+                        if (preg_match('/<blockquote.*?>.*?<\/blockquote>/is', $block) || str_contains($block, '<!-- /wp:paragraph -->')) {
+                            $newInnerContent .= $block;
+                        } else {
+                            $headerPattern = '/(<h[1-6]>.*?<\/h[1-6]>)/is';
+                            $paragraphs = preg_split($headerPattern, $block, -1, PREG_SPLIT_DELIM_CAPTURE);
+                            foreach ($paragraphs as $paragraph) {
+                                if (preg_match($headerPattern, $paragraph)) {
+                                    $headerCount++;
+                                    if (!$firstAdPlaced || $headerCount % $adFrequency == 0) {
+                                        $newInnerContent .= view('components.ad-placeholder')->render();
+                                        $firstAdPlaced = true;
+                                    }
+                                }
+                                $newInnerContent .= $paragraph;
+                            }
                         }
                     }
-                }
-            }
-            $response->setContent($newContent);
+                    return $matches[1] . $newInnerContent . $matches[3]; // Reconstruye la sección con anuncios insertados
+                },
+                $content
+            );
+
+            $response->setContent($content);
         }
 
         return $response;
     }
 }
-
