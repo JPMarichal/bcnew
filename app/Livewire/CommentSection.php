@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -9,13 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class CommentSection extends Component
 {
     public $post;
-    public $name;
-    public $email;
     public $content;
 
     protected $rules = [
-        'name' => 'required',
-        'email' => 'nullable|email',
         'content' => 'required',
     ];
 
@@ -33,16 +30,22 @@ class CommentSection extends Component
 
     public function addComment()
     {
+        if (!Auth::check()) {
+            session()->flash('message', 'Debes iniciar sesión para agregar un comentario.');
+            return;
+        }
+
         $this->validate();
+
+        $user = Auth::user();
 
         $comment = new Comment();
         $comment->post_id = $this->post->id;
-        $comment->author = $this->name;
-        $comment->email = $this->email;
+        $comment->user_id = $user->id;
         $comment->content = $this->content;
         $comment->save();
 
-        $this->reset(['name', 'email', 'content']);
+        $this->reset(['content']);
 
         session()->flash('message', '¡Comentario agregado exitosamente!');
     }
@@ -52,4 +55,3 @@ class CommentSection extends Component
         return Auth::check() && Auth::id() === $commentAuthorId;
     }
 }
-
