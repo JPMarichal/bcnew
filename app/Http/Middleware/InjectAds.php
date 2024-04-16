@@ -10,44 +10,29 @@ class InjectAds
     {
         $response = $next($request);
 
+        // Aseguramos que solo actúe en la ruta deseada y que la respuesta sea exitosa
         if ($request->is('blog/*') && $response instanceof \Illuminate\Http\Response && $response->isSuccessful()) {
             $content = $response->getContent();
-            $adFrequency = env('AD_FREQUENCY', 4); // Utiliza una variable de entorno o un valor predeterminado
+            $adFrequency = env('AD_FREQUENCY', 3); // Frecuencia de los anuncios
+            $headerCount = 0;
+            $firstAdPlaced = false;
 
-            // Asegurarse de que solo modificamos el contenido dentro de la sección 'blog_content'
-            $content = preg_replace_callback(
-                '/(<section id="blog_content" class="[^"]+">)(.*?)(<\/section>)/is',
-                function ($matches) use ($adFrequency) {
-                    $innerContent = $matches[2]; // Contenido dentro de blog_content
-                    $headerCount = 0;
-                    $firstAdPlaced = false;
-                    $newInnerContent = '';
-
-                    // Evitar modificar contenido dentro de blockquotes y considerar tags de WordPress
-                    $blocks = preg_split('/(<blockquote.*?>.*?<\/blockquote>|<!-- \/wp:paragraph -->)/is', $innerContent, -1, PREG_SPLIT_DELIM_CAPTURE);
-                    foreach ($blocks as $block) {
-                        if (preg_match('/<blockquote.*?>.*?<\/blockquote>/is', $block) || str_contains($block, '<!-- /wp:paragraph -->')) {
-                            $newInnerContent .= $block;
-                        } else {
-                            $headerPattern = '/(<h[1-6]>.*?<\/h[1-6]>)/is';
-                            $paragraphs = preg_split($headerPattern, $block, -1, PREG_SPLIT_DELIM_CAPTURE);
-                            foreach ($paragraphs as $paragraph) {
-                                if (preg_match($headerPattern, $paragraph)) {
-                                    $headerCount++;
-                                    if (!$firstAdPlaced || $headerCount % $adFrequency == 0) {
-                                        $newInnerContent .= view('components.ad-placeholder')->render();
-                                        $firstAdPlaced = true;
-                                    }
-                                }
-                                $newInnerContent .= $paragraph;
-                            }
-                        }
+            // Dividimos el contenido en líneas
+            $lines = explode("\n", $content);
+            $newContent = [];
+            foreach ($lines as $line) {
+                // Modificamos la expresión regular para incluir cualquier atributo en las etiquetas de encabezado
+                if (preg_match('/<h[2-6][^>]*>/', $line)) {
+                    $headerCount++;
+                    if (!$firstAdPlaced || $headerCount % $adFrequency == 0) {
+                        $newContent[] = view('components.ad-placeholder')->render();
+                        $firstAdPlaced = true;
                     }
-                    return $matches[1] . $newInnerContent . $matches[3]; // Reconstruye la sección con anuncios insertados
-                },
-                $content
-            );
-
+                }
+                $newContent[] = $line;
+            }
+            // Reconstruimos el contenido
+            $content = implode("\n", $newContent);
             $response->setContent($content);
         }
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use League\Csv\Reader;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class PostMetaTableSeeder extends Seeder
 {
@@ -20,14 +21,21 @@ class PostMetaTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         foreach ($csv->getRecords() as $record) {
-            DB::table('post_meta')->insert([
-                'id' => $record['meta_id'],
-                'post_id' => $record['post_id'],
-                'meta_key' => $record['meta_key'],
-                'meta_value' => $record['meta_value'],
-                'created_at' => now(), // Asumiendo que quieres marcar la fecha de creación al momento de la importación
-                'updated_at' => now(), // Asumiendo que quieres marcar la fecha de actualización al momento de la importación
-            ]);
+            try {
+                DB::table('post_meta')->insert([
+                    'id' => $record['meta_id'],
+                    'post_id' => $record['post_id'],
+                    'meta_key' => $record['meta_key'],
+                    'meta_value' => $record['meta_value'],
+                    'created_at' => now(), // Asumiendo que quieres marcar la fecha de creación al momento de la importación
+                    'updated_at' => now(), // Asumiendo que quieres marcar la fecha de actualización al momento de la importación
+                ]);
+            } catch (Exception $e) {
+                // Aquí puedes decidir qué hacer con la excepción, por ejemplo, loguearla:
+                // Log::error("Error insertando metadata para post_id {$record['post_id']}: " . $e->getMessage());
+                // Continúa con el siguiente registro sin interrumpir el proceso
+                continue;
+            }
         }
     }
 }
