@@ -1,17 +1,33 @@
 #blog_content {
+
     // Centrar todas las imágenes dentro de la sección del contenido del blog
     img {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%; // Asegura que la imagen no desborde el contenedor
+        display: block;
+        margin: 0 auto;
+        max-width: 100%; // Asegura que la imagen no desborde el contenedor
     }
-  
+
     // Estilos para los captions de las imágenes
     figcaption {
-      font-size: 0.8em; // Letra más pequeña
-      color: darkgray; // Tono gris oscuro
-      text-align: center; // Centrado
-      margin-top: 0.5em; // Espacio entre la imagen y el caption
+        font-size: 0.8em; // Letra más pequeña
+        color: darkgray; // Tono gris oscuro
+        text-align: center; // Centrado
+        margin-top: 0.5em; // Espacio entre la imagen y el caption
     }
-  }
-  
+}
+
+#blog_content>p:first-of-type::first-letter {
+    font-size: 3em; // Aumenta el tamaño de la letra capital
+    color: darkgreen; // Color verde para la letra
+    float: left; // Hace que la letra se destaque al inicio
+    padding-right: 0.1em; // Añade un pequeño espacio a la derecha de la letra capital
+    line-height: 1; // Ajusta la línea para alinear correctamente la letra grande
+    font-weight: bold; // Hace la letra inicial en negrita
+}
+
+#blog_content>p:first-of-type{
+    min-height: 3em;
+    margin-bottom:10px;
+    padding-bottom:5px;
+    border-bottom:3px dashed rgb(162, 156, 107);
+}
