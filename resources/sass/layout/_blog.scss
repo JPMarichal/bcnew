@@ -1,0 +1,17 @@
+#blog_content {
+    // Centrar todas las imágenes dentro de la sección del contenido del blog
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%; // Asegura que la imagen no desborde el contenedor
+    }
+  
+    // Estilos para los captions de las imágenes
+    figcaption {
+      font-size: 0.8em; // Letra más pequeña
+      color: darkgray; // Tono gris oscuro
+      text-align: center; // Centrado
+      margin-top: 0.5em; // Espacio entre la imagen y el caption
+    }
+  }
+  

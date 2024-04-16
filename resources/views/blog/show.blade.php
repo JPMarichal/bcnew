@@ -85,7 +85,7 @@
         @if ($post->excerpt)
             <div class="p-2 mb-2 text-center border rounded" style="background-color:#ffffb9">{{ $post->excerpt }}</div>
         @endif
-        <section>
+        <section id="blog_content" class="border rounded p-2 mb-3">
             {!! $post->content !!}
         </section>
     </article>
