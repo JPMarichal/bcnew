@@ -11,7 +11,7 @@
 @section('twitter_author', 'JPMarichal')
 
 @section('schema_markup')
-<script type="application/ld+json">
+    <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "NewsArticle",
@@ -64,13 +64,18 @@
         }
     </style>
     <article class="container mt-5">
-        <div class="p-1 mt-0 mb-0 border rounded bg-light small">
-            <a href="{{ route('blog.index') }}">
-                <i class="fa fa-arrow-left"></i> Artículos
-            </a> |
-            <a href="javascript:history.back();">
-                Atrás
-            </a>
+        <div class="p-1 mt-0 mb-0 border rounded bg-light small row">
+            <div class="col-11">
+                <a href="{{ route('blog.index') }}">
+                    <i class="fa fa-arrow-left"></i> Artículos
+                </a> |
+                <a href="javascript:history.back();">
+                    Atrás
+                </a>
+            </div>
+            <div class="col-1 text-end" style="color:#aaa">
+                {{$post->id}}
+            </div>
         </div>
 
         <!-- Imagen destacada -->

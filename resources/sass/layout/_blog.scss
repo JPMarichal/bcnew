@@ -14,6 +14,13 @@
         text-align: center; // Centrado
         margin-top: 0.5em; // Espacio entre la imagen y el caption
     }
+
+    figure{
+        background-color: #eee;
+        padding:15px;
+        border-radius: 10px;
+        border:1px solid #a3a2a2;
+    }
 }
 
 #blog_content>p:first-of-type::first-letter {
