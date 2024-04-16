@@ -1,4 +1,9 @@
 <div class="filters-bar mb-3">
+@props([
+    'years' => [],
+    'monthsByYear' => []
+])
+
     <div class="d-flex flex-column flex-md-row justify-content-between">
         <form action="{{ route('noticias.index') }}" method="GET" class="mb-3 mb-md-0 w-100" style="max-width: 100%;">
             <div class="d-flex justify-content-between">
@@ -31,12 +36,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const yearSelect = document.getElementById('yearSelect');
     const monthSelect = document.getElementById('monthSelect');
-    const monthsByYear = @json($monthsByYear);
 
     function updateMonthSelect() {
         const selectedYear = yearSelect.value;
         monthSelect.innerHTML = '<option value="">Mes</option>'; // Reset
-        if (selectedYear) {
+        if (selectedYear && monthsByYear[selectedYear]) {
             const months = monthsByYear[selectedYear] || [];
             months.forEach(month => {
                 const monthName = new Date(0, month - 1).toLocaleString('es', { month: 'long' });
@@ -51,4 +55,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     yearSelect.addEventListener('change', updateMonthSelect);
 });
+
 </script>
