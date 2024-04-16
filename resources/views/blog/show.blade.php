@@ -1,4 +1,46 @@
 @extends('layouts.main')
+@section('robots', 'index, follow')
+
+@section('title', $post->title)
+@section('description', $post->excerpt)
+@section('featured_image', $post->featuredImageUrl())
+@section('published_time', \Carbon\Carbon::parse($post->publish_date)->toIso8601String())
+@section('modified_time', \Carbon\Carbon::parse($post->updated_at)->toIso8601String())
+@section('author', 'Juan Pablo Marichal')
+@section('type', 'article')
+@section('twitter_author', 'JPMarichal')
+
+@section('schema_markup')
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ url()->current() }}"
+        },
+        "headline": "{{ $post->title }}",
+        "image": [
+            "{{ $post->featuredImageUrl() }}"
+        ],
+        "datePublished": "{{ \Carbon\Carbon::parse($post->publish_date)->toIso8601String() }}",
+        "dateModified": "{{ \Carbon\Carbon::parse($post->updated_at)->toIso8601String() }}",
+        "author": {
+            "@type": "Person",
+            "name": "Juan Pablo Marichal"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Biblicomentarios",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ asset('android-chrome-512x512.png') }}"
+            }
+        },
+        "description": "{{ $post->excerpt }}"
+    }
+</script>
+@endsection
 
 @section('content')
     <style>
