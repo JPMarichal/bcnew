@@ -38,3 +38,45 @@
     padding-bottom:5px;
     border-bottom:3px dashed rgb(162, 156, 107);
 }
+
+.hero-header {
+    position: relative;
+    height: 400px; /* Ajusta la altura según sea necesario */
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo translúcido */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-overlay h2 {
+    color: white; /* Color del texto */
+    text-align: center;
+    font-size: 36px; /* Ajusta el tamaño de la fuente según sea necesario */
+}
+h2.hero{
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    height: 1.5em;
+    border: 1px solid brown;
+    border-radius: 10px;
+    color: wheat;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://as2.ftcdn.net/v2/jpg/02/43/22/99/1000_F_243229915_S9abdeD7NAlGsooVmTbj0D6ZB0IPR5Zk.jpg');
+    background-repeat: repeat;
+}
+
+.seccion_abstract{
+    padding:5px;
+    text-align: center;
+    background-color: #e1d9bd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
