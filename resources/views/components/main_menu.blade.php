@@ -11,10 +11,10 @@
           <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('noticias') || request()->is('noticias/*') ? 'active' : '' }}" href="/noticias">Noticias de la Iglesia</a>
+          <a class="nav-link {{ request()->is('blog') || request()->is('blog/*') ? 'active' : '' }}" href="/blog">Artículos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('articulos') || request()->is('articulos/*') ? 'active' : '' }}" href="#">Artículos</a>
+          <a class="nav-link {{ request()->is('noticias') || request()->is('noticias/*') ? 'active' : '' }}" href="/noticias">Noticias de la Iglesia</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ request()->is('estudio-de-las-escrituras') || request()->is('estudio-de-las-escrituras/*') ? 'active' : '' }}" href="#">Estudio de las Escrituras</a>
