@@ -19,11 +19,12 @@ class BunnyCDNService
         $baseUrl = Region::getBaseUrl($zoneRegion);
         
         // Inicializa el cliente de BunnyCDN con la URL base correcta.
-        $this->client = new Client($apiKey, $zoneName, $baseUrl);
+        $this->client = new Client($apiKey, $zoneName, $zoneRegion);
     }
 
     public function upload($localFilePath, $remoteFilePath, $withChecksum = true)
     {
+      //  $remoteFilePath = 'featured-image/';
         return $this->client->upload($localFilePath, $remoteFilePath, $withChecksum);
     }
 
