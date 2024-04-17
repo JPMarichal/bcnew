@@ -53,6 +53,35 @@
             margin: 15px auto;
         }
 
+        .featuredImageOverlay {
+            background-image: url('{{ $post->featuredImageUrl() }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 600px;
+            margin: 15px auto;
+            position: relative;
+            overflow: hidden;
+            /* Asegura que el pseudo-elemento no exceda este contenedor */
+        }
+
+        .featuredImageOverlay::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+
+        .featuredImageOverlay img {
+            position: relative;
+            z-index: 1;
+            /* Coloca la imagen por encima del pseudo-elemento oscurecido */
+        }
+
         .featuredH1 {
             color: white;
             text-align: center;
@@ -74,7 +103,7 @@
                 </a>
             </div>
             <div class="col-1 text-end" style="color:#aaa">
-                {{$post->id}}
+                {{ $post->id }}
             </div>
         </div>
 
@@ -94,6 +123,15 @@
             {!! $post->content !!}
         </section>
     </article>
+
+    @if ($post->featuredImageUrl())
+        <div id="featured_image" class="featuredImageOverlay text-center bg-light border rounded"
+            style="max-height: 200px;">
+            <img src="{{ $post->featuredImageUrl() }}" alt="{{ $post->title }}" title="{{ $post->title }}"
+                style="max-height:200px; height:200px; border:10px solid white;">
+        </div>
+    @endif
+
 
     <livewire:comment-section :post="$post" />
 
