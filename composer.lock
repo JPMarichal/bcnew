@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3adf1ecde15431a5009350f04f6b333",
+    "content-hash": "cf2e805d245c2292644056c9b633fa5e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2266,6 +2266,55 @@
             "time": "2024-03-11T03:11:26+00:00"
         },
         {
+            "name": "klarna/php-xmlrpc",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klarna/php-xmlrpc.git",
+                "reference": "c359520ce516b9172697e0355d89e000aede2934"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klarna/php-xmlrpc/zipball/c359520ce516b9172697e0355d89e000aede2934",
+                "reference": "c359520ce516b9172697e0355d89e000aede2934",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-xml": "*",
+                "php": ">=5.4.0",
+                "phpxmlrpc/phpxmlrpc": "~4.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "4.0.*",
+                "klarna/apigen-theme": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Klarna AB",
+                    "email": "integration@klarna.com"
+                }
+            ],
+            "description": "PHP SDK for Klarna's XMLRPC API",
+            "homepage": "http://developers.klarna.com",
+            "support": {
+                "issues": "https://github.com/klarna/php-xmlrpc/issues",
+                "source": "https://github.com/klarna/php-xmlrpc/tree/v5.0"
+            },
+            "abandoned": "klarna/kco_rest",
+            "time": "2016-03-16T11:55:44+00:00"
+        },
+        {
             "name": "laminas/laminas-xml",
             "version": "1.6.0",
             "source": {
@@ -4364,6 +4413,66 @@
                 }
             ],
             "time": "2023-11-12T21:59:55+00:00"
+        },
+        {
+            "name": "phpxmlrpc/phpxmlrpc",
+            "version": "4.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gggeek/phpxmlrpc.git",
+                "reference": "28a2b5712ce4a3de2b0e7e1d2392c78132c70d81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/28a2b5712ce4a3de2b0e7e1d2392c78132c70d81",
+                "reference": "28a2b5712ce4a3de2b0e7e1d2392c78132c70d81",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "php": "^5.4.0 || ^7.0 || ^8.0"
+            },
+            "conflict": {
+                "phpxmlrpc/extras": "<= 1.0.0-beta2",
+                "phpxmlrpc/jsonrpc": "<= 1.0.0-beta1"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-mbstring": "*",
+                "phpunit/phpunit": "^4.8 || ^5.0 || ^8.5.14",
+                "phpunit/phpunit-selenium": "*",
+                "yoast/phpunit-polyfills": "*"
+            },
+            "suggest": {
+                "ext-curl": "Needed for HTTPS, HTTP2 and HTTP 1.1 support, NTLM Auth etc...",
+                "ext-mbstring": "Needed to allow reception of requests/responses in character sets other than ASCII,LATIN-1,UTF-8",
+                "ext-zlib": "Needed for sending compressed requests and receiving compressed responses, if cURL is not available",
+                "phpxmlrpc/extras": "Adds more featured Server classes, including self-documenting and ajax-enabled servers",
+                "phpxmlrpc/jsonrpc": "Adds support for the JSON-RPC protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpXmlRpc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A php library for building xmlrpc clients and servers",
+            "homepage": "https://gggeek.github.io/phpxmlrpc/",
+            "keywords": [
+                "webservices",
+                "xml-rpc",
+                "xmlrpc"
+            ],
+            "support": {
+                "issues": "https://github.com/gggeek/phpxmlrpc/issues",
+                "source": "https://github.com/gggeek/phpxmlrpc/tree/4.10.2"
+            },
+            "time": "2024-04-14T22:47:46+00:00"
         },
         {
             "name": "prologue/alerts",

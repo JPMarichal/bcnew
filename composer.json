@@ -16,6 +16,7 @@
         "infyomlabs/laravel-ui-adminlte": "^5.2",
         "intervention/image": "^3.5",
         "irazasyed/telegram-bot-sdk": "^3.14",
+        "klarna/php-xmlrpc": "^5.0",
         "laravel/framework": "^10.10",
         "laravel/helpers": "^1.7",
         "laravel/sanctum": "^3.3",

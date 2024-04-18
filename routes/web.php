@@ -11,6 +11,7 @@ use App\Http\Controllers\Escrituras\LibroController;
 use App\Http\Controllers\Escrituras\ParteController;
 use App\Http\Controllers\Escrituras\CapituloController;
 use App\Http\Controllers\Escrituras\VersiculoController;
+use App\Http\Controllers\Blog\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,7 +111,9 @@ Route::prefix('taxonomies')->group(function () {
     })->name('taxonomies.terms');
 });
 
-Route::prefix('blog')->name('blog.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Blog\BlogController::class, 'index'])->name('index');
-    Route::get('/{slug}', [App\Http\Controllers\Blog\BlogController::class, 'show'])->name('show');
+// Grupo de rutas para el blog
+Route::prefix('blog')->name('blog.')->middleware(['internalLinks'])->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('index');
+    Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
 });
+
