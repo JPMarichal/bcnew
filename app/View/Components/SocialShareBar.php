@@ -1,26 +1,36 @@
 <?php
-
 namespace App\View\Components;
 
-use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class SocialShareBar extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $title; 
+    public $description;
+    public $keywords;
+    public $featuredImage;
+
+    public function __construct(
+        $title = null,
+        $description = null,
+        $keywords = null,
+        $featuredImage=null
+        ) // Modificar esta línea
     {
-        //
+        $this->title = $title;
+        $this->description = $description;
+        $this->keywords = $keywords;
+        $this->featuredImage = $featuredImage;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
+    public function render(): View
     {
-        return view('components.social-share-bar');
+        return view('components.social-share-bar', [
+            'title' => $this->title,
+            'description' => $this->description,
+            'keywords' => $this->keywords,
+            'featuredImage' => $this->featuredImage
+        ]);
     }
 }

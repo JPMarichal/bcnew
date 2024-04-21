@@ -119,11 +119,11 @@
         @if ($post->excerpt)
             <div class="p-2 mb-2 text-center border rounded" style="background-color:#ffffb9">{{ $post->excerpt }}</div>
         @endif
-        <x-social-share-bar />
+        <x-social-share-bar :title="$post->title" :description="$post->excerpt" :featuredImage="$post->featuredImageUrl()"></x-social-share-bar>
         <section id="blog_content" class="border rounded p-2 px-4 mb-3 mt-3">
             {!! $post->content !!}
         </section>
-        <x-social-share-bar />
+       
     </article>
 
     @if ($post->featuredImageUrl())
