@@ -31,6 +31,13 @@
                                     style="border-radius:50%;background-color:white;border:0px solid #ccc;width:40px;height:40px;">
                                     {{ $post->id }}
                                 </span>
+                                <span class="ml-2">
+                                    @if (str_contains($post->featuredImageUrl(), 'b-cdn'))
+                                        <i class="fas fa-circle-check" style="color: green;"></i>
+                                    @else
+                                        <i class="fas fa-circle-xmark" style="color: red;"></i>
+                                    @endif
+                                </span>
                             </div>
                             <div class="col-9 text-end">
                                 <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary btn-sm">
