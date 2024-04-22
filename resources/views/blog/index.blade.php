@@ -35,7 +35,7 @@
                                     @if (str_contains($post->featuredImageUrl(), 'b-cdn'))
                                         <i class="fas fa-circle-check" style="color: green;"></i>
                                     @else
-                                        <i class="fas fa-circle-xmark" style="color: red;"></i>
+                                        @livewire('upload-image', ['postId' => $post->id])
                                     @endif
                                 </span>
                             </div>
@@ -53,4 +53,9 @@
             {{ $posts->links() }}
         </div>
     </div>
+    <script>
+        window.livewire.on('imageUploaded', () => {
+            window.location.reload();
+        });
+    </script>
 @endsection
