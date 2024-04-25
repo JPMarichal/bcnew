@@ -42,7 +42,7 @@ Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('
 Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Grupo de rutas para pruebas de errores HTTP
 Route::prefix('test-errors')->group(function () {
@@ -77,7 +77,7 @@ Route::prefix('noticias')->group(function () {
     Route::get('/{month}/{year}', [NewsController::class, 'index'])->where(['month' => '\d{2}', 'year' => '\d{4}']);
     Route::get('/{month}', [NewsController::class, 'index'])->where('month', '\d{2}');
     Route::get('/buscar', [NewsController::class, 'search'])->name('noticias.search');
-    
+
     // Ruta unificada para mostrar noticias por slug o id
     Route::get('/{slugOrId}', [NewsController::class, 'show'])->name('noticias.show')->where('slugOrId', '^[a-z0-9-]+(?:\/[0-9]+)?$');
 });
@@ -105,7 +105,7 @@ Route::prefix('taxonomies')->group(function () {
         return view('taxonomies.manage', compact('taxonomyId'));
     })->name('taxonomies.manage');
 
-    
+
     Route::get('/terms/{taxonomyId?}', function ($taxonomyId = null) {
         return view('taxonomies.terms', compact('taxonomyId'));
     })->name('taxonomies.terms');
@@ -115,5 +115,12 @@ Route::prefix('taxonomies')->group(function () {
 Route::prefix('blog')->name('blog.')->middleware(['internalLinks'])->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
+
+
+    //  
 });
 
+Route::get('/celebracion', [BlogController::class, 'celebracion'])->name('celebracion');
+
+// Filtradas de acuerdo a una característica específica 
+Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_thumbnail');
