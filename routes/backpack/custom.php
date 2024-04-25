@@ -29,4 +29,7 @@ Route::group([
     Route::crud('escrituras/versiculocomentario', 'Escrituras\VersiculocomentarioCrudController');
     Route::crud('taxonomy', 'TaxonomyCrudController');
     Route::crud('taxonomyterm', 'TaxonomytermCrudController');
+    Route::crud('cita-autor', 'CitaAutorCrudController');
+    Route::crud('cita-cita', 'CitaCitaCrudController');
+    Route::crud('cita-fuente', 'CitaFuenteCrudController');
 }); // this should be the absolute last line of this file

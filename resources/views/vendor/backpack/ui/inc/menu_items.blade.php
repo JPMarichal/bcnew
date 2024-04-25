@@ -20,7 +20,13 @@
     <x-backpack::menu-dropdown-item title="Newsposts" icon="la la-newspaper" :link="backpack_url('newspost')" />
 </x-backpack::menu-dropdown>
 
-<x-backpack::menu-dropdown title="Taxonomías" icon="fas fa-book">
-<x-backpack::menu-dropdown-item title="Taxonomías" icon="la la-book" :link="backpack_url('taxonomy')" />
-<x-backpack::menu-dropdown-item title="Términos" icon="la la-book" :link="backpack_url('taxonomyterm')" />
+<x-backpack::menu-dropdown title="Taxonomías" icon="la la-book">
+    <x-backpack::menu-dropdown-item title="Taxonomías" icon="la la-book" :link="backpack_url('taxonomy')" />
+    <x-backpack::menu-dropdown-item title="Términos" icon="la la-book" :link="backpack_url('taxonomyterm')" />
+</x-backpack::menu-dropdown>
+
+<x-backpack::menu-dropdown title="Citas" icon="la la-book">
+    <x-backpack::menu-dropdown-item title="Autores" icon="la la-book" :link="backpack_url('cita-autor')" />
+    <x-backpack::menu-dropdown-item title="Fuentes" icon="la la-book" :link="backpack_url('cita-fuente')" />
+    <x-backpack::menu-dropdown-item title="Citas" icon="la la-book" :link="backpack_url('cita-cita')" />
 </x-backpack::menu-dropdown>

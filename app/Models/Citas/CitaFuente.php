@@ -4,10 +4,12 @@ namespace App\Models\Citas;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;  // Importa el CrudTrait
 
 class CitaFuente extends Model
 {
     use HasFactory;
+    use CrudTrait;  // Usa el CrudTrait
 
     protected $table = 'cita_fuentes';
 
