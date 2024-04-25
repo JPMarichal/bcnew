@@ -11,7 +11,7 @@ class CitaAutoresSeeder extends Seeder
     {
         DB::table('cita_autores')->insert([
             ['nombre' => 'Anónimo', 'url_imagen' => null, 'post_id' => null],
-            ['nombre' => 'Desconocido', 'url_imagen' => null, 'post_id' => null]
+            ['nombre' => 'Autor desconocido', 'url_imagen' => null, 'post_id' => null]
         ]);
     }
 }
