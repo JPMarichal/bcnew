@@ -29,7 +29,7 @@ class CitaService
     {
         $referencia = "- ";
         $referencia .= "{$cita->autor->nombre}";
-        $referencia .= ", ". '"'. $cita->fuente->titulo . '"';
+        $referencia .= ", ". '"'. $cita->fuente->titulo . '"'; 
 
         if ($cita->fuente->nombre_revista != "") {
             $referencia .= ",  {$cita->fuente->nombre_revista}";
