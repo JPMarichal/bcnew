@@ -13,9 +13,7 @@ class PasajeRequest extends FormRequest
      */
     public function authorize()
     {
-        // Aquí puedes añadir lógica para determinar si el usuario está autorizado
-        // Por defecto, retornar `true` permite a todos los usuarios autenticados realizar solicitudes
-        return true;
+        return true; // Permite a todos los usuarios autenticados realizar solicitudes
     }
 
     /**
@@ -27,7 +25,7 @@ class PasajeRequest extends FormRequest
     {
         return [
             'titulo' => 'required|string|unique:pasajes,titulo',
-            'capitulo' => 'required|string|max:50',
+            'capitulo_id' => 'required|exists:capitulos,id', // Asegura que capitulo_id exista en la tabla capitulos
             'versiculo_inicial' => 'required|integer|min:1',
             'versiculo_final' => 'required|integer|min:1|gte:versiculo_inicial',
         ];
@@ -43,37 +41,13 @@ class PasajeRequest extends FormRequest
         return [
             'titulo.required' => 'El título es obligatorio.',
             'titulo.unique' => 'El título ya ha sido registrado. Intenta con una variación.',
-            'capitulo.required' => 'El capítulo es obligatorio.',
+            'capitulo_id.required' => 'El capítulo es obligatorio.', // Mensaje para el campo capitulo_id
+            'capitulo_id.exists' => 'El capítulo seleccionado no es válido.',
             'versiculo_inicial.required' => 'El versículo inicial es obligatorio.',
             'versiculo_inicial.min' => 'El versículo inicial debe ser al menos 1.',
             'versiculo_final.required' => 'El versículo final es obligatorio.',
             'versiculo_final.min' => 'El versículo final debe ser al menos 1.',
             'versiculo_final.gte' => 'El versículo final debe ser igual o posterior al versículo inicial.',
         ];
-    }
-
-    /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     */
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if ($this->somethingElseIsInvalid()) {
-                $validator->errors()->add('field', 'Something is wrong with this field!');
-            }
-        });
-    }
-
-    /**
-     * Método para agregar validación adicional.
-     *
-     * @return bool
-     */
-    private function somethingElseIsInvalid()
-    {
-        // Aquí puedes añadir más lógica de validación
-        return false;
     }
 }

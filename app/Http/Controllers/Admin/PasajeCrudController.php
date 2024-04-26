@@ -39,13 +39,19 @@ class PasajeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column('titulo')->type('text')->label('Título')->limit(75);
+        CRUD::addColumn([
+            'name' => 'capitulo_id', // nombre del campo en la base de datos
+            'label' => 'Capítulo', // etiqueta que se mostrará en el CRUD
+            'type' => 'select',
+            'entity' => 'capitulo', // el método que define la relación en el modelo
+            'attribute' => 'referencia', // atributo del modelo Capitulo que se mostrará
+            'model' => "App\Models\Escrituras\Capitulo"
+        ]);
+        CRUD::column('versiculo_inicial')->type('number')->label('Versículo Inicial');
+        CRUD::column('versiculo_final')->type('number')->label('Versículo Final');
     }
+
 
     /**
      * Define what happens when the Create operation is loaded.
@@ -56,12 +62,21 @@ class PasajeCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(PasajeRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('titulo')->type('text')->label('Título');
+        CRUD::addField([
+            'label'     => "Capítulo", // Label que se mostrará en el formulario
+            'type'      => 'select',
+            'name'      => 'capitulo_id', // la clave foránea en la tabla `pasajes`
+            'entity'    => 'capitulo', // la función que define la relación en el modelo
+            'attribute' => 'referencia', // atributo del modelo Capítulo que se mostrará en el dropdown
+            'model'     => "App\Models\Escrituras\Capitulo", // el modelo desde donde se traerán los datos
+            'options'   => (function ($query) {
+                return $query->orderBy('referencia', 'ASC')->get(); // Ordena los capítulos alfabéticamente
+            }),
+        ]);
+        CRUD::field('versiculo_inicial')->type('number')->label('Versículo Inicial');
+        CRUD::field('versiculo_final')->type('number')->label('Versículo Final');
     }
 
     /**
@@ -73,5 +88,27 @@ class PasajeCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    /**
+     * Define what happens when the Show operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-show
+     * @return void
+     */
+    protected function setupShowOperation()
+    {
+        // Asegúrate de que estas columnas se añadan de forma que se muestren adecuadamente los detalles
+        CRUD::column('titulo')->type('text')->label('Título')->limit(1000);
+        CRUD::addColumn([
+            'name' => 'capitulo_id', // campo en la base de datos
+            'label' => 'Capítulo', // etiqueta para mostrar en la interfaz
+            'type' => 'select',
+            'entity' => 'capitulo', // el método que define la relación en el modelo
+            'attribute' => 'referencia', // atributo del modelo Capitulo que se mostrará
+            'model' => "App\Models\Escrituras\Capitulo"
+        ]);
+        CRUD::column('versiculo_inicial')->type('number')->label('Versículo Inicial');
+        CRUD::column('versiculo_final')->type('number')->label('Versículo Final');
     }
 }
