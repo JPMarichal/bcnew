@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Escrituras\CapituloController;
 use App\Http\Controllers\Api\Escrituras\VersiculoController;
 use App\Http\Controllers\Api\Escrituras\PasajeController;
 use App\Http\Controllers\API\ImageUploadController;
+use App\Http\Controllers\Api\CitaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,7 @@ use App\Http\Controllers\OpenAIController;
 Route::post('/openai/text-response', [OpenAIController::class, 'getTextResponse']);
 Route::post('/openai/get-image', [OpenAIController::class, 'getImage']);
 Route::post('/upload-image/{postId}', [ImageUploadController::class, 'upload'])->name('api.upload-image');
+
+Route::get('/citas', [CitaController::class, 'index']);
+Route::get('/citas/{id}', [CitaController::class, 'show']);
+Route::get('/cita_aleatoria', [CitaController::class, 'random']);
