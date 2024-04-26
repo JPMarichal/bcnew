@@ -30,3 +30,5 @@
     <x-backpack::menu-dropdown-item title="Fuentes" icon="la la-book" :link="backpack_url('cita-fuente')" />
     <x-backpack::menu-dropdown-item title="Citas" icon="la la-book" :link="backpack_url('cita-cita')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-item title="Pasajes" icon="la la-book" :link="backpack_url('pasaje')" />
