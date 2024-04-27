@@ -25,10 +25,5 @@ class AppServiceProvider extends ServiceProvider
     {
         // View::composer(['news.index', 'components.filters'], NewsComposer::class);
         View::composer(['news.index', 'news.show'], NewsComposer::class);
-
-        // Desactivar Debugbar en rutas API
-        if (Route::current()->getPrefix() === 'api') {
-            Debugbar::disable();
-        }
     }
 }
