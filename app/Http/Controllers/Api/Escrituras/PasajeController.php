@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Escrituras;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\PasajeService;
-use App\Models\Escrituras\Pasaje;
 use Barryvdh\Debugbar\Facade as Debugbar;
 
 class PasajeController extends Controller
@@ -35,15 +34,14 @@ class PasajeController extends Controller
 
     public function random(){
         Debugbar::disable(); 
-
-        $pasaje_obtenido = Pasaje::inRandomOrder()->first();
-    
-        $titulo = $pasaje_obtenido->titulo;
-        $capitulo = $pasaje_obtenido->capitulo;
-        $versiculo_inicial = $pasaje_obtenido->versiculo_inicial;
-        $versiculo_final = $pasaje_obtenido->versiculo_final;
-    
-        return $titulo. "\n" . $capitulo->referencia. ":" . $versiculo_inicial. "-" . $versiculo_final;
+        // Obtiene la referencia aleatoria
+        $referencia_aleatoria = $this->pasajeService->getReferenciaAleatoria();
+        $formato='texto';
+        $referencia_aleatoria = json_decode($referencia_aleatoria->content(), true);
+        $referencia = $referencia_aleatoria['referencia'];
+        $titulo = $referencia_aleatoria['titulo'];
+        $respuesta = $this->pasajeService->obtenerPasajeFormateado($referencia, $formato, $titulo);
+        return $respuesta;
     }
 
     /**

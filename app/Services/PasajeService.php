@@ -4,9 +4,27 @@ namespace App\Services;
 
 use App\Factories\GeneradorPasajeFactory;
 use App\Models\Escrituras\Versiculo;
+use App\Models\Escrituras\Pasaje;
 
 class PasajeService
 {
+    public function getReferenciaAleatoria(){
+        $pasaje_obtenido = Pasaje::inRandomOrder()->first();
+    
+        $titulo = $pasaje_obtenido->titulo;
+        $capitulo = $pasaje_obtenido->capitulo;
+        $versiculo_inicial = $pasaje_obtenido->versiculo_inicial;
+        $versiculo_final = $pasaje_obtenido->versiculo_final;
+    
+        $referencia = $capitulo->referencia. ":" . $versiculo_inicial. "-" . $versiculo_final;
+
+        // Devuelve JSON con el titulo y la referencia
+        return response()->json([
+            'titulo' => $titulo,
+           'referencia' => $referencia
+        ]);
+    }
+
     public function obtenerPasajeFormateado($referencia, $formato = 'texto', $titulo = null)
     {
         // Mapeo de nombres para traducir nombres de libros a su nombre canónico
