@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Escrituras;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\PasajeService;
+use App\Models\Escrituras\Pasaje;
 
 class PasajeController extends Controller
 {
@@ -29,6 +30,17 @@ class PasajeController extends Controller
             // Manejo de errores (por ejemplo, formato no soportado o referencia inválida)
             return response()->json(['error' => $e->getMessage()], 400);
         }
+    }
+
+    public function random(){
+        $pasaje_obtenido = Pasaje::inRandomOrder()->first();
+    
+        $titulo = $pasaje_obtenido->titulo;
+        $capitulo = $pasaje_obtenido->capitulo;
+        $versiculo_inicial = $pasaje_obtenido->versiculo_inicial;
+        $versiculo_final = $pasaje_obtenido->versiculo_final;
+    
+        return $titulo. "\n" . $capitulo->referencia. ":" . $versiculo_inicial. "-" . $versiculo_final;
     }
 
     /**

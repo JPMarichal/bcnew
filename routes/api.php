@@ -45,6 +45,7 @@ Route::prefix('escrituras')->group(function () {
     Route::get('/versiculo/{referencia}/social', [VersiculoController::class, 'social'])->name('versiculo.social');
     Route::get('/versiculo/{referencia}/comentarios', [VersiculoController::class, 'comentariosPorVersiculo'])->name('versiculo.comentarios');
     Route::get('/pasaje/{formato}/{referencia}/{titulo?}', [PasajeController::class, 'show'])->name('pasaje.show');
+    Route::get('/pasaje_aleatorio', [PasajeController::class, 'random'])->name('pasaje.random');
 });
 
 use App\Http\Controllers\OpenAIController;
