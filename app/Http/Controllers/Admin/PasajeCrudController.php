@@ -39,7 +39,7 @@ class PasajeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('titulo')->type('text')->label('Título')->limit(75);
+        CRUD::column('titulo')->type('text')->label('Título')->limit(75 );
         CRUD::addColumn([
             'name' => 'capitulo_id', // nombre del campo en la base de datos
             'label' => 'Capítulo', // etiqueta que se mostrará en el CRUD
