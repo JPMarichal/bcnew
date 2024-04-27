@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\PasajeService;
 use App\Models\Escrituras\Pasaje;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class PasajeController extends Controller
 {
@@ -33,6 +34,8 @@ class PasajeController extends Controller
     }
 
     public function random(){
+        Debugbar::disable(); 
+
         $pasaje_obtenido = Pasaje::inRandomOrder()->first();
     
         $titulo = $pasaje_obtenido->titulo;
