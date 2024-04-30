@@ -18,7 +18,7 @@ class CitaService
 
     protected function formatearCitaComoTexto($cita)
     {
-        $textoRespuesta = "{$cita->titulo}\n\n";
+        $textoRespuesta = "*{$cita->titulo}*\n\n";
         $textoRespuesta .= "<< {$cita->texto} >>\n\n";
         $textoRespuesta .= $this->armarReferencia($cita);
 
