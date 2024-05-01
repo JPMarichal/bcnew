@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\View\Composers\NewsComposer;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\Debugbar\Facade as Debugbar;
+use Mary\Facades\Mary;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // View::composer(['news.index', 'components.filters'], NewsComposer::class);
         View::composer(['news.index', 'news.show'], NewsComposer::class);
+       // Blade::component('maryui-tabs', \MaryUI\Components\Tabs::class);
     }
 }

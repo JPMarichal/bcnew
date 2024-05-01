@@ -25,10 +25,11 @@
         "league/csv": "^9.15",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.6",
+        "mkocansey/bladewind": "^2.5",
         "monolog/monolog": "^3.5",
         "p3k/picofeed": "^0.1.40",
         "power-components/livewire-powergrid": "^5.4",
-        "robsontenorio/mary": "^1.27",
+        "robsontenorio/mary": "^1.30",
         "simplepie/simplepie": "^1.8",
         "spatie/laravel-cookie-consent": "^3.3",
         "spatie/laravel-permission": "^6.3"

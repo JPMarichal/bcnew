@@ -45,4 +45,5 @@
     <div style="height:5px;background-color:#FFD580" class="mt-4 mb-2">&nbsp;</div>
 
     @include('components.footer_scripts')
+    @livewireScripts
 </footer>
