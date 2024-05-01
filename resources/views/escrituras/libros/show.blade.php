@@ -17,8 +17,6 @@
     <div class="border border-rounded p-2 bg-success text-white text-center mb-3">{{$libro->description}}</div>
     @livewire('escrituras-navigation', ['tipo' => 'libro', 'nombre' => $libro->nombre])
 
-    <x-bladewind::button>Save User</x-bladewind::button>
-    
     @foreach ($libro->partes as $parte)
         <h2>{{$parte->nombre}}</h2>
         <div>{{ $parte->description }}</div>
