@@ -6,6 +6,7 @@
     @include('components.header.fonts')
     @include('components.header.styles')
     @include('components.header.wysiwyg')
+    @include('components.header.bladewindui')
     @include('components.header.scripts')
 
     @yield('schema_markup') 
