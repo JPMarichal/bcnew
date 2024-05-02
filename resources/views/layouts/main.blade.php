@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" prefix="og: https://ogp.me/ns#">
 
-<head>
-    @include('layouts.header')
-    @cookieConsent
-</head>
+@include('layouts.header')
+{{-- @cookieConsent --}}
 
 <body>
     @cookieConsent
