@@ -126,5 +126,5 @@ Route::get('/celebracion', [BlogController::class, 'celebracion'])->name('celebr
 // Filtradas de acuerdo a una característica específica 
 Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_thumbnail');
 
-Route::get('/temas/{id}', [TemaController::class, 'show'])->name('temas.show');
+// Route::get('/temas/{id}', [TemaController::class, 'show'])->name('temas.show');
 Route::get('/temas/admin', [TemaController::class, 'admin'])->name('temas.admin');
