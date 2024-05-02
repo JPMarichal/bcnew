@@ -18,4 +18,9 @@ class TemaController extends Controller
 
         return view('temas.show', compact('tema', 'grupos'));
     }
+
+    public function admin()
+    {
+        return view('temas.admin');
+    }
 }
