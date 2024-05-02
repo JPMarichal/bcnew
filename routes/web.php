@@ -12,6 +12,7 @@ use App\Http\Controllers\Escrituras\ParteController;
 use App\Http\Controllers\Escrituras\CapituloController;
 use App\Http\Controllers\Escrituras\VersiculoController;
 use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\TemaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,3 +125,6 @@ Route::get('/celebracion', [BlogController::class, 'celebracion'])->name('celebr
 
 // Filtradas de acuerdo a una característica específica 
 Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_thumbnail');
+
+Route::get('/temas/{id}', [TemaController::class, 'show'])->name('temas.show');
+

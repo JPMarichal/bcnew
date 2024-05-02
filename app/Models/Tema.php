@@ -9,8 +9,7 @@ class Tema extends Model
 {
     use HasFactory;
 
-    protected $table = 'temas';
-    protected $fillable = ['concepto', 'parent_id', 'grupo_id', 'orden', 'tema_type', 'tema_id'];
+    protected $fillable = ['titulo', 'parent_id', 'orden'];
 
     public function parent()
     {
@@ -22,18 +21,8 @@ class Tema extends Model
         return $this->hasMany(Tema::class, 'parent_id');
     }
 
-    public function group()
+    public function gruposTemas()
     {
-        return $this->belongsTo(Tema::class, 'grupo_id');
-    }
-
-    public function groupedThemes()
-    {
-        return $this->hasMany(Tema::class, 'grupo_id');
-    }
-
-    public function morphableEntity()
-    {
-        return $this->morphTo(null, 'tema_type', 'tema_id');
+        return $this->hasMany(GrupoTema::class, 'tema_id');
     }
 }
