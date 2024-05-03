@@ -5,6 +5,7 @@
         @foreach ($temas as $tema)
             <li wire:key="tema-{{ $tema->id }}" data-id="{{ $tema->id }}" class="row border rounded mb-1">
                 <div class="col-10">
+                <span class="glyphicon glyphicon-move" aria-hidden="true"></span> 
                 {{ $tema->titulo }}
                 </div>
                 <div class="col-2">
