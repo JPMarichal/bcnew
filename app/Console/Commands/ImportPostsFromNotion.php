@@ -51,46 +51,4 @@ class ImportPostsFromNotion extends Command
 
         $this->info('All posts have been imported successfully from Notion.');
     }
-
-    function notionToHtml($blocks)
-    {
-        $html = '';
-        foreach ($blocks as $block) {
-            switch ($block->getType()) {
-                case 'paragraph':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<p>' . htmlspecialchars($plainText) . '</p>';
-                    // dd($html);
-                    break;
-                case 'heading_1':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<h1>' . htmlspecialchars($plainText) . '</h1>';
-                    break;
-                case 'heading_2':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<h2>' . htmlspecialchars($plainText) . '</h2>';
-                    break;
-                case 'heading_3':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<h3>' . htmlspecialchars($plainText) . '</h3>';
-                    break;
-                case 'bulleted_list_item':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<li>' . htmlspecialchars($plainText) . '</li>';
-                    break;
-                case 'numbered_list_item':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<li>' . htmlspecialchars($plainText) . '</li>';
-                    break;
-                case 'quote':
-                    $plainText = trim($block->getContent()->getPlainText());
-                    $html .= '<blockquote>' . htmlspecialchars($plainText) . '</blockquote>';
-                    break;
-                    // Agrega otros tipos de bloques según sea necesario
-                default:
-                    $html .= '<div>' . htmlspecialchars($block->type) . '</div>'; // Fallback para tipos no manejados
-            }
-        }
-        return $html;
-    }
 }
