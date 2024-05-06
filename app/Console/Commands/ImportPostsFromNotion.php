@@ -25,13 +25,28 @@ class ImportPostsFromNotion extends Command
 
         $notion = new Notion($token);
         $pages = $notion->database($databaseId)->query()->asCollection();
+        $pages = $pages->filter(function ($page) {
+            return $page->getProperty('Status')->getContent()->getName() === 'Para publicar';
+        });
 
         foreach ($pages as $page) {
             $title = $page->getTitle();
+
+            // Crea el post solamente si no existe 
+            if (Post::where('title', $title)->exists()) {
+                $this->info("El post {$title} ya existe.");
+                continue;
+            }
+
             $excerpt = $page->getProperty('Excerpt')->getPlainText();
             $pageId = $page->getPageId();
-
             $contentHtml = (new NotionRenderer($pageId))->html();
+
+            // Crea el post solamente si el contenido no está vacío
+            if (empty($contentHtml)) {
+                $this->info("El post {$title} no tiene contenido.");
+                continue;
+            }
 
             Post::create([
                 'title' => $title,
@@ -46,7 +61,7 @@ class ImportPostsFromNotion extends Command
                 'updated_at' => now()
             ]);
 
-            $this->info("Imported: {$title}");
+            $this->info("Se importó: {$title}");
         }
 
         $this->info('All posts have been imported successfully from Notion.');
