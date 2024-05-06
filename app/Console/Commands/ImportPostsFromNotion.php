@@ -14,13 +14,23 @@ class ImportPostsFromNotion extends Command
 
     public function handle()
     {
-        $notion = new Notion(env('NOTION_API_TOKEN'));
-        $databaseId = config(env('NOTION_DATABASE_ID'));
+        $token = env('NOTION_API_TOKEN');
+        $databaseId = env('NOTION_DATABASE_ID');
+        // dd($databaseId);
+
+        if (is_null($token) || is_null($databaseId)) {
+            $this->error('API token or Database ID is not set in .env file.');
+            return;
+        }
+        // dd($token, $databaseId);
+
+        $notion = new Notion($token);
         $pages = $notion->database($databaseId)->query()->asCollection();
 
         foreach ($pages as $page) {
-            $title = $page->properties->Title->title[0]->plain_text;
-            $blocks = $notion->block($page->id)->children()->asCollection(); // Obtiene los bloques de la página
+            $title = $page->getTitle();
+
+            $blocks = $notion->block($page->getId())->children()->asCollection(); // Obtiene los bloques de la página
             $contentHtml = $this->notionToHtml($blocks);
 
             Post::create([
@@ -46,21 +56,35 @@ class ImportPostsFromNotion extends Command
     {
         $html = '';
         foreach ($blocks as $block) {
-            switch ($block->type) {
+            switch ($block->getType()) {
                 case 'paragraph':
-                    $html .= '<p>' . htmlspecialchars($block->paragraph->text[0]->plain_text) . '</p>';
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<p>' . htmlspecialchars($plainText) . '</p>';
+                    // dd($html);
                     break;
                 case 'heading_1':
-                    $html .= '<h1>' . htmlspecialchars($block->heading_1->text[0]->plain_text) . '</h1>';
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<h1>' . htmlspecialchars($plainText) . '</h1>';
                     break;
                 case 'heading_2':
-                    $html .= '<h2>' . htmlspecialchars($block->heading_2->text[0]->plain_text) . '</h2>';
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<h2>' . htmlspecialchars($plainText) . '</h2>';
                     break;
                 case 'heading_3':
-                    $html .= '<h3>' . htmlspecialchars($block->heading_3->text[0]->plain_text) . '</h3>';
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<h3>' . htmlspecialchars($plainText) . '</h3>';
                     break;
                 case 'bulleted_list_item':
-                    $html .= '<li>' . htmlspecialchars($block->bulleted_list_item->text[0]->plain_text) . '</li>';
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<li>' . htmlspecialchars($plainText) . '</li>';
+                    break;
+                case 'numbered_list_item':
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<li>' . htmlspecialchars($plainText) . '</li>';
+                    break;
+                case 'quote':
+                    $plainText = trim($block->getContent()->getPlainText());
+                    $html .= '<blockquote>' . htmlspecialchars($plainText) . '</blockquote>';
                     break;
                     // Agrega otros tipos de bloques según sea necesario
                 default:
