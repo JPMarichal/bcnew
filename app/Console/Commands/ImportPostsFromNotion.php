@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Blog\Post;
 use FiveamCode\LaravelNotionApi\Notion;
 use Illuminate\Support\Str;
+use RehanKanak\LaravelNotionRenderer\Renderers\NotionRenderer;
 
 class ImportPostsFromNotion extends Command
 {
@@ -29,17 +30,22 @@ class ImportPostsFromNotion extends Command
 
         foreach ($pages as $page) {
             $title = $page->getTitle();
+            $excerpt = $page->getProperty('Excerpt')->getPlainText();
+            $pageId = $page->getPageId();
+           // dd($pageId);
 
-            $blocks = $notion->block($page->getId())->children()->asCollection(); // Obtiene los bloques de la página
-            $contentHtml = $this->notionToHtml($blocks);
+            //  $blocks = $notion->block($page->getId())->children()->asCollection(); // Obtiene los bloques de la página
+            //  $contentHtml = $this->notionToHtml($blocks);
+
+            $contentHtml = (new NotionRenderer($pageId))->html();
 
             Post::create([
                 'title' => $title,
                 'slug' => Str::slug($title),
                 'content' => $contentHtml,
-                'excerpt' => substr(strip_tags($contentHtml), 0, 200), // Genera un extracto eliminando etiquetas HTML
+                'excerpt' => $excerpt, 
                 'author_id' => 1, // Asumiendo un autor predeterminado
-                'status' => 'draft',
+                'status' => 'published',
                 'publish_date' => now(),
                 'post_type' => 'post',
                 'created_at' => now(),

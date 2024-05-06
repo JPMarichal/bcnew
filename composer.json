@@ -30,6 +30,7 @@
         "monolog/monolog": "^3.5",
         "p3k/picofeed": "^0.1.40",
         "power-components/livewire-powergrid": "^5.4",
+        "rehankanak/laravel-notion-renderer": "^1.2",
         "robsontenorio/mary": "^1.30",
         "simplepie/simplepie": "^1.8",
         "spatie/laravel-cookie-consent": "^3.3",

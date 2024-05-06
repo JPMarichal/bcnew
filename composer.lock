@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cd8b0c94beb65f8a520c206e0e0a475",
+    "content-hash": "5e0416d81829355b7c14b6b8a4496d19",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5980,6 +5980,66 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "rehankanak/laravel-notion-renderer",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zusamarehan/laravel-notion-renderer.git",
+                "reference": "3799eec004ebbe38faf300b1a1bc42fab94ebf57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zusamarehan/laravel-notion-renderer/zipball/3799eec004ebbe38faf300b1a1bc42fab94ebf57",
+                "reference": "3799eec004ebbe38faf300b1a1bc42fab94ebf57",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RehanKanak\\LaravelNotionRenderer\\NotionRendererServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RehanKanak\\LaravelNotionRenderer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KU Rehan",
+                    "email": "zrehan286@gmail.com",
+                    "homepage": "https://github.com/zusamarehan/laravel-notion-renderer",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Package for Converting Notion Pages to Web Pages",
+            "homepage": "https://github.com/zusamarehan/laravel-notion-renderer",
+            "keywords": [
+                "laravel-renderer",
+                "notion",
+                "notion-laravel-renderer",
+                "notion-renderer",
+                "rehankanak"
+            ],
+            "support": {
+                "issues": "https://github.com/zusamarehan/laravel-notion-renderer/issues",
+                "source": "https://github.com/zusamarehan/laravel-notion-renderer/tree/1.2.0"
+            },
+            "time": "2022-10-06T17:35:46+00:00"
         },
         {
             "name": "robsontenorio/mary",
