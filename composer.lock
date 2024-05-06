@@ -3699,7 +3699,6 @@
             "require-dev": {
                 "doctrine/collections": "^2.1.4",
                 "ext-dom": "*",
-                "ext-xdebug": "*",
                 "friendsofphp/php-cs-fixer": "^v3.22.0",
                 "phpbench/phpbench": "^1.2.15",
                 "phpstan/phpstan": "^1.10.57",
