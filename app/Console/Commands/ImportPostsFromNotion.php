@@ -17,13 +17,11 @@ class ImportPostsFromNotion extends Command
     {
         $token = env('NOTION_API_TOKEN');
         $databaseId = env('NOTION_DATABASE_ID');
-        // dd($databaseId);
 
         if (is_null($token) || is_null($databaseId)) {
             $this->error('API token or Database ID is not set in .env file.');
             return;
         }
-        // dd($token, $databaseId);
 
         $notion = new Notion($token);
         $pages = $notion->database($databaseId)->query()->asCollection();
@@ -32,10 +30,6 @@ class ImportPostsFromNotion extends Command
             $title = $page->getTitle();
             $excerpt = $page->getProperty('Excerpt')->getPlainText();
             $pageId = $page->getPageId();
-           // dd($pageId);
-
-            //  $blocks = $notion->block($page->getId())->children()->asCollection(); // Obtiene los bloques de la página
-            //  $contentHtml = $this->notionToHtml($blocks);
 
             $contentHtml = (new NotionRenderer($pageId))->html();
 
