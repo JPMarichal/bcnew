@@ -46,4 +46,40 @@ class ImageUploadService
 
         return $cdnUrl;
     }
+
+    public function uploadImageURLToCDN(int $postId, string $url): string
+    {
+        $post = Post::find($postId);
+
+        if (!$post) {
+            throw new \Exception("Post not found!");
+        }
+
+        $slug = $post->slug;
+        $imagePath = $url;
+        /*$imageFiles = File::glob($imagePath . '\\*.webp');
+
+        if (empty($imageFiles)) {
+            throw new \Exception("No WEBP files found in the specified directory.");
+        }*/
+
+        // Elimina el querystring del url
+        $basePath = strtok($imagePath, '?');
+
+        // Extrae del url de imagen solo la extensión
+        $extension = pathinfo($basePath, PATHINFO_EXTENSION);
+        $remoteFilePath = $slug . '.'. $extension;
+        $remoteFilePath = strtok($remoteFilePath, '?');
+
+      //  dd($imagePath, $remoteFilePath);
+
+        // Subiendo el archivo al CDN
+        $this->cdnService->upload($imagePath, $remoteFilePath);
+        $cdnUrl = "https://bcomentarios.b-cdn.net/{$remoteFilePath}";
+
+        // Actualizando la base de datos
+        DB::statement("call sp_reemplazar_imagen(?, ?)", [$postId, $cdnUrl]);
+
+        return $cdnUrl;
+    }
 }

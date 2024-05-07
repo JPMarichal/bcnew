@@ -7,6 +7,8 @@ use App\Models\Blog\Post;
 use FiveamCode\LaravelNotionApi\Notion;
 use Illuminate\Support\Str;
 use RehanKanak\LaravelNotionRenderer\Renderers\NotionRenderer;
+use App\Services\ImageUploadService;
+use App\Services\BunnyCDNService;
 
 class ImportPostsFromNotion extends Command
 {
@@ -48,7 +50,10 @@ class ImportPostsFromNotion extends Command
                 continue;
             }
 
-            Post::create([
+            $cover = $page->getCover();
+          //  dd($cover);
+
+            $post = Post::create([
                 'title' => $title,
                 'slug' => Str::slug($title),
                 'content' => $contentHtml,
@@ -61,7 +66,16 @@ class ImportPostsFromNotion extends Command
                 'updated_at' => now()
             ]);
 
+            // dd($post->id)
+
             $this->info("Se importó: {$title}");
+
+            $postId= $post->id;
+
+            $cdnService = new BunnyCDNService();
+            $uploadService = new ImageUploadService($cdnService);
+            $uploadService->uploadImageURLToCDN($postId, $cover);
+            
         }
 
         $this->info('All posts have been imported successfully from Notion.');
