@@ -18,10 +18,11 @@ class BlogController extends Controller
 
     public function index()
     {
-        // Obtener los posts utilizando joins para imitar la consulta SQL proporcionada
+        // Ordena los posts por fecha en orden descendente, la última fecha primero
         $posts = Post::select('posts.*')
                      ->where('posts.post_type', 'post')
                      ->where('posts.status', 'published')
+                     ->orderBy('created_at', 'desc')
                      ->paginate(15);
 
         return view('blog.index', compact('posts'));
