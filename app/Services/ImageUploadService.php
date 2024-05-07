@@ -57,11 +57,6 @@ class ImageUploadService
 
         $slug = $post->slug;
         $imagePath = $url;
-        /*$imageFiles = File::glob($imagePath . '\\*.webp');
-
-        if (empty($imageFiles)) {
-            throw new \Exception("No WEBP files found in the specified directory.");
-        }*/
 
         // Elimina el querystring del url
         $basePath = strtok($imagePath, '?');
@@ -70,8 +65,6 @@ class ImageUploadService
         $extension = pathinfo($basePath, PATHINFO_EXTENSION);
         $remoteFilePath = $slug . '.'. $extension;
         $remoteFilePath = strtok($remoteFilePath, '?');
-
-      //  dd($imagePath, $remoteFilePath);
 
         // Subiendo el archivo al CDN
         $this->cdnService->upload($imagePath, $remoteFilePath);
