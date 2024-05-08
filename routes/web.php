@@ -112,16 +112,13 @@ Route::prefix('taxonomies')->group(function () {
     })->name('taxonomies.terms');
 });
 
-// Grupo de rutas para el blog
-Route::prefix('blog')->name('blog.')->middleware(['internalLinks'])->group(function () {
+// Rutas para el blog con filtrados dinámicos
+Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
-    Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
-
-
-    //  
+    Route::get('/{type}', [BlogController::class, 'filter'])->name('filter');
+    Route::get('/post/{slug}', [BlogController::class, 'show'])->name('show');
 });
 
-Route::get('/celebracion', [BlogController::class, 'celebracion'])->name('celebracion');
 
 // Filtradas de acuerdo a una característica específica 
 Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_thumbnail');

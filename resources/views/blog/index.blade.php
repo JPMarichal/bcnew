@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-5">
-    <h1>Artículos de los Biblicomentarios</h1>
+    <h1>{{$title}}</h1>
 <div class="border rounded text-center mb-3">
     <p> {{ $posts->total() }} artículos y creciendo cada semana. ¡Explóralos todos!</p>
 </div>
