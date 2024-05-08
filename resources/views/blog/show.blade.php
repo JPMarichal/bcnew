@@ -120,8 +120,13 @@
             <div class="p-2 mb-2 text-center border rounded" style="background-color:#ffffb9">{{ $post->excerpt }}</div>
         @endif
         <x-social-share-bar :title="$post->title" :description="$post->excerpt" :featuredImage="$post->featuredImageUrl()"></x-social-share-bar>
-        <section id="blog_content" class="border rounded p-2 px-4 mb-3 mt-3">
+        <section id="blog_content" class="border rounded p-2 px-4 mb-3 mt-3 row">
+            <div class="col-10">
             {!! $post->content !!}
+            </div>
+            <div class="col-2 border p-3">
+            
+            </div>
         </section>
        
     </article>
