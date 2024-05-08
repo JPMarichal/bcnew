@@ -10,29 +10,26 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('status', 'published')
-            ->where('post_type', 'post')
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $types = config('blogTypes.post_types');
+        asort($types);
+        $title = 'El blog de los Biblicomentarios';
 
-        $title = 'Artículos de los Biblicomentarios';
-
-        return view('blog.index', compact('posts', 'title'));
+        return view('blog.main', compact('types', 'title'));
     }
 
     public function filter($type)
     {
-        $titles = config('blogTypes.post_types');
+        $types = config('blogTypes.post_types');
 
-        if (!array_key_exists($type, $titles)) {
+        if (!array_key_exists($type, $types)) {
             abort(404); // Si el tipo de post no está definido, muestra un error 404
         }
 
         $posts = Post::where('status', 'published')
-            ->where('post_type', $type)
-            ->paginate(15);
+                     ->where('post_type', $type)
+                     ->paginate(15);
 
-        $title = $titles[$type];
+        $title = $types[$type];
 
         return view('blog.index', compact('posts', 'title'));
     }
