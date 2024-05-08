@@ -4,7 +4,7 @@ return [
     'post_types' => [
         'acerca_de' => 'Acerca de los Biblicomentarios',
         'apocrifos' => 'Libros apócrifos',
-        'articulos' => 'Artículos de los Biblicomentarios',
+        'post' => 'Artículos de los Biblicomentarios',
         'biografias' => 'Biografías de líderes y personajes notables',
         'celebraciones' => 'Celebraciones y Festividades',
         'conceptos' => 'Conceptos de las Escrituras',
