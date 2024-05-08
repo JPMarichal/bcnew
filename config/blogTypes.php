@@ -2,8 +2,8 @@
 
 return [
     'post_types' => [
-        'acerca_de' => 'Acerca de los Biblicomentarios',
-        'articulos' => 'Artículos de los Biblicomentarios',
+        'acerca_de' => 'Acerca de las Escrituras',
+        'post' => 'Artículos de los Biblicomentarios',
         'biografias' => 'Biografías de líderes y personajes notables',
         'personajes' => 'Quién es quién en las Escrituras',
         'celebraciones' => 'Celebraciones y Festividades',
