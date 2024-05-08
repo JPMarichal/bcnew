@@ -15,7 +15,9 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
-        return view('blog.index', compact('posts'));
+        $title = 'Artículos de los Biblicomentarios';
+
+        return view('blog.index', compact('posts', 'title'));
     }
 
     public function filter($type)
@@ -30,7 +32,7 @@ class BlogController extends Controller
             ->where('post_type', $type)
             ->paginate(15);
 
-        $title = $titles[$type]; // Obtiene el título desde la configuración
+        $title = $titles[$type];
 
         return view('blog.index', compact('posts', 'title'));
     }
