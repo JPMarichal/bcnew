@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\CitaCitaRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Models\Citas\CitaCita;
+use App\Models\Citas\CitaAutor;
+use App\Models\Citas\CitaFuente;
+
 
 class CitaCitaCrudController extends CrudController
 {
@@ -16,7 +20,7 @@ class CitaCitaCrudController extends CrudController
 
     public function setup()
     {
-        CRUD::setModel(\App\Models\Citas\CitaCita::class);
+        CRUD::setModel(CitaCita::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/cita-cita');
         CRUD::setEntityNameStrings('cita cita', 'cita citas');
     }
@@ -25,8 +29,8 @@ class CitaCitaCrudController extends CrudController
     {
         CRUD::column('titulo')->label('Título');
         CRUD::column('texto')->label('Texto');
-        CRUD::column('autor_id')->label('Autor')->type('select')->entity('autor')->attribute('nombre')->model("App\Models\Citas\CitaAutor");
-        CRUD::column('fuente_id')->label('Fuente')->type('select')->entity('fuente')->attribute('titulo')->model("App\Models\Citas\CitaFuente");
+        CRUD::column('autor_id')->label('Autor')->type('select')->entity('autor')->attribute('nombre')->model(CitaAutor::class);
+        CRUD::column('fuente_id')->label('Fuente')->type('select')->entity('fuente')->attribute('titulo')->model(CitaFuente::class);
     }
 
     protected function setupCreateOperation()
@@ -34,8 +38,8 @@ class CitaCitaCrudController extends CrudController
         CRUD::setValidation(CitaCitaRequest::class);
         CRUD::field('titulo')->type('text')->label('Título de la Cita');
         CRUD::field('texto')->type('textarea')->label('Texto de la Cita');
-        CRUD::field('autor_id')->label('Autor')->type('select')->entity('autor')->attribute('nombre')->model("App\Models\Citas\CitaAutor");
-        CRUD::field('fuente_id')->label('Fuente')->type('select')->entity('fuente')->attribute('titulo')->model("App\Models\Citas\CitaFuente");
+        CRUD::field('autor_id')->label('Autor')->type('select')->entity('autor')->attribute('nombre')->model(CitaAutor::class);
+        CRUD::field('fuente_id')->label('Fuente')->type('select')->entity('fuente')->attribute('titulo')->model(CitaFuente::class);
     }
 
     protected function setupUpdateOperation()
