@@ -23,8 +23,8 @@ class CitaCitaCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        CRUD::column('texto')->label('Texto');
         CRUD::column('titulo')->label('Título');
+        CRUD::column('texto')->label('Texto');
         CRUD::column('autor_id')->label('Autor')->type('select')->entity('autor')->attribute('nombre')->model("App\Models\Citas\CitaAutor");
         CRUD::column('fuente_id')->label('Fuente')->type('select')->entity('fuente')->attribute('titulo')->model("App\Models\Citas\CitaFuente");
     }
