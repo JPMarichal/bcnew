@@ -13,7 +13,7 @@ class CitaAutor extends Model
 
     protected $fillable = [
         'nombre',
-        'url_imagen',
+        'tipo_autor_id',  // Cambiar 'tipo_autor' por 'tipo_autor_id'
         'post_id'
     ];
 
@@ -25,5 +25,21 @@ class CitaAutor extends Model
     public function post()
     {
         return $this->belongsTo(\App\Models\Blog\Post::class, 'post_id')->withDefault();
+    }
+
+    // Relación con TipoAutor
+    public function tipoAutor()
+    {
+        return $this->belongsTo(\App\Models\Citas\TipoAutor::class, 'tipo_autor_id');
+    }
+
+    // Método para obtener la URL de la imagen desde el post relacionado
+    public function getUrlImagenAttribute()
+    {
+        if ($this->post && $this->post->featuredImageUrl()) {
+            return $this->post->featuredImageUrl();
+        }
+
+        return null; // Retorna null si no hay post o imagen destacada
     }
 }

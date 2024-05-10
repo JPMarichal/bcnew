@@ -6,11 +6,6 @@ use App\Http\Requests\CitaAutorRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-/**
- * Class CitaAutorCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
 class CitaAutorCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -29,9 +24,16 @@ class CitaAutorCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('nombre')->type('text')->label('Nombre');
-        CRUD::column('url_imagen')->type('image')->label('Imagen');
-        CRUD::column('post_id')->type('select')->label('Post Relacionado')
-             ->entity('post')->attribute('title')->model("App\Models\Blog\Post");
+        CRUD::column('tipo_autor_id')->type('select')
+            ->label('Tipo de Autor')
+            ->entity('tipoAutor') // Relación definida en el modelo CitaAutor
+            ->attribute('descripcion') // Muestra la descripción del tipo de autor
+            ->model("App\Models\Citas\TipoAutor"); // Utiliza el modelo TipoAutor
+        CRUD::column('post_id')->type('select')
+            ->label('Post Relacionado')
+            ->entity('post')
+            ->attribute('title')
+            ->model("App\Models\Blog\Post");
     }
 
     protected function setupCreateOperation()
@@ -39,9 +41,16 @@ class CitaAutorCrudController extends CrudController
         CRUD::setValidation(CitaAutorRequest::class);
 
         CRUD::field('nombre')->type('text')->label('Nombre del Autor');
-        CRUD::field('url_imagen')->type('text')->label('URL de la Imagen del Autor');
-        CRUD::field('post_id')->type('select')->label('Post Relacionado')
-             ->entity('post')->attribute('title')->model("App\Models\Blog\Post");
+        CRUD::field('tipo_autor_id')->type('select')
+            ->label('Tipo de Autor')
+            ->entity('tipoAutor')
+            ->attribute('descripcion')
+            ->model("App\Models\Citas\TipoAutor");
+        CRUD::field('post_id')->type('select')
+            ->label('Post Relacionado')
+            ->entity('post')
+            ->attribute('title')
+            ->model("App\Models\Blog\Post");
     }
 
     protected function setupUpdateOperation()
