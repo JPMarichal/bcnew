@@ -8,20 +8,21 @@ use App\Models\Escrituras\Pasaje;
 
 class PasajeService
 {
-    public function getReferenciaAleatoria(){
+    public function getReferenciaAleatoria()
+    {
         $pasaje_obtenido = Pasaje::inRandomOrder()->first();
-    
+
         $titulo = $pasaje_obtenido->titulo;
         $capitulo = $pasaje_obtenido->capitulo;
         $versiculo_inicial = $pasaje_obtenido->versiculo_inicial;
         $versiculo_final = $pasaje_obtenido->versiculo_final;
-    
-        $referencia = $capitulo->referencia. ":" . $versiculo_inicial. "-" . $versiculo_final;
+
+        $referencia = $capitulo->referencia . ":" . $versiculo_inicial . "-" . $versiculo_final;
 
         // Devuelve JSON con el titulo y la referencia
         return response()->json([
             'titulo' => $titulo,
-           'referencia' => $referencia
+            'referencia' => $referencia
         ]);
     }
 
@@ -73,5 +74,12 @@ class PasajeService
         } else {
             return $generador->generar($versiculos, "{$nombreLibro} {$capitulo}:{$versiculoInicio}–{$versiculoFinalReal}", $titulo);
         }
+    }
+
+    public function getDailyPasaje()
+    {
+        // Este ejemplo asume que deseas obtener una referencia de pasaje aleatoria.
+        // Puedes cambiar la lógica aquí si necesitas seleccionar el pasaje de otra manera.
+        return $this->getReferenciaAleatoria();
     }
 }

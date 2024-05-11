@@ -48,7 +48,7 @@ class CitaService
     {
         $referencia = "- ";
         $referencia .= "{$cita->autor->nombre}";
-        $referencia .= ", ". '"'. $cita->fuente->titulo . '"'; 
+        $referencia .= ", " . '"' . $cita->fuente->titulo . '"';
 
         if ($cita->fuente->nombre_revista != "") {
             $referencia .= ",  {$cita->fuente->nombre_revista}";
@@ -63,5 +63,12 @@ class CitaService
         }
 
         return $referencia;
+    }
+
+    public function getDailyCita()
+    {
+        // Este ejemplo obtiene una cita aleatoria para el día actual.
+        // Puedes modificar esta lógica según necesites, por ejemplo, usando una lógica de selección basada en la fecha.
+        return $this->obtenerCitaAleatoria();
     }
 }
