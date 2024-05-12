@@ -4,10 +4,10 @@
         <h3>Cita del Día</h3>
         <blockquote>
             <h4>{{ $cita->titulo }}</h4>
-            <div class="border rounded p-1">
+            <div class="p-1">
                 {{ $cita->texto }}
             </div>
-            <div class="mt-2 border rounded p-1 text-end">
+            <div class="mt-2 text-end">
                 {{ $cita->referencia }}
             </div>
         </blockquote>
