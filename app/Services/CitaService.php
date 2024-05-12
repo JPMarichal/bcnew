@@ -67,6 +67,13 @@ class CitaService
 
     public function getDailyCita()
     {
-        return $this->obtenerCitaAleatoriaParaWeb();
+        $cita = CitaCita::with('autor', 'fuente')->inRandomOrder()->first();
+        if (!$cita) {
+            return null;
+        }
+        $referencia = $this->armarReferencia($cita);
+        $cita->referencia = $referencia;
+
+        return $cita;
     }
 }

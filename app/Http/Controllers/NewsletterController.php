@@ -22,12 +22,12 @@ class NewsletterController extends Controller
 
     public function sendNewsletter()
     {
-        $citas = $this->citaService->getDailyCita();
+        $cita = $this->citaService->getDailyCita();
         $news = $this->newsService->getLatestNews();
         $pasajes = $this->pasajeService->getDailyPasaje();
 
         return view('boletin.newsletter', [
-            'citas' => $citas,
+            'cita' => $cita,
             'news' => $news,
             'pasajes' => $pasajes,
         ])->render();  // Agrega render() para devolver la vista como string
