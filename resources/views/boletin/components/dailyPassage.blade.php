@@ -1,6 +1,6 @@
 {{-- resources/views/boletin/components/dailyPassage.blade.php --}}
 <div class="quote-section border rounded p-3">
-    @if ($citas)
+    @if ($cita)
         <h3 class="p-1">Pasaje del Día</h3>
         <blockquote>
             <h4>Vendrá hambre de oir la palabra de Jehová</h4>
