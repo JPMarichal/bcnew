@@ -67,8 +67,6 @@ class CitaService
 
     public function getDailyCita()
     {
-        // Este ejemplo obtiene una cita aleatoria para el día actual.
-        // Puedes modificar esta lógica según necesites, por ejemplo, usando una lógica de selección basada en la fecha.
-        return $this->obtenerCitaAleatoria();
+        return $this->obtenerCitaAleatoriaParaWeb();
     }
 }

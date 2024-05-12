@@ -22,8 +22,7 @@
     </style>
     <div class="container mt-4">
         <header>
-            <h1>Boletín Diario</h1>
-            <hr>
+            <h1>Boletín de los Biblicomentarios</h1>
         </header>
         @yield('content')
         <footer class="text-center mt-4">
