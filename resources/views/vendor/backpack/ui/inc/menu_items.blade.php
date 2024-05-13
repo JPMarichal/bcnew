@@ -32,3 +32,4 @@
 </x-backpack::menu-dropdown>
 
 <x-backpack::menu-item title="Pasajes" icon="la la-book" :link="backpack_url('pasaje')" />
+<x-backpack::menu-item title="Videos" icon="la la-video" :link="backpack_url('video')" />

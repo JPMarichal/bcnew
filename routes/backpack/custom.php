@@ -33,4 +33,5 @@ Route::group([
     Route::crud('cita-cita', 'CitaCitaCrudController');
     Route::crud('cita-fuente', 'CitaFuenteCrudController');
     Route::crud('pasaje', 'PasajeCrudController');
+    Route::crud('video', 'VideoCrudController');
 }); // this should be the absolute last line of this file
