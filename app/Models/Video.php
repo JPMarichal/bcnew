@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Blog\Post; // Asegúrate de usar el namespace correcto para Post
 
 class Video extends Model
 {    
@@ -14,9 +15,9 @@ class Video extends Model
     protected $table = 'videos';
 
     protected $fillable = [
-        'platform', 'video_id', 'video_url', 'title', 'description', 'user_name',
-        'user_id', 'publish_date', 'likes_count', 'comments_count', 'shares_count',
-        'hashtags', 'thumbnail_url', 'video_duration'
+        'video_id', 'video_url', 'title', 'description', 'user_name', 'user_id',
+        'publish_date', 'hashtags', 'thumbnail_url', 'video_duration', 'channel_id',
+        'channel_title', 'playlist_id', 'playlist_title', 'language', 'post_id', 'etag'
     ];
 
     /**
@@ -41,5 +42,13 @@ class Video extends Model
     public function setHashtagsArrayAttribute($value)
     {
         $this->hashtags = join(',', $value);
+    }
+
+    /**
+     * Relación con el modelo Post.
+     */
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'post_id');
     }
 }
