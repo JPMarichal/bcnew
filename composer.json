@@ -13,6 +13,7 @@
         "doctrine/dbal": "^3.8",
         "fabpot/goutte": "^4.0",
         "fiveam-code/laravel-notion-api": "^1.1",
+        "google/apiclient": "2.15.0",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/laravel-ui-adminlte": "^5.2",
         "intervention/image": "^3.5",

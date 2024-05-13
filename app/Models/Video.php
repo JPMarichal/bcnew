@@ -7,50 +7,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
-{
+{    
     use CrudTrait;
     use HasFactory;
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL VARIABLES
-    |--------------------------------------------------------------------------
-    */
-
     protected $table = 'videos';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
-    protected $guarded = ['id'];
-    // protected $fillable = [];
-    // protected $hidden = [];
 
-    /*
-    |--------------------------------------------------------------------------
-    | FUNCTIONS
-    |--------------------------------------------------------------------------
-    */
+    protected $fillable = [
+        'platform', 'video_id', 'video_url', 'title', 'description', 'user_name',
+        'user_id', 'publish_date', 'likes_count', 'comments_count', 'shares_count',
+        'hashtags', 'thumbnail_url', 'video_duration'
+    ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Define una relación polimórfica si se planifica expandir a diferentes tipos de contenido.
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | SCOPES
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Retorna una lista de hashtags como array.
+     */
+    public function getHashtagsArrayAttribute()
+    {
+        return explode(',', $this->hashtags);
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | MUTATORS
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Guarda los hashtags desde un array.
+     */
+    public function setHashtagsArrayAttribute($value)
+    {
+        $this->hashtags = join(',', $value);
+    }
 }
