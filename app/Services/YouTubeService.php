@@ -40,12 +40,21 @@ class YoutubeService
         ];
 
         $optParams = [];
-
         if ($etag) {
+            // Incluir el ETag en los encabezados de la solicitud
             $optParams['headers'] = ['If-None-Match' => $etag];
         }
 
-        return $this->client->playlistItems->listPlaylistItems('snippet,contentDetails', $params, $optParams);
+        try {
+            $response = $this->client->playlistItems->listPlaylistItems('snippet,contentDetails', $params, $optParams);
+            return $response;
+        } catch (\Google\Service\Exception $e) {
+            // Manejar el caso donde no hay modificaciones, la API retorna un código 304
+            if ($e->getCode() === 304) {
+                return null;
+            }
+            throw $e; // Propagar otros errores
+        }
     }
 
     public function getChannelDetails($channelId)
