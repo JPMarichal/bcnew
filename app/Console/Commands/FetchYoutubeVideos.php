@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class FetchYoutubeVideos extends Command
 {
     protected $signature = 'fetch:youtube {channelId}';
-    protected $description = 'Fetches all videos from a specified YouTube channel and stores them in the database';
+    protected $description = 'Fetches playlists and their videos from a specified YouTube channel and stores them in the database';
 
     public function __construct()
     {
@@ -21,40 +21,63 @@ class FetchYoutubeVideos extends Command
     {
         $channelId = $this->argument('channelId');
         $youtubeService = new YoutubeService();
-        $pageToken = null;
+        $playlistPageToken = null;
+
+        // Fetch channel details once
+        $channelDetails = $youtubeService->getChannelDetails($channelId);
+        $userId = $channelDetails->getId();
+        $userName = $channelDetails->getSnippet()->getTitle();
+        $language = $channelDetails->getSnippet()->getDefaultLanguage();
+        $language = $language ?? 'es';
 
         do {
-            $response = $youtubeService->getChannelVideos($channelId, $pageToken);
+            $playlistsResponse = $youtubeService->getChannelPlaylists($channelId, $playlistPageToken);
 
-            foreach ($response->getItems() as $item) {
-                $publishDate = new Carbon($item->getSnippet()->getPublishedAt()); // Convierte la fecha ISO 8601 a un objeto Carbon
+            foreach ($playlistsResponse->getItems() as $playlist) {
+                $playlistId = $playlist->getId();
+                $videoPageToken = null;
+                $etag = $playlist->getEtag();
 
-                $videoData = [
-                    'title' => $item->getSnippet()->getTitle(),
-                    'video_id' => $item->getId()->getVideoId(),
-                    'description' => $item->getSnippet()->getDescription(),
-                    'platform' => 'youtube',
-                    'video_url' => 'https://www.youtube.com/watch?v=' . $item->getId()->getVideoId(),
-                    'publish_date' => $publishDate->toDateTimeString(), // Convierte a formato de fecha y hora MySQL
-                    'user_name' => $item->getSnippet()->getChannelTitle(),
-                    'user_id' => $item->getSnippet()->getChannelId(),
-                    'likes_count' => 0, // YouTube API no proporciona esto directamente en listSearch
-                    'comments_count' => 0, // YouTube API no proporciona esto directamente en listSearch
-                    'shares_count' => 0, // YouTube API no proporciona esto directamente en listSearch
-                   // 'hashtags' => implode(',', $item->getSnippet()->getTags() ?? []),
-                    'thumbnail_url' => $item->getSnippet()->getThumbnails()->getHigh()->getUrl(),
-                    'video_duration' => 0 // YouTube API no proporciona esto directamente en listSearch
-                ];
+                do {
+                    $videosResponse = $youtubeService->getPlaylistItems($playlistId, $videoPageToken, $etag);
 
-                Video::updateOrCreate(
-                    ['video_id' => $videoData['video_id'], 'platform' => 'youtube'],
-                    $videoData
-                );
+                    if ($videosResponse) {
+                        foreach ($videosResponse->getItems() as $videoYT) {
+                            $thumbnail = $videoYT->getSnippet()->getThumbnails()->getDefault();
+                            $thumbnailUrl = $thumbnail ? $thumbnail->getUrl() : null;
+                            $videoId = $videoYT->getContentDetails()->getVideoId();
+
+                            $videoData = [
+                                'video_id' => $videoId,
+                                'video_url' => 'https://www.youtube.com/watch?v=' . $videoYT->getContentDetails()->getVideoId(),
+                                'title' => $videoYT->getSnippet()->getTitle(),
+                                'description' => $videoYT->getSnippet()->getDescription(),
+                                'channel_id' => $channelId,
+                                'channel_title' => $videoYT->getSnippet()->getChannelTitle(),
+                                'playlist_id' => $playlistId,
+                                'playlist_title' => $playlist->getSnippet()->getTitle(),
+                                'publish_date' => $videoYT->getContentDetails()->getVideoPublishedAt() ? (new Carbon($videoYT->getContentDetails()->getVideoPublishedAt()))->toDateTimeString() : null,
+                                'thumbnail_url' => $thumbnailUrl,
+                                'language' => $language, 
+                                'etag' => $etag,
+                                'user_id' => $userId,
+                                'user_name' => $userName
+                            ];
+
+                            Video::updateOrCreate(
+                                ['video_id' => $videoData['video_id']],
+                                $videoData
+                            );
+                        }
+                    }
+
+                    $videoPageToken = $videosResponse ? $videosResponse->getNextPageToken() : null;
+                } while ($videoPageToken);
+
+                $playlistPageToken = $playlistsResponse->getNextPageToken();
             }
+        } while ($playlistPageToken);
 
-            $pageToken = $response->getNextPageToken();
-        } while ($pageToken);
-
-        $this->info('All videos have been fetched and stored.');
+        $this->info('All playlists and their videos have been fetched and stored.');
     }
 }

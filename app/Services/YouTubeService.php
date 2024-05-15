@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Google_Client;
-use Google_Service_YouTube;
 use Google\Client;
 use Google\Service\YouTube;
 
@@ -15,28 +13,54 @@ class YoutubeService
     {
         $client = new Client();
         $client->setApplicationName("Biblicomentarios");
-        $client->setDeveloperKey(env('YOUTUBE_API_KEY'));  // Usa la clave de API para operaciones públicas
+        $client->setDeveloperKey(env('YOUTUBE_API_KEY'));
 
-        $this->client = new \Google\Service\YouTube($client);
+        $this->client = new YouTube($client);
     }
 
-    public function getChannelVideos($channelId, $pageToken = null)
+    public function getChannelPlaylists($channelId, $pageToken = null)
     {
-        $queryParams = [
+        $params = [
             'channelId' => $channelId,
             'maxResults' => 25,
-            'part' => 'snippet',  // Especifica qué parte de los datos del video se devuelve
-            'type' => 'video',    // Especifica que solo se busquen videos
-            'pageToken' => $pageToken,
-            'order' => 'date'
+            'part' => 'snippet,contentDetails',
+            'pageToken' => $pageToken
         ];
 
-        try {
-            $response = $this->client->search->listSearch('snippet', $queryParams);
-            return $response;
-        } catch (\Google\Service\Exception $e) {
-            echo 'Error while fetching videos: ' . $e->getMessage();
-            return null;
+        return $this->client->playlists->listPlaylists('snippet,contentDetails', $params);
+    }
+
+    public function getPlaylistItems($playlistId, $pageToken = null, $etag = null)
+    {
+        $params = [
+            'playlistId' => $playlistId,
+            'maxResults' => 25,
+            'part' => 'snippet,contentDetails',
+            'pageToken' => $pageToken
+        ];
+
+        $optParams = [];
+
+        if ($etag) {
+            $optParams['headers'] = ['If-None-Match' => $etag];
         }
+
+        return $this->client->playlistItems->listPlaylistItems('snippet,contentDetails', $params, $optParams);
+    }
+
+    public function getChannelDetails($channelId)
+    {
+        $params = [
+            'id' => $channelId,
+            'part' => 'snippet'
+        ];
+
+        $response = $this->client->channels->listChannels('snippet', $params);
+
+        if ($response->getItems()) {
+            return $response->getItems()[0];
+        }
+
+        return null;
     }
 }
