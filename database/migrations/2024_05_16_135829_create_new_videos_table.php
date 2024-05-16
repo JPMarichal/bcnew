@@ -17,6 +17,7 @@ class CreateNewVideosTable extends Migration
             $table->string('video_url');
             $table->string('thumbnail_url')->nullable();
             $table->dateTime('publish_date')->nullable();
+            $table->timestamps(); 
         });
     }
 

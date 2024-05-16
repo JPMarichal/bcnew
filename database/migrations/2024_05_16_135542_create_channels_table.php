@@ -14,6 +14,7 @@ class CreateChannelsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('language', 10)->default('es');
+            $table->timestamps(); 
         });
     }
 

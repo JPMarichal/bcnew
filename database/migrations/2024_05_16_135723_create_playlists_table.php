@@ -14,6 +14,7 @@ class CreatePlaylistsTable extends Migration
             $table->string('playlist_id')->unique();
             $table->string('title');
             $table->string('etag')->nullable();
+            $table->timestamps(); 
         });
     }
 
