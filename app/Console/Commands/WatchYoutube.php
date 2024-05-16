@@ -18,7 +18,8 @@ class WatchYoutube extends Command
 
     public function handle()
     {
-        $this->info('Starting to update all YouTube channels...');
+        $startTime = microtime(true);
+        $this->info('Starting to update all YouTube channels at ' . date('H:i:s', $startTime));
 
         // Recuperar todos los channel_id distintos
         $channelIds = Video::select('channel_id')->distinct()->pluck('channel_id');
@@ -35,6 +36,12 @@ class WatchYoutube extends Command
             Artisan::call('fetch:youtube', ['channelId' => $channelId]);
         }
 
-        $this->info('All channels have been updated.');
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+        $executionTimeMinutes = floor($executionTime / 60);
+        $executionTimeSeconds = $executionTime % 60;
+
+        $this->info('All channels have been updated at ' . date('H:i:s', $endTime));
+        $this->info("Execution time: $executionTimeMinutes minutes and $executionTimeSeconds seconds.");
     }
 }
