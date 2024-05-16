@@ -33,7 +33,6 @@ class WatchYoutube extends Command
         foreach ($channelIds as $channelId) {
             $this->info("Updating channel: $channelId");
             Artisan::call('fetch:youtube', ['channelId' => $channelId]);
-            $this->info("Updated channel: $channelId");
         }
 
         $this->info('All channels have been updated.');
