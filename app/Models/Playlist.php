@@ -21,4 +21,15 @@ class Playlist extends Model
     {
         return $this->hasMany(Video::class, 'playlist_id');
     }
+
+    /**
+     * Determina si la propiedad especificada ha cambiado después de guardar el modelo.
+     *
+     * @param  string|null  $key
+     * @return bool
+     */
+    public function wasChanged($key = null)
+    {
+        return parent::wasChanged($key);
+    }
 }
