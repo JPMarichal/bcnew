@@ -35,14 +35,14 @@ class YoutubeService
         ];
 
         try {
-            $response = $this->client->playlists->listPlaylists('snippet,contentDetails', $params);
-            return $response;
+            return $this->client->playlists->listPlaylists('snippet,contentDetails', $params);
         } catch (\Google\Service\Exception $e) {
+            // Puedes manejar los errores o simplemente lanzarlos
             throw new \Exception('Failed to fetch playlists: ' . $e->getMessage());
         }
     }
 
-    public function getPlaylistVideos($playlistId, $pageToken = null, $etag = null)
+    public function getPlaylistVideos($playlistId, $pageToken = null)
     {
         $params = [
             'playlistId' => $playlistId,
@@ -51,18 +51,10 @@ class YoutubeService
             'pageToken' => $pageToken
         ];
 
-        $optParams = [];
-        if ($etag) {
-            $optParams['headers'] = ['If-None-Match' => $etag];
-        }
-
         try {
-            $response = $this->client->playlistItems->listPlaylistItems('snippet,contentDetails,status', $params, $optParams);
+            $response = $this->client->playlistItems->listPlaylistItems('snippet,contentDetails,status', $params);
             return $response;
         } catch (\Google\Service\Exception $e) {
-            if ($e->getCode() === 304) {
-                return null; // No updates
-            }
             throw new \Exception('Failed to fetch videos: ' . $e->getMessage());
         }
     }
