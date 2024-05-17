@@ -37,6 +37,8 @@ class FetchYoutube extends Command
 
             // Fetch playlists from YouTube
             $playlistPageToken = null;
+            $playlistsFound = false;
+
             do {
                 $playlistsResponse = $this->youtubeService->getChannelPlaylists($channel->channel_id, $playlistPageToken);
                 if (!$playlistsResponse) {
@@ -45,6 +47,7 @@ class FetchYoutube extends Command
                 }
 
                 foreach ($playlistsResponse->getItems() as $playlist) {
+                    $playlistsFound = true;
                     $playlistId = $playlist->getId();
                     $title = $playlist->getSnippet()->getTitle();
                     if (!$title) {
@@ -64,7 +67,7 @@ class FetchYoutube extends Command
                             'channel_id' => $channel->id,
                             'etag' => $etag
                         ]);
-                        $this->syncPlaylistVideos($localPlaylist, $etag);
+                        $this->syncPlaylistVideos($localPlaylist);
                     } else {
                         // Si el playlist existe, actualizar si es necesario
                         if ($localPlaylist->etag !== $etag) {
@@ -72,13 +75,19 @@ class FetchYoutube extends Command
                                 'title' => $title,
                                 'etag' => $etag
                             ]);
-                            $this->syncPlaylistVideos($localPlaylist, $etag);
+                            $this->syncPlaylistVideos($localPlaylist);
                         }
                     }
                 }
 
                 $playlistPageToken = $playlistsResponse->getNextPageToken();
             } while ($playlistPageToken);
+
+            // Si no se encontraron playlists para el canal, eliminar el canal
+            if (!$playlistsFound) {
+                $this->info("Eliminando canal sin playlists: {$channel->title}");
+                $channel->delete();
+            }
         }
 
         $endTime = microtime(true);
@@ -90,7 +99,7 @@ class FetchYoutube extends Command
         $this->info("Tiempo de ejecución: {$executionTimeMinutes} minutos y {$executionTimeSeconds} segundos.");
     }
 
-    private function syncPlaylistVideos($localPlaylist, $etag)
+    private function syncPlaylistVideos($localPlaylist)
     {
         $this->info("Sincronizando videos del playlist: {$localPlaylist->title}");
 
