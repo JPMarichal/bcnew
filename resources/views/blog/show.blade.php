@@ -132,10 +132,11 @@
     </article>
 
     @if ($post->featuredImageUrl())
-        <div id="featured_image" class="featuredImageOverlay text-center bg-light border rounded"
-            style="max-height: 200px;">
+        <div id="featured_image" class="d-flex justify-content-center align-items-center bg-dark border rounded"
+            style="background: url('{{ $post->featuredImageUrl() }}') center / cover; height: 200px; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.5);"></div>
             <img src="{{ $post->featuredImageUrl() }}" alt="{{ $post->title }}" title="{{ $post->title }}"
-                style="max-height:200px; height:200px; border:10px solid white;">
+                style="max-height:200px; height:180px; border:10px solid white; z-index: 1;">
         </div>
     @endif
 
