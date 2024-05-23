@@ -9,6 +9,7 @@
         "abraham/twitteroauth": "^7.0",
         "backpack/crud": "^6.7",
         "backpack/theme-tabler": "^1.2",
+        "barryvdh/laravel-dompdf": "^2.2",
         "bunnycdn/storage": "^3.2",
         "doctrine/dbal": "^3.8",
         "fabpot/goutte": "^4.0",
