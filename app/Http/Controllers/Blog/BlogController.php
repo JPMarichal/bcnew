@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BlogController extends Controller
 {
@@ -38,5 +39,18 @@ class BlogController extends Controller
     {
         $post = Post::where('slug', $slug)->firstOrFail();
         return view('blog.show', compact('post'));
+    }
+
+    public function print($postId)
+    {
+        $post = Post::findOrFail($postId);
+        return view('print', compact('post'));
+    }
+
+    public function pdf($postId)
+    {
+        $post = Post::findOrFail($postId);
+        $pdf = PDF::loadView('pdf', compact('post'));
+        return $pdf->download('post.pdf');
     }
 }

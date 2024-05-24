@@ -105,6 +105,9 @@
             <div class="col-1 text-end" style="color:#aaa">
                 {{ $post->id }}
             </div>
+            <div>
+            @livewire('post-utilities', ['postId' => $post->id])
+            </div>
         </div>
 
         <!-- Imagen destacada -->
@@ -144,4 +147,7 @@
         <livewire:comment-section :post="$post" />
     </div>
 
+
+<script>
+</script>
 @endsection

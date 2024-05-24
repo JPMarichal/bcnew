@@ -13,6 +13,7 @@ use App\Http\Controllers\Escrituras\CapituloController;
 use App\Http\Controllers\Escrituras\VersiculoController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\TemaController;
+use App\Livewire\PostUtilities;;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,3 +126,7 @@ Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_
 
 // Route::get('/temas/{id}', [TemaController::class, 'show'])->name('temas.show');
 Route::get('/temas/admin', [TemaController::class, 'admin'])->name('temas.admin');
+
+Route::get('/post/{postId}', PostUtilities::class)->name('post.utilities');
+Route::get('/post/{postId}/print', [BlogController::class, 'print'])->name('post.print');
+Route::get('/post/{postId}/pdf', [BlogController::class, 'pdf'])->name('post.pdf');
