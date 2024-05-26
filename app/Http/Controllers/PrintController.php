@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog\Post;
 use Illuminate\Http\Request;
 
 class PrintController extends Controller
 {
-    public function show()
+    public function show($postId)
     {
-        return view('print');
+        $post = Post::findOrFail($postId);
+        return view('print', compact('post'));
     }
 }

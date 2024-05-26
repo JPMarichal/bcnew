@@ -126,10 +126,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
 Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_thumbnail');
 
 // Route::get('/temas/{id}', [TemaController::class, 'show'])->name('temas.show');
-Route::get('/temas/admin', [TemaController::class, 'admin'])->name('temas.admin');
 
-Route::get('/post/{postId}', PostUtilities::class)->name('post.utilities');
-Route::get('/post/{postId}/print', [BlogController::class, 'print'])->name('post.print');
+Route::get('/post/{postId}', \App\Livewire\PostUtilities::class)->name('post.utilities');
+Route::get('/post/{postId}/print', [PrintController::class, 'show'])->name('post.printPage');
 Route::get('/post/{postId}/pdf', [BlogController::class, 'pdf'])->name('post.pdf');
-
-Route::get('/print-view', [PrintController::class])->name('post.printPage');
