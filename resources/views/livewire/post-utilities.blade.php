@@ -6,7 +6,10 @@
     @push('scripts')
         <script>
             window.addEventListener('print', event => {
-                window.print();
+                const printWindow = window.open('/print-view');
+                printWindow.onload = function() {
+                    printWindow.print();
+                }
             });
         </script>
     @endpush

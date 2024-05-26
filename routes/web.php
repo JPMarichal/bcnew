@@ -13,6 +13,7 @@ use App\Http\Controllers\Escrituras\CapituloController;
 use App\Http\Controllers\Escrituras\VersiculoController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\TemaController;
+use App\Http\Controllers\PrintController;
 use App\Livewire\PostUtilities;;
 
 /*
@@ -130,3 +131,5 @@ Route::get('/temas/admin', [TemaController::class, 'admin'])->name('temas.admin'
 Route::get('/post/{postId}', PostUtilities::class)->name('post.utilities');
 Route::get('/post/{postId}/print', [BlogController::class, 'print'])->name('post.print');
 Route::get('/post/{postId}/pdf', [BlogController::class, 'pdf'])->name('post.pdf');
+
+Route::get('/print-view', [PrintController::class])->name('post.printPage');
