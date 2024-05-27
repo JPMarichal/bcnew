@@ -27,13 +27,20 @@ class BlogSearch extends Component
             return;
         }
 
-        $searchTerm = '%' . $this->normalizeString($this->searchTerm) . '%';
+        $searchTerm = $this->normalizeString($this->searchTerm);
+        $words = explode(' ', $searchTerm);
+        $phrase = '"' . $searchTerm . '"';
 
         $this->posts = DB::table('posts')
             ->where('status', 'published')
-            ->where(function ($query) use ($searchTerm) {
-                $query->where(DB::raw('LOWER(title)'), 'like', $searchTerm)
-                      ->orWhere(DB::raw('LOWER(content)'), 'like', $searchTerm);
+            ->where(function ($query) use ($phrase, $words) {
+                $query->whereRaw('LOWER(title) like ?', [$phrase])
+                      ->orWhereRaw('LOWER(content) like ?', [$phrase]);
+
+                foreach ($words as $word) {
+                    $query->orWhereRaw('LOWER(title) like ?', ['%' . $word . '%'])
+                          ->orWhereRaw('LOWER(content) like ?', ['%' . $word . '%']);
+                }
             })
             ->select('id', 'title', 'slug', 'post_type')
             ->get()

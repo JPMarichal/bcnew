@@ -132,3 +132,4 @@ Route::get('/post/{postId}/print', [PrintController::class, 'show'])->name('post
 Route::get('/post/{postId}/pdf', [BlogController::class, 'pdf'])->name('post.pdf');
 
 Route::get('/search-results', [BlogController::class, 'searchResults'])->name('blog.searchResults');
+Route::get('/search-results/{type}', [BlogController::class, 'searchResultsByType'])->name('blog.searchResultsByType');
