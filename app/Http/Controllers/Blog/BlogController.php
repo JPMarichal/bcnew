@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog\Post;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -27,8 +28,8 @@ class BlogController extends Controller
         }
 
         $posts = Post::where('status', 'published')
-                     ->where('post_type', $type)
-                     ->paginate(15);
+            ->where('post_type', $type)
+            ->paginate(15);
 
         $title = $types[$type];
 
@@ -52,5 +53,26 @@ class BlogController extends Controller
         $post = Post::findOrFail($postId);
         $pdf = PDF::loadView('pdf', compact('post'));
         return $pdf->download('post.pdf');
+    }
+
+    public function searchResults(Request $request)
+    {
+        $term = $request->input('term');
+        $searchTerm = '%' . str_replace(
+            ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'],
+            ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'],
+            strtolower($term)
+        ) . '%';
+
+        $posts = Post::where('status', 'published')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where(DB::raw('LOWER(title)'), 'like', $searchTerm)
+                    ->orWhere(DB::raw('LOWER(content)'), 'like', $searchTerm);
+            })
+            ->paginate(15);
+
+        $title = "Resultados de búsqueda para \"$term\"";
+
+        return view('blog.search_results', compact('posts', 'title', 'term'));
     }
 }

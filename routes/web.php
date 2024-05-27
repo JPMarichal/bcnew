@@ -130,3 +130,5 @@ Route::get('/sinthumbnail', [BlogController::class, 'sinThumbnail'])->name('sin_
 Route::get('/post/{postId}', \App\Livewire\PostUtilities::class)->name('post.utilities');
 Route::get('/post/{postId}/print', [PrintController::class, 'show'])->name('post.printPage');
 Route::get('/post/{postId}/pdf', [BlogController::class, 'pdf'])->name('post.pdf');
+
+Route::get('/search-results', [BlogController::class, 'searchResults'])->name('blog.searchResults');
