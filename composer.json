@@ -13,7 +13,7 @@
         "bunnycdn/storage": "^3.2",
         "doctrine/dbal": "^3.8",
         "fabpot/goutte": "^4.0",
-        "fiveam-code/laravel-notion-api": "^1.1",
+        "fiveam-code/laravel-notion-api": "dev-main",
         "google/apiclient": "2.15.0",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/laravel-ui-adminlte": "^5.2",
@@ -96,5 +96,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/JPMarichal/bc-laravel-notion-api.git"
+        }
+    ]
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "defbc4c4f62e249d1d5bf5f8ba9b4073",
+    "content-hash": "cfc1f22449171bfcf1589249ac52d487",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1753,16 +1753,16 @@
         },
         {
             "name": "fiveam-code/laravel-notion-api",
-            "version": "v1.2.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/5am-code/laravel-notion-api.git",
-                "reference": "9cf529de964c47766c0e125c0d88265d147ee258"
+                "url": "https://github.com/JPMarichal/bc-laravel-notion-api.git",
+                "reference": "05e6492d4780438e475dc0abbd151e78e426c21d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/5am-code/laravel-notion-api/zipball/9cf529de964c47766c0e125c0d88265d147ee258",
-                "reference": "9cf529de964c47766c0e125c0d88265d147ee258",
+                "url": "https://api.github.com/repos/JPMarichal/bc-laravel-notion-api/zipball/05e6492d4780438e475dc0abbd151e78e426c21d",
+                "reference": "05e6492d4780438e475dc0abbd151e78e426c21d",
                 "shasum": ""
             },
             "require": {
@@ -1776,6 +1776,7 @@
                 "pestphp/pest-plugin-laravel": "^1.3|^2.3",
                 "phpunit/phpunit": "^9.0|^10.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1790,11 +1791,23 @@
             "autoload": {
                 "psr-4": {
                     "FiveamCode\\LaravelNotionApi\\": "src",
-                    "FiveamCode\\LaravelNotionApi\\Endpoints\\": "src/Endpoints",
-                    "FiveamCode\\LaravelNotionApi\\Exceptions\\": "src/Exceptions"
+                    "FiveamCode\\LaravelNotionApi\\Exceptions\\": "src/Exceptions",
+                    "FiveamCode\\LaravelNotionApi\\Endpoints\\": "src/Endpoints"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "FiveamCode\\LaravelNotionApi\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "phpdbg -qrr ./vendor/bin/pest --coverage-html ./coverage-report"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -1821,16 +1834,15 @@
                 "notion-api"
             ],
             "support": {
-                "issues": "https://github.com/5am-code/laravel-notion-api/issues",
-                "source": "https://github.com/5am-code/laravel-notion-api/tree/v1.2.0"
+                "source": "https://github.com/JPMarichal/bc-laravel-notion-api/tree/main"
             },
             "funding": [
                 {
-                    "url": "https://www.patreon.com/5amcode",
-                    "type": "patreon"
+                    "type": "patreon",
+                    "url": "https://www.patreon.com/5amcode"
                 }
             ],
-            "time": "2024-05-05T04:32:14+00:00"
+            "time": "2024-05-28T13:32:27+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -6726,16 +6738,16 @@
         },
         {
             "name": "robsontenorio/mary",
-            "version": "1.31.0",
+            "version": "1.31.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsontenorio/mary.git",
-                "reference": "f769bf476b7e917dfb88c5edbb3cd79e69fa653f"
+                "reference": "434f72f2b78e968434c6a4e906df4f7a6924f6ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/f769bf476b7e917dfb88c5edbb3cd79e69fa653f",
-                "reference": "f769bf476b7e917dfb88c5edbb3cd79e69fa653f",
+                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/434f72f2b78e968434c6a4e906df4f7a6924f6ba",
+                "reference": "434f72f2b78e968434c6a4e906df4f7a6924f6ba",
                 "shasum": ""
             },
             "require": {
@@ -6801,7 +6813,7 @@
             ],
             "support": {
                 "issues": "https://github.com/robsontenorio/mary/issues",
-                "source": "https://github.com/robsontenorio/mary/tree/1.31.0"
+                "source": "https://github.com/robsontenorio/mary/tree/1.31.2"
             },
             "funding": [
                 {
@@ -6809,7 +6821,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-27T13:10:57+00:00"
+            "time": "2024-05-28T12:48:28+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -14520,7 +14532,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fiveam-code/laravel-notion-api": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
