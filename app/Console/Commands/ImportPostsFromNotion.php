@@ -19,6 +19,7 @@ class ImportPostsFromNotion extends Command
     {
         $token = env('NOTION_API_TOKEN');
         $databaseId = env('NOTION_DATABASE_ID');
+        $notionVersion = '2022-06-28'; // Especifica la versión de la API de Notion que estás usando
 
         if (is_null($token) || is_null($databaseId)) {
             $this->error('API token or Database ID is not set in .env file.');
@@ -51,7 +52,6 @@ class ImportPostsFromNotion extends Command
             }
 
             $cover = $page->getCover();
-          //  dd($cover);
 
             $post = Post::create([
                 'title' => $title,
@@ -66,18 +66,44 @@ class ImportPostsFromNotion extends Command
                 'updated_at' => now()
             ]);
 
-            // dd($post->id)
-
             $this->info("Se importó: {$title}");
 
-            $postId= $post->id;
+            $postId = $post->id;
 
             $cdnService = new BunnyCDNService();
             $uploadService = new ImageUploadService($cdnService);
             $uploadService->uploadImageURLToCDN($postId, $cover);
-            
+
+            // Actualiza el estado de la página en Notion a "Publicado"
+            $this->updateNotionPageStatus($notion, $pageId, 'Publicado', $notionVersion);
         }
 
         $this->info('All posts have been imported successfully from Notion.');
+    }
+
+    private function updateNotionPageStatus(Notion $notion, string $pageId, string $newStatus, string $notionVersion)
+    {
+        $url = "https://api.notion.com/v1/pages/{$pageId}";
+        $token = env('NOTION_API_TOKEN');
+        $data = [
+            'properties' => [
+                'Status' => [
+                    'select' => [
+                        'name' => $newStatus
+                    ]
+                ]
+            ]
+        ];
+
+        $response = \Http::withToken($token)
+            ->withHeaders(['Notion-Version' => $notionVersion])
+            ->patch($url, $data);
+
+        if ($response->successful()) {
+            $this->info("El estado de la página {$pageId} se ha actualizado a '{$newStatus}' en Notion.");
+        } else {
+            $this->error("No se pudo actualizar el estado de la página {$pageId} en Notion.");
+            $this->error("Respuesta de la API: " . $response->body());
+        }
     }
 }
