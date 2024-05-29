@@ -75,14 +75,14 @@ class ImportPostsFromNotion extends Command
             $uploadService = new ImageUploadService($cdnService);
             $uploadService->uploadImageURLToCDN($postId, $cover);
 
-            // Actualiza el estado de la página en Notion a "Publicado"
-            $this->updateNotionPageStatus($notion, $pageId, 'Publicado', $notionVersion);
+            // Actualiza el estado de la página en Notion a "Publicado" y el PostId
+            $this->updateNotionPageStatus($notion, $pageId, 'Publicado', $postId, $notionVersion);
         }
 
         $this->info('All posts have been imported successfully from Notion.');
     }
 
-    private function updateNotionPageStatus(Notion $notion, string $pageId, string $newStatus, string $notionVersion)
+    private function updateNotionPageStatus(Notion $notion, string $pageId, string $newStatus, int $postId, string $notionVersion)
     {
         $url = "https://api.notion.com/v1/pages/{$pageId}";
         $token = env('NOTION_API_TOKEN');
@@ -92,6 +92,9 @@ class ImportPostsFromNotion extends Command
                     'select' => [
                         'name' => $newStatus
                     ]
+                ],
+                'PostId' => [
+                    'number' => $postId
                 ]
             ]
         ];
@@ -100,7 +103,7 @@ class ImportPostsFromNotion extends Command
             ->patch($url, $data);
 
         if ($response->successful()) {
-            $this->info("El estado de la página {$pageId} se ha actualizado a '{$newStatus}' en Notion.");
+            $this->info("El estado de la página {$pageId} se ha actualizado a '{$newStatus}' y el PostId a '{$postId}' en Notion.");
         } else {
             $this->error("No se pudo actualizar el estado de la página {$pageId} en Notion.");
             $this->error("Respuesta de la API: " . $response->body());
