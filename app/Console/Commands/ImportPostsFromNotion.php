@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use RehanKanak\LaravelNotionRenderer\Renderers\NotionRenderer;
 use App\Services\ImageUploadService;
 use App\Services\BunnyCDNService;
+use Illuminate\Support\Facades\Http;
 
 class ImportPostsFromNotion extends Command
 {
@@ -94,8 +95,7 @@ class ImportPostsFromNotion extends Command
                 ]
             ]
         ];
-
-        $response = \Http::withToken($token)
+        $response = Http::withToken($token)
             ->withHeaders(['Notion-Version' => $notionVersion])
             ->patch($url, $data);
 
