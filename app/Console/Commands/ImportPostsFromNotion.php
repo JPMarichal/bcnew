@@ -53,16 +53,17 @@ class ImportPostsFromNotion extends Command
             }
 
             $cover = $page->getCover();
+            $postType = $page->getProperty('Tipo')->getContent()->getName(); // Obtiene el valor del campo Tipo
 
             $post = Post::create([
                 'title' => $title,
                 'slug' => Str::slug($title),
                 'content' => $contentHtml,
-                'excerpt' => $excerpt, 
+                'excerpt' => $excerpt,
                 'author_id' => 1, // Asumiendo un autor predeterminado
                 'status' => 'published',
                 'publish_date' => now(),
-                'post_type' => 'post',
+                'post_type' => $postType, // Usa el valor obtenido del campo Tipo
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
