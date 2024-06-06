@@ -44,7 +44,7 @@ class ImportHtmlToNotion extends Command
         $baseDir = 'P:/Biblib/BDE/spa/html';
 
         // Get first 3 directories for testing purposes
-        $directories = array_slice(scandir($baseDir), 2, 1);
+        $directories = scandir($baseDir);
 
         foreach ($directories as $directory) {
             $dirPath = $baseDir . '/' . $directory;
