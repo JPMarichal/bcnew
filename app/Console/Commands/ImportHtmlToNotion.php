@@ -10,11 +10,15 @@ use FiveamCode\LaravelNotionApi\Entities\Blocks\HeadingThree;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Paragraph;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Quote;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Image;
+use FiveamCode\LaravelNotionApi\Entities\Blocks\BulletedListItem;
+use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Title;
+use FiveamCode\LaravelNotionApi\Entities\Properties\Text;
+use FiveamCode\LaravelNotionApi\Entities\Properties\Relation;
+use FiveamCode\LaravelNotionApi\Entities\Properties\MultiSelect;
 use Illuminate\Support\Facades\File;
 use DOMDocument;
-use FiveamCode\LaravelNotionApi\Entities\Blocks;
 
 class ImportHtmlToNotion extends Command
 {
@@ -32,6 +36,7 @@ class ImportHtmlToNotion extends Command
         $notion = new Notion(env('NOTION_API_TOKEN'));
 
         $parentDatabaseId = env('NOTION_DATABASE_ID_LIBROS');
+        $childDatabaseId = env('NOTION_DATABASE_ID_CAPITULOS');
 
         // Path to HTML directories
         $baseDir = 'P:/Biblib/BDE/spa/html';
@@ -45,8 +50,13 @@ class ImportHtmlToNotion extends Command
             if (is_dir($dirPath)) {
                 $this->info("Processing directory: $directory");
 
+                // Create a page for the book
                 $page = new Page();
                 $page->set('title', Title::value($directory));
+
+                // Additional properties for the book can be set here
+                // $page->set('Autor', Text::value('Autor del libro'));
+                // $page->set('Año', Text::value('2021'));
 
                 $mainPage = $notion->pages()->createInDatabase($parentDatabaseId, $page);
 
@@ -64,16 +74,20 @@ class ImportHtmlToNotion extends Command
                         // Convert HTML to Notion blocks
                         $blocks = $this->convertHtmlToBlocks($htmlContent);
 
-                        // Create a subpage under the directory page
-                        $subPage = new Page();
-                        $subPage->set('title', Title::value(pathinfo($file, PATHINFO_FILENAME)));
+                        // Create a page for the chapter in the child database
+                        $chapterPage = new Page();
+                        $chapterPage->set('title', Title::value(pathinfo($file, PATHINFO_FILENAME)));
+                        $chapterPage->set('Libros', Relation::value([$mainPage->getId()]));
 
-                        //  dd($mainPage);
-                        $createdSubPage = $notion->pages()->createInPage($mainPage->getPageId(), $subPage);
+                        // Additional properties for the chapter can be set here
+                        // $chapterPage->set('Autor', Text::value('Autor del capítulo'));
+                        // $chapterPage->set('Etiquetas', MultiSelect::value(['Etiqueta1', 'Etiqueta2']));
 
-                        // Append blocks to the subpage
+                        $createdChapterPage = $notion->pages()->createInDatabase($childDatabaseId, $chapterPage);
+
+                        // Append blocks to the chapter page
                         foreach ($blocks as $block) {
-                            $notion->block($createdSubPage->getId())->append($block);
+                            $notion->block($createdChapterPage->getId())->append($block);
                         }
                     }
                 }
@@ -109,12 +123,12 @@ class ImportHtmlToNotion extends Command
                     break;
                 case 'ul':
                     foreach ($element->getElementsByTagName('li') as $li) {
-                        $blocks[] = Blocks\BulletedListItem::create(utf8_decode($li->textContent));
+                        $blocks[] = BulletedListItem::create(utf8_decode($li->textContent));
                     }
                     break;
                 case 'ol':
                     foreach ($element->getElementsByTagName('li') as $li) {
-                        $blocks[] = Blocks\NumberedListItem::create(utf8_decode($li->textContent));
+                        $blocks[] = NumberedListItem::create(utf8_decode($li->textContent));
                     }
                     break;
                 case 'blockquote':
