@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use FiveamCode\LaravelNotionApi\Notion;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\HeadingOne;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\HeadingTwo;
@@ -11,7 +12,7 @@ use FiveamCode\LaravelNotionApi\Entities\Blocks\Paragraph;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Quote;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Image;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\BulletedListItem;
-use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItem;
+use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItemThumbnailImageberedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Title;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Text;
@@ -19,6 +20,7 @@ use FiveamCode\LaravelNotionApi\Entities\Properties\Relation;
 use FiveamCode\LaravelNotionApi\Entities\Properties\MultiSelect;
 use Illuminate\Support\Facades\File;
 use DOMDocument;
+use Exception;
 
 class ImportHtmlToNotion extends Command
 {
@@ -32,7 +34,7 @@ class ImportHtmlToNotion extends Command
 
     public function handle()
     {
-        // Initialize Notion client
+        // Initialize Notion client with retry configuration
         $notion = new Notion(env('NOTION_API_TOKEN'));
 
         $parentDatabaseId = env('NOTION_DATABASE_ID_LIBROS');
@@ -58,7 +60,7 @@ class ImportHtmlToNotion extends Command
                 // $page->set('Autor', Text::value('Autor del libro'));
                 // $page->set('Año', Text::value('2021'));
 
-                $mainPage = $notion->pages()->createInDatabase($parentDatabaseId, $page);
+                $mainPage = $this->createNotionPageWithRetry($notion, $parentDatabaseId, $page);
 
                 $htmlFiles = scandir($dirPath);
 
@@ -83,11 +85,11 @@ class ImportHtmlToNotion extends Command
                         // $chapterPage->set('Autor', Text::value('Autor del capítulo'));
                         // $chapterPage->set('Etiquetas', MultiSelect::value(['Etiqueta1', 'Etiqueta2']));
 
-                        $createdChapterPage = $notion->pages()->createInDatabase($childDatabaseId, $chapterPage);
+                        $createdChapterPage = $this->createNotionPageWithRetry($notion, $childDatabaseId, $chapterPage);
 
                         // Append blocks to the chapter page
                         foreach ($blocks as $block) {
-                            $notion->block($createdChapterPage->getId())->append($block);
+                            $this->appendNotionBlockWithRetry($notion, $createdChapterPage->getId(), $block);
                         }
                     }
                 }
@@ -138,5 +140,19 @@ class ImportHtmlToNotion extends Command
         }
 
         return $blocks;
+    }
+
+    private function createNotionPageWithRetry(Notion $notion, $databaseId, Page $page)
+    {
+        return retry(5, function() use ($notion, $databaseId, $page) {
+            return $notion->pages()->createInDatabase($databaseId, $page);
+        }, 100);
+    }
+
+    private function appendNotionBlockWithRetry(Notion $notion, $pageId, $block)
+    {
+        retry(5, function() use ($notion, $pageId, $block) {
+            $notion->block($pageId)->append($block);
+        }, 100);
     }
 }
