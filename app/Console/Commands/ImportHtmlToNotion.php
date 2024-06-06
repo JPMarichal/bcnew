@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use FiveamCode\LaravelNotionApi\Notion;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\HeadingOne;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\HeadingTwo;
@@ -15,9 +15,7 @@ use FiveamCode\LaravelNotionApi\Entities\Blocks\BulletedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Title;
-use FiveamCode\LaravelNotionApi\Entities\Properties\Text;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Relation;
-use FiveamCode\LaravelNotionApi\Entities\Properties\MultiSelect;
 use Illuminate\Support\Facades\File;
 use DOMDocument;
 use Exception;
@@ -56,6 +54,12 @@ class ImportHtmlToNotion extends Command
 
         foreach ($directories as $directory) {
             $dirPath = $baseDir . '/' . $directory;
+            $doneSubDir = $doneDir . '/' . $directory;
+
+            // Create the 'done' subdirectory if it doesn't exist
+            if (!File::exists($doneSubDir)) {
+                File::makeDirectory($doneSubDir);
+            }
 
             if (is_dir($dirPath)) {
                 $this->info("Processing directory: $directory");
@@ -74,8 +78,9 @@ class ImportHtmlToNotion extends Command
 
                 foreach ($htmlFiles as $file) {
                     $filePath = $dirPath . '/' . $file;
+                    $doneFilePath = $doneSubDir . '/' . $file;
 
-                    if (pathinfo($filePath, PATHINFO_EXTENSION) == 'html') {
+                    if (pathinfo($filePath, PATHINFO_EXTENSION) == 'html' && !File::exists($doneFilePath)) {
                         $this->info("Processing file: $file");
 
                         // Read HTML content
@@ -99,12 +104,16 @@ class ImportHtmlToNotion extends Command
                         foreach ($blocks as $block) {
                             $this->appendNotionBlockWithRetry($notion, $createdChapterPage->getId(), $block);
                         }
+
+                        // Move the processed file to 'done' subdirectory
+                        File::move($filePath, $doneFilePath);
                     }
                 }
 
-                // Move the processed directory to 'done'
-                $newDirPath = $doneDir . '/' . $directory;
-                File::moveDirectory($dirPath, $newDirPath);
+                // Remove the processed directory if all files are moved to 'done'
+                if (count(scandir($dirPath)) == 2) { // Only . and .. are left
+                    File::deleteDirectory($dirPath);
+                }
             }
         }
     }
