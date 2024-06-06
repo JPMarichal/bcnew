@@ -12,7 +12,7 @@ use FiveamCode\LaravelNotionApi\Entities\Blocks\Paragraph;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Quote;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Image;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\BulletedListItem;
-use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItemThumbnailImageberedListItem;
+use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Title;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Text;
@@ -42,9 +42,17 @@ class ImportHtmlToNotion extends Command
 
         // Path to HTML directories
         $baseDir = 'P:/Biblib/BDE/spa/html';
+        $doneDir = $baseDir . '/done';
 
-        // Get first 3 directories for testing purposes
-        $directories = scandir($baseDir);
+        // Create the 'done' directory if it doesn't exist
+        if (!File::exists($doneDir)) {
+            File::makeDirectory($doneDir);
+        }
+
+        // Get directories, excluding ., .. and done
+        $directories = array_filter(scandir($baseDir), function ($dir) use ($baseDir, $doneDir) {
+            return $dir !== '.' && $dir !== '..' && $dir !== 'done' && is_dir($baseDir . '/' . $dir);
+        });
 
         foreach ($directories as $directory) {
             $dirPath = $baseDir . '/' . $directory;
@@ -93,6 +101,10 @@ class ImportHtmlToNotion extends Command
                         }
                     }
                 }
+
+                // Move the processed directory to 'done'
+                $newDirPath = $doneDir . '/' . $directory;
+                File::moveDirectory($dirPath, $newDirPath);
             }
         }
     }
@@ -121,7 +133,10 @@ class ImportHtmlToNotion extends Command
                     $blocks[] = HeadingThree::create(utf8_decode($element->textContent));
                     break;
                 case 'img':
-                    $blocks[] = Image::create((string) $element->getAttribute('src'));
+                    $src = $element->getAttribute('src');
+                    if (filter_var($src, FILTER_VALIDATE_URL)) {
+                        $blocks[] = Image::create($src);
+                    }
                     break;
                 case 'ul':
                     foreach ($element->getElementsByTagName('li') as $li) {
@@ -144,14 +159,14 @@ class ImportHtmlToNotion extends Command
 
     private function createNotionPageWithRetry(Notion $notion, $databaseId, Page $page)
     {
-        return retry(5, function() use ($notion, $databaseId, $page) {
+        return retry(5, function () use ($notion, $databaseId, $page) {
             return $notion->pages()->createInDatabase($databaseId, $page);
         }, 100);
     }
 
     private function appendNotionBlockWithRetry(Notion $notion, $pageId, $block)
     {
-        retry(5, function() use ($notion, $pageId, $block) {
+        retry(5, function () use ($notion, $pageId, $block) {
             $notion->block($pageId)->append($block);
         }, 100);
     }
