@@ -13,6 +13,7 @@ use FiveamCode\LaravelNotionApi\Entities\Blocks\Quote;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\Image;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\BulletedListItem;
 use FiveamCode\LaravelNotionApi\Entities\Blocks\NumberedListItem;
+use FiveamCode\LaravelNotionApi\Entities\Blocks\TextBlock;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Title;
 use FiveamCode\LaravelNotionApi\Entities\Properties\Relation;
@@ -118,48 +119,80 @@ class ImportHtmlToNotion extends Command
         }
     }
 
+    private function cleanHtmlContent($element)
+    {
+        $cleanedContent = '';
+
+        foreach ($element->childNodes as $child) {
+            if ($child->nodeType == XML_TEXT_NODE) {
+                $cleanedContent .= $child->textContent;
+            } elseif ($child->nodeType == XML_ELEMENT_NODE) {
+                if ($child->tagName == 'img') {
+                    $src = $child->getAttribute('src');
+                    if (filter_var($src, FILTER_VALIDATE_URL)) {
+                        $cleanedContent .= Image::create($src);
+                    }
+                } else {
+                    $cleanedContent .= strip_tags($child->textContent);
+                }
+            }
+        }
+
+        return utf8_decode($cleanedContent);
+    }
+
     private function convertHtmlToBlocks($htmlContent)
     {
-        // Implement a basic HTML to Notion block conversion logic
         $blocks = [];
-
-        // Use a DOM parser to parse HTML content
         $dom = new DOMDocument();
         @$dom->loadHTML($htmlContent);
 
+        $supportedTags = ['p', 'h1', 'h2', 'h3', 'ul', 'ol', 'blockquote'];
+
         foreach ($dom->getElementsByTagName('*') as $element) {
-            switch ($element->tagName) {
-                case 'p':
-                    $blocks[] = Paragraph::create(utf8_decode($element->textContent));
-                    break;
-                case 'h1':
-                    $blocks[] = HeadingOne::create(utf8_decode($element->textContent));
-                    break;
-                case 'h2':
-                    $blocks[] = HeadingTwo::create(utf8_decode($element->textContent));
-                    break;
-                case 'h3':
-                    $blocks[] = HeadingThree::create(utf8_decode($element->textContent));
-                    break;
-                case 'img':
-                    $src = $element->getAttribute('src');
-                    if (filter_var($src, FILTER_VALIDATE_URL)) {
-                        $blocks[] = Image::create($src);
-                    }
-                    break;
-                case 'ul':
-                    foreach ($element->getElementsByTagName('li') as $li) {
-                        $blocks[] = BulletedListItem::create(utf8_decode($li->textContent));
-                    }
-                    break;
-                case 'ol':
-                    foreach ($element->getElementsByTagName('li') as $li) {
-                        $blocks[] = NumberedListItem::create(utf8_decode($li->textContent));
-                    }
-                    break;
-                case 'blockquote':
-                    $blocks[] = Quote::create(utf8_decode($element->textContent));
-                    break;
+            try {
+                if (!in_array($element->tagName, $supportedTags)) {
+                    $this->info("Ignoring unsupported tag: {$element->tagName}");
+                    continue;
+                }
+
+                $textContent = $this->cleanHtmlContent($element);
+                $this->info("Processing tag: {$element->tagName} with content: {$textContent}");
+
+                switch ($element->tagName) {
+                    case 'p':
+                        $blocks[] = Paragraph::create($textContent);
+                        break;
+                    case 'h1':
+                        $blocks[] = HeadingOne::create($textContent);
+                        break;
+                    case 'h2':
+                        $blocks[] = HeadingTwo::create($textContent);
+                        break;
+                    case 'h3':
+                        $blocks[] = HeadingThree::create($textContent);
+                        break;
+                    case 'ul':
+                        foreach ($element->getElementsByTagName('li') as $li) {
+                            $liContent = $this->cleanHtmlContent($li);
+                            $blocks[] = BulletedListItem::create($liContent);
+                        }
+                        break;
+                    case 'ol':
+                        foreach ($element->getElementsByTagName('li') as $li) {
+                            $liContent = $this->cleanHtmlContent($li);
+                            $blocks[] = NumberedListItem::create($liContent);
+                        }
+                        break;
+                    case 'blockquote':
+                        $blocks[] = Quote::create($textContent);
+                        break;
+                    default:
+                        $this->info('Block: ' . $element->tagName);
+                        break;
+                }
+            } catch (Exception $e) {
+                $this->error("Error processing element {$element->tagName} with content '{$textContent}': " . $e->getMessage());
             }
         }
 
